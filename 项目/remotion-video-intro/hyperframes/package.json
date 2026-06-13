@@ -1,0 +1,13 @@
+{
+  "name": "remotion-video-intro",
+  "private": true,
+  "scripts": {
+    "dev": "npx hyperframes preview",
+    "check": "npx hyperframes lint --verbose && npx hyperframes inspect",
+    "render": "npx hyperframes render",
+    "publish": "npx hyperframes publish"
+  },
+  "dependencies": {
+    "hyperframes": "latest"
+  }
+}

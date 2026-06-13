@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="35%" stop-color="#0d0d2a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="rgba(0,122,255,0.08)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.02" stroke="#fff" stroke-width="1">
+    <line x1="0" y1="60" x2="1080" y2="60"/><line x1="60" y1="0" x2="60" y2="1920"/>
+    <line x1="0" y1="120" x2="1080" y2="120"/><line x1="120" y1="0" x2="120" y2="1920"/>
+    <line x1="0" y1="180" x2="1080" y2="180"/><line x1="180" y1="0" x2="180" y2="1920"/>
+    <line x1="0" y1="240" x2="1080" y2="240"/><line x1="240" y1="0" x2="240" y2="1920"/>
+    <line x1="0" y1="300" x2="1080" y2="300"/><line x1="300" y1="0" x2="300" y2="1920"/>
+    <line x1="0" y1="360" x2="1080" y2="360"/><line x1="360" y1="0" x2="360" y2="1920"/>
+    <line x1="0" y1="420" x2="1080" y2="420"/><line x1="420" y1="0" x2="420" y2="1920"/>
+    <line x1="0" y1="480" x2="1080" y2="480"/><line x1="480" y1="0" x2="480" y2="1920"/>
+    <line x1="0" y1="540" x2="1080" y2="540"/><line x1="540" y1="0" x2="540" y2="1920"/>
+    <line x1="0" y1="600" x2="1080" y2="600"/><line x1="600" y1="0" x2="600" y2="1920"/>
+    <line x1="0" y1="660" x2="1080" y2="660"/><line x1="660" y1="0" x2="660" y2="1920"/>
+    <line x1="0" y1="720" x2="1080" y2="720"/><line x1="720" y1="0" x2="720" y2="1920"/>
+    <line x1="0" y1="780" x2="1080" y2="780"/><line x1="780" y1="0" x2="780" y2="1920"/>
+    <line x1="0" y1="840" x2="1080" y2="840"/><line x1="840" y1="0" x2="840" y2="1920"/>
+    <line x1="0" y1="900" x2="1080" y2="900"/><line x1="900" y1="0" x2="900" y2="1920"/>
+    <line x1="0" y1="960" x2="1080" y2="960"/><line x1="960" y1="0" x2="960" y2="1920"/>
+    <line x1="0" y1="1020" x2="1080" y2="1020"/><line x1="1020" y1="0" x2="1020" y2="1920"/>
+  </g>
+
+  <!-- Glow -->
+  <ellipse cx="540" cy="0" rx="432" ry="672" fill="url(#glow)"/>
+
+  <!-- Pill badge -->
+  <rect x="65" y="96" width="230" height="36" rx="18" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  <circle cx="83" cy="114" r="4" fill="#007AFF"/>
+  <text x="97" y="119" font-family="'SF Pro Display',-apple-system,sans-serif" font-size="18" fill="rgba(255,255,255,0.4)">开源 · HTML 即是视频</text>
+
+  <!-- NEW badge -->
+  <text x="995" y="114" font-family="'SF Pro Display',-apple-system,sans-serif" font-size="16" fill="rgba(255,255,255,0.1)" font-weight="500" letter-spacing="2">NEW</text>
+
+  <!-- Code editor -->
+  <rect x="65" y="150" width="950" height="660" rx="24" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+  <!-- Editor bar -->
+  <rect x="65" y="150" width="950" height="48" rx="24" fill="rgba(255,255,255,0.03)"/>
+  <rect x="65" y="174" width="950" height="24" fill="rgba(255,255,255,0.03)"/>
+  <line x1="65" y1="198" x2="1015" y2="198" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+  <!-- Dots -->
+  <circle cx="89" cy="174" r="5" fill="#FF5F56"/>
+  <circle cx="104" cy="174" r="5" fill="#FFBD2E"/>
+  <circle cx="119" cy="174" r="5" fill="#27C93F"/>
+
+  <!-- Code lines -->
+  <text x="89" y="240" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="rgba(255,255,255,0.2)">&lt;</tspan><tspan fill="#5FC8FF">div</tspan><tspan fill="rgba(255,255,255,0.2)">&gt;</tspan></text>
+  <text x="89" y="282" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="rgba(255,255,255,0.2)">  &lt;</tspan><tspan fill="#5FC8FF">h1</tspan><tspan fill="rgba(255,255,255,0.2)&gt;"></tspan></text>
+  <text x="89" y="324" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="rgba(255,255,255,0.2)">    </tspan><tspan fill="#FFD500">Hello World</tspan></text>
+  <text x="89" y="366" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="rgba(255,255,255,0.2)">  &lt;/</tspan><tspan fill="#5FC8FF">h1</tspan><tspan fill="rgba(255,255,255,0.2)">&gt;</tspan></text>
+  <text x="89" y="408" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="rgba(255,255,255,0.2)">&lt;/</tspan><tspan fill="#5FC8FF">div</tspan><tspan fill="rgba(255,255,255,0.2)">&gt;</tspan></text>
+  <text x="89" y="462" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18" fill="rgba(255,255,255,0.15)">/* 渲染中... */</text>
+  <text x="89" y="516" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="#FF7AB2">$</tspan><tspan fill="rgba(255,255,255,0.5)"> npx hyperframes render</tspan></text>
+
+  <!-- Preview panel (right side of editor) -->
+  <rect x="650" y="260" width="340" height="500" rx="20" fill="rgba(0,122,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+  <rect x="680" y="300" width="280" height="20" rx="6" fill="rgba(212,168,67,0.25)"/>
+  <rect x="680" y="340" width="280" height="20" rx="6" fill="rgba(212,168,67,0.2)"/>
+  <rect x="680" y="380" width="180" height="20" rx="6" fill="#30D158" opacity="0.5"/>
+  <rect x="680" y="560" width="280" height="20" rx="6" fill="rgba(212,168,67,0.2)"/>
+  <rect x="680" y="600" width="200" height="20" rx="6" fill="rgba(212,168,67,0.2)"/>
+
+  <!-- Progress bar in preview -->
+  <rect x="680" y="700" width="280" height="8" rx="4" fill="rgba(255,255,255,0.06)"/>
+  <rect x="680" y="700" width="210" height="8" rx="4" fill="url(#glow)"/>
+
+  <!-- Spinner -->
+  <circle cx="800" cy="490" r="24" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
+  <path d="M 800 466 A 24 24 0 0 1 824 490" fill="none" stroke="#007AFF" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Title -->
+  <text x="540" y="940" text-anchor="middle" font-family="'SF Pro Display',-apple-system,sans-serif" font-size="72" font-weight="700" fill="#fff" letter-spacing="-1.5">写 HTML</text>
+  <text x="540" y="1025" text-anchor="middle" font-family="'SF Pro Display',-apple-system,sans-serif" font-size="72" font-weight="700" fill="#fff" letter-spacing="-1.5">渲染成 MP4</text>
+  <text x="540" y="1085" text-anchor="middle" font-family="'SF Pro Display',-apple-system,sans-serif" font-size="30" fill="rgba(255,255,255,0.3)" font-weight="400" letter-spacing="2">不需要 PR · 不需要 Final Cut</text>
+
+  <!-- Terminal -->
+  <rect x="65" y="1200" width="950" height="210" rx="16" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+  <text x="89" y="1245" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="#30D158">$</tspan><tspan fill="rgba(255,255,255,0.5)"> npx hyperframes init</tspan></text>
+  <text x="89" y="1290" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="#30D158">$</tspan><tspan fill="rgba(255,255,255,0.5)"> cd my-video &#038;&#038; npm install</tspan></text>
+  <text x="89" y="1335" font-family="'SF Mono','JetBrains Mono',monospace" font-size="18"><tspan fill="#30D158">$</tspan><tspan fill="rgba(255,255,255,0.5)"> npx hyperframes render</tspan></text>
+
+  <!-- Subline -->
+  <text x="540" y="1500" text-anchor="middle" font-family="'SF Pro Display',-apple-system,sans-serif" font-size="16" fill="rgba(255,255,255,0.08)" letter-spacing="1">HeyGen 开源 · Apache 2.0 · 一行命令出片</text>
+
+  <!-- CTA button -->
+  <rect x="345" y="1560" width="390" height="50" rx="25" fill="rgba(0,122,255,0.1)" stroke="rgba(0,122,255,0.15)" stroke-width="0.5"/>
+  <text x="540" y="1592" text-anchor="middle" font-family="'SF Pro Display',-apple-system,sans-serif" font-size="22" fill="#007AFF" font-weight="500">GitHub 搜 hyperframes →</text>
+</svg>

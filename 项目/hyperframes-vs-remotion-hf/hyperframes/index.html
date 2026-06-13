@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; font-family: "Inter", sans-serif; -webkit-font-smoothing: antialiased; color: #fff; }
+    .clip { position: absolute; inset: 0; }
+    .center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 92%; max-width: 1640px; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .tag { display: inline-flex; padding: 10px 26px; border-radius: 10px; font-family: "JetBrains Mono", monospace; font-size: 16px; border: 1px solid #38383A; color: #AEAEB2; letter-spacing: 0.02em; }
+    .card { border-radius: 18px; background: #1C1C1E; border: 1px solid #38383A; }
+    .badge { font-family: "JetBrains Mono", monospace; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .sn { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 600; color: #38383A; letter-spacing: 6px; z-index: 10; }
+    .h-xl { font-size: 130px; font-weight: 700; line-height: 0.92; letter-spacing: -0.045em; }
+    .h-lg { font-size: 86px; font-weight: 700; line-height: 1.02; letter-spacing: -0.035em; }
+    .h-md { font-size: 56px; font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; }
+    .body-text { font-size: 28px; font-weight: 400; line-height: 1.4; color: #AEAEB2; }
+    .sub-bar { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; padding: 12px 32px; border-radius: 12px; background: rgba(0,0,0,0.55); backdrop-filter: blur(20px); text-align: center; pointer-events: none; z-index: 100; max-width: 80%; width: auto; height: auto; top: auto; right: auto; }
+    .sub-t { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.8); line-height: 1.4; }
+    .sep-line { width: 64px; height: 3px; border-radius: 2px; margin: 0 auto; }
+    .code-block { background: #1C1C1E; border: 1px solid #38383A; border-radius: 16px; overflow: hidden; }
+    .code-hdr { display: flex; align-items: center; gap: 10px; padding: 12px 20px; background: #1C1C1E; border-bottom: 1px solid #38383A; }
+    .code-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .code-body { padding: 20px 26px; font-family: "JetBrains Mono", monospace; font-size: 18px; line-height: 1.7; color: #fff; white-space: pre; }
+    .tk-tag { color: #5FC8FF; }
+    .tk-attr { color: #FFD500; }
+    .tk-str { color: #FF7AB2; }
+    .tk-kw { color: #FF7AB2; }
+    .tk-fn { color: #5FC8FF; }
+    .tk-num { color: #FF9F0A; }
+    .tk-cm { color: rgba(255,255,255,0.18); }
+    .tk-prop { color: #5FC8FF; }
+    .stat-box { text-align: center; background: #1C1C1E; border: 1px solid #38383A; border-radius: 14px; padding: 22px 36px; min-width: 180px; }
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="117" data-width="1920" data-height="1080">
+
+  <!-- S1: Opener -->
+  <div id="scene-1" class="clip" data-start="0" data-duration="11.424" data-track-index="1">
+    <div class="sn">01 / 06</div>
+    <div class="center" style="text-align:center">
+      <div id="s1-row" style="display:flex;gap:56px;justify-content:center;align-items:center;opacity:0">
+        <div class="card" style="padding:56px 60px;width:560px;text-align:left">
+          <div class="badge" style="color:#0A84FF;margin-bottom:20px;font-size:15px">approach a</div>
+          <div style="font-size:86px;font-weight:700;line-height:0.82;letter-spacing:-0.035em">write<br><span style="font-weight:300;font-size:54px;color:#AEAEB2">html</span></div>
+          <div class="sep-line" style="background:#0A84FF;margin:26px 0;width:80px;height:4px"></div>
+          <div class="body-text" style="color:#636366;font-size:26px">用写网页的方式做视频</div>
+          <div style="margin-top:20px;display:flex;gap:12px">
+            <span class="tag">html → mp4</span>
+            <span class="tag">no bundler</span>
+          </div>
+        </div>
+        <div id="s1-vs" style="font-size:48px;font-weight:700;color:#38383A;width:80px;height:80px;border-radius:50%;border:2px solid #38383A;display:flex;align-items:center;justify-content:center;flex-shrink:0">vs</div>
+        <div class="card" style="padding:56px 60px;width:560px;text-align:left">
+          <div class="badge" style="color:#FF375F;margin-bottom:20px;font-size:15px">approach b</div>
+          <div style="font-size:86px;font-weight:700;line-height:0.82;letter-spacing:-0.035em">react<br><span style="font-weight:300;font-size:54px;color:#AEAEB2">every frame</span></div>
+          <div class="sep-line" style="background:#FF375F;margin:26px 0;width:80px;height:4px"></div>
+          <div class="body-text" style="color:#636366;font-size:26px">用 React 组件定义每一帧</div>
+          <div style="margin-top:20px;display:flex;gap:12px">
+            <span class="tag">react + tsx</span>
+            <span class="tag">chromium</span>
+          </div>
+        </div>
+      </div>
+      <div id="s1-thesis" style="margin-top:60px;opacity:0">
+        <div class="body-text" style="color:#636366;font-size:28px">今天对比两个编程视频框架 <span style="color:#fff">Hyperframes</span> 和 <span style="color:#fff">Remotion</span></div>
+        <div class="body-text" style="color:#38383A;margin-top:6px;font-size:22px">理念不同 &middot; 目标相同</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2: Hyperframes Intro -->
+  <div id="scene-2" class="clip" data-start="11.424" data-duration="27.144" data-track-index="1">
+    <div class="sn">02 / 06</div>
+    <div id="s2a" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#0A84FF;margin-bottom:14px;font-size:15px">open source &middot; apache 2.0</div>
+        <div class="h-xl" style="color:#0A84FF">hyper<span style="color:#fff">frames</span></div>
+        <div class="sep-line" style="background:#0A84FF;margin:16px auto 28px"></div>
+        <div class="body-text" style="font-size:28px">HeyGen 2026 年 4 月开源 · HTML 视频框架</div>
+        <div style="margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+          <span class="tag" style="border-color:#0A84FF;color:#0A84FF;font-size:16px">html → mp4</span>
+          <span class="tag" style="border-color:#0A84FF;color:#0A84FF;font-size:16px">no bundler</span>
+          <span class="tag" style="border-color:#0A84FF;color:#0A84FF;font-size:16px">apache 2.0</span>
+        </div>
+        <div style="margin-top:36px;display:flex;gap:28px;justify-content:center">
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">built by</div><div style="font-size:24px;font-weight:600;margin-top:6px">HeyGen</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">stars</div><div style="font-size:24px;font-weight:600;margin-top:6px;color:#0A84FF">21k+</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">since</div><div style="font-size:24px;font-weight:600;margin-top:6px">2026.04</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="s2b" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#636366;margin-bottom:10px;font-size:14px">how it works</div>
+        <div class="h-lg" style="margin-bottom:32px">html <span style="color:#38383A">x</span> timeline</div>
+        <div id="s2b-code" class="code-block" style="width:860px;margin:0 auto;text-align:left;opacity:0">
+          <div class="code-hdr"><span class="code-dot" style="background:#FF5F56"></span><span class="code-dot" style="background:#FFBD2E"></span><span class="code-dot" style="background:#27C93F"></span><span style="font-size:13px;color:#636366;margin-left:8px">index.html</span></div>
+          <div class="code-body" id="s2b-body">&lt;<span class="tk-tag">div</span> <span class="tk-attr">data-start</span>=<span class="tk-str">"0"</span> <span class="tk-attr">data-duration</span>=<span class="tk-str">"90"</span>&gt;
+  &lt;<span class="tk-tag">h1</span>&gt;hello world&lt;/<span class="tk-tag">h1</span>&gt;
+&lt;/<span class="tk-tag">div</span>&gt;</div>
+        </div>
+        <div id="s2b-extras" style="margin-top:20px;display:flex;justify-content:center;gap:24px;opacity:0">
+          <div style="display:flex;gap:12px;align-items:center">
+            <span class="badge" style="color:#636366;font-size:14px">动画库</span>
+            <span class="tag" style="color:#636366">GSAP</span>
+            <span class="tag" style="color:#636366">Lottie</span>
+            <span class="tag" style="color:#636366">Three.js</span>
+          </div>
+        </div>
+        <div id="s2b-pipe" style="margin-top:18px;display:flex;align-items:center;gap:10px;justify-content:center;opacity:0">
+          <span class="tag" style="color:#AEAEB2;font-size:15px">html</span><span style="color:#38383A;font-size:20px">→</span>
+          <span class="tag" style="color:#AEAEB2;font-size:15px">puppeteer</span><span style="color:#38383A;font-size:20px">→</span>
+          <span class="tag" style="color:#AEAEB2;font-size:15px">ffmpeg</span><span style="color:#38383A;font-size:20px">→</span>
+          <span class="tag" style="border-color:#0A84FF;color:#0A84FF;font-size:15px">mp4</span>
+        </div>
+        <div id="s2b-feat" style="margin-top:18px;display:flex;gap:20px;justify-content:center;opacity:0">
+          <div style="display:flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid #38383A;border-radius:10px;background:#1C1C1E">
+            <span style="font-size:16px;">data-start</span><span style="color:#636366;font-size:18px">·</span>
+            <span style="font-size:16px;">data-duration</span><span style="color:#636366;font-size:18px">·</span>
+            <span style="font-size:16px;">data-track-index</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="s2c" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#0A84FF;margin-bottom:14px;font-size:15px">ai native</div>
+        <div class="h-xl" style="color:#0A84FF">ai <span style="color:#38383A">·</span> friendly</div>
+        <div class="sep-line" style="background:#0A84FF;margin:14px auto 22px"></div>
+        <div class="body-text" style="font-size:28px">纯 HTML → LLM 天生擅长 → AI 直接写视频</div>
+        <div id="s2c-flow" style="margin-top:30px;display:flex;align-items:center;gap:14px;justify-content:center;opacity:0">
+          <span style="font-family:monospace;font-size:16px;padding:12px 28px;border:1px solid #38383A;border-radius:10px;background:#1C1C1E;color:#AEAEB2">prompt</span>
+          <span style="color:#38383A;font-size:22px">→</span>
+          <span style="font-family:monospace;font-size:16px;padding:12px 28px;border:1px solid #38383A;border-radius:10px;background:#1C1C1E;color:#AEAEB2">html</span>
+          <span style="color:#38383A;font-size:22px">→</span>
+          <span style="font-family:monospace;font-size:16px;padding:12px 28px;border:1px solid #0A84FF;border-radius:10px;background:#1C1C1E;color:#0A84FF">mp4</span>
+        </div>
+        <div id="s2c-cards" style="margin-top:28px;display:flex;gap:20px;justify-content:center;opacity:0">
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">tech stack</div><div style="font-size:22px;font-weight:600;margin-top:6px">html/css/js</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">license</div><div style="font-size:22px;font-weight:600;margin-top:6px">apache 2.0</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">agent ready</div><div style="font-size:22px;font-weight:600;margin-top:6px;color:#30D158">yes</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">cost</div><div style="font-size:22px;font-weight:600;margin-top:6px">free</div></div>
+        </div>
+        <div id="s2c-tagline" class="badge" style="color:#38383A;margin-top:24px;font-size:13px;opacity:0">the entire video pipeline in one prompt</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3: Remotion Intro -->
+  <div id="scene-3" class="clip" data-start="38.568" data-duration="22.560" data-track-index="1">
+    <div class="sn">03 / 06</div>
+    <div id="s3a" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#FF375F;margin-bottom:14px;font-size:15px">different path</div>
+        <div class="h-xl" style="color:#FF375F">react <span style="color:#38383A">·</span> every <span style="color:#38383A">·</span> frame</div>
+        <div class="sep-line" style="background:#FF375F;margin:14px auto 22px"></div>
+        <div class="body-text" style="font-size:28px">useCurrentFrame + interpolate → 帧号到任意值的映射</div>
+        <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <span class="tag" style="border-color:#FF375F;color:#FF375F;font-size:16px">useCurrentFrame</span>
+          <span class="tag" style="border-color:#FF375F;color:#FF375F;font-size:16px">interpolate</span>
+          <span class="tag" style="border-color:#FF375F;color:#FF375F;font-size:16px">spring</span>
+          <span class="tag" style="border-color:#FF375F;color:#FF375F;font-size:16px">Sequence</span>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:20px;justify-content:center">
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">composition</div><div style="font-size:22px;font-weight:600;margin-top:6px">react 组件</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">state</div><div style="font-size:22px;font-weight:600;margin-top:6px">帧号驱动</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">output</div><div style="font-size:22px;font-weight:600;margin-top:6px">mp4 / still</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="s3b" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#636366;margin-bottom:10px;font-size:14px">engine &amp; ecosystem</div>
+        <div class="h-lg" style="margin-bottom:24px">battle<span style="color:#38383A">-</span>tested</div>
+        <div id="s3b-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:left;opacity:0">
+          <div class="card" style="padding:22px 26px"><div style="font-size:24px;font-weight:700;color:#FF375F">chromium</div><div style="font-size:15px;color:#AEAEB2;margin-top:6px">自有引擎精确渲染</div></div>
+          <div class="card" style="padding:22px 26px"><div style="font-size:24px;font-weight:700;color:#FF375F">studio</div><div style="font-size:15px;color:#AEAEB2;margin-top:6px">可视化时间轴编辑</div></div>
+          <div class="card" style="padding:22px 26px"><div style="font-size:24px;font-weight:700;color:#FF375F">player</div><div style="font-size:15px;color:#AEAEB2;margin-top:6px">嵌入网页交互</div></div>
+          <div class="card" style="padding:22px 26px"><div style="font-size:24px;font-weight:700;color:#FF375F">lambda</div><div style="font-size:15px;color:#AEAEB2;margin-top:6px">云端分布式渲染</div></div>
+        </div>
+        <div id="s3b-stats" style="margin-top:20px;display:flex;gap:20px;justify-content:center;opacity:0">
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">github stars</div><div style="font-size:28px;font-weight:700;color:#FF375F;margin-top:4px">30k+</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">since</div><div style="font-size:28px;font-weight:700;margin-top:4px">2021</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">type</div><div style="font-size:28px;font-weight:700;margin-top:4px">typescript</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:14px">license</div><div style="font-size:28px;font-weight:700;margin-top:4px;color:#AEAEB2">custom</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="s3c" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#FF375F;margin-bottom:14px;font-size:15px">adoption</div>
+        <div class="h-xl" style="color:#FF375F">flat <span style="color:#38383A">·</span> curve</div>
+        <div class="sep-line" style="background:#FF375F;margin:14px auto 22px"></div>
+        <div class="body-text" style="font-size:28px">熟悉 React → 学习曲线几乎平的</div>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;align-items:center">
+          <div class="card" style="padding:16px 32px;display:flex;justify-content:space-between;gap:60px;width:520px"><span class="badge" style="color:#636366;font-size:14px;margin:0">components</span><span style="font-size:18px;color:#AEAEB2">already know them</span></div>
+          <div class="card" style="padding:16px 32px;display:flex;justify-content:space-between;gap:60px;width:520px"><span class="badge" style="color:#636366;font-size:14px;margin:0">hooks</span><span style="font-size:18px;color:#AEAEB2">useCurrentFrame = hook</span></div>
+        </div>
+        <div id="s3c-tag" class="badge" style="color:#38383A;margin-top:24px;font-size:13px;opacity:0">react developers feel right at home</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4: Code Comparison -->
+  <div id="scene-4" class="clip" data-start="61.128" data-duration="23.280" data-track-index="1">
+    <div class="sn">04 / 06</div>
+    <div id="s4a" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#636366;margin-bottom:10px">same effect</div>
+        <div class="h-lg">fade<span style="color:#38383A">-</span>in<span style="color:#38383A">.</span><br><span style="color:#AEAEB2">two ways.</span></div>
+        <div class="sep-line" style="background:#636366;margin:18px auto"></div>
+        <div class="body-text" style="font-size:22px;color:#636366">同一个效果 · 两种写法</div>
+      </div>
+    </div>
+    <div id="s4b" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#636366;margin-bottom:18px;font-size:14px">text fade-in · html vs react</div>
+        <div style="display:flex;gap:24px;justify-content:center">
+          <div id="s4b-hyper" class="code-block" style="flex:1;max-width:740px;opacity:0">
+            <div class="code-hdr"><span class="code-dot" style="background:#FF5F56"></span><span class="code-dot" style="background:#FFBD2E"></span><span class="code-dot" style="background:#27C93F"></span><span style="font-size:13px;color:#0A84FF;margin-left:8px">hyperframes</span></div>
+            <div class="code-body" id="s4b-body1">&lt;<span class="tk-tag">div</span> <span class="tk-attr">data-duration</span>=<span class="tk-str">"90"</span>&gt;
+  &lt;<span class="tk-tag">h1</span>&gt;hello world&lt;/<span class="tk-tag">h1</span>&gt;
+&lt;/<span class="tk-tag">div</span>&gt;
+&lt;<span class="tk-tag">style</span>&gt;
+  @<span class="tk-kw">keyframes</span> fade {
+    <span class="tk-kw">from</span> { <span class="tk-prop">opacity</span>: <span class="tk-num">0</span>; }
+    <span class="tk-kw">to</span>   { <span class="tk-prop">opacity</span>: <span class="tk-num">1</span>; }
+  }
+&lt;/<span class="tk-tag">style</span>&gt;</div>
+          </div>
+          <div id="s4b-remo" class="code-block" style="flex:1;max-width:740px;opacity:0">
+            <div class="code-hdr"><span class="code-dot" style="background:#FF5F56"></span><span class="code-dot" style="background:#FFBD2E"></span><span class="code-dot" style="background:#27C93F"></span><span style="font-size:13px;color:#FF375F;margin-left:8px">remotion</span></div>
+            <div class="code-body" id="s4b-body2"><span class="tk-kw">const</span> <span class="tk-fn">Hello</span> = () =&gt; {
+  <span class="tk-kw">const</span> frame = <span class="tk-fn">useCurrentFrame</span>()
+  <span class="tk-kw">const</span> op = <span class="tk-fn">interpolate</span>(
+    frame, [<span class="tk-num">0</span>, <span class="tk-num">60</span>], [<span class="tk-num">0</span>, <span class="tk-num">1</span>]
+  )
+  <span class="tk-kw">return</span> &lt;<span class="tk-tag">h1</span>&gt;hello&lt;/<span class="tk-tag">h1</span>&gt;
+}</div>
+          </div>
+        </div>
+        <div id="s4b-tags" style="margin-top:16px;display:flex;gap:12px;justify-content:center;opacity:0">
+          <span class="tag" style="color:#636366">css animation</span>
+          <span class="tag" style="color:#636366">declarative</span>
+          <span class="tag" style="color:#636366;border-color:#38383A">vs</span>
+          <span class="tag" style="color:#636366">js interpolate</span>
+          <span class="tag" style="color:#636366">imperative</span>
+        </div>
+      </div>
+    </div>
+    <div id="s4c" class="clip" style="opacity:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#636366;margin-bottom:8px">insight</div>
+        <div class="h-lg" style="margin-bottom:24px">mental <span style="color:#38383A">model</span></div>
+        <div id="s4c-rows" style="display:flex;gap:28px;justify-content:center;opacity:0">
+          <div class="card" style="padding:32px 40px;width:400px"><div class="badge" style="color:#0A84FF;font-size:14px;margin-bottom:10px">hyperframes</div><div style="font-size:36px;font-weight:700;margin-bottom:6px">网页 → 视频</div><div class="body-text" style="font-size:18px">CSS 声明式 · 零构建</div></div>
+          <div class="card" style="padding:32px 40px;width:400px"><div class="badge" style="color:#FF375F;font-size:14px;margin-bottom:10px">remotion</div><div style="font-size:36px;font-weight:700;margin-bottom:6px">react → 视频</div><div class="body-text" style="font-size:18px">JS 逐帧 · 组件化</div></div>
+        </div>
+        <div id="s4c-verdict" style="margin-top:24px;display:flex;gap:24px;justify-content:center;opacity:0">
+          <div style="padding:16px 32px;border:1px solid #0A84FF;border-radius:12px;background:#1C1C1E"><div class="badge" style="color:#0A84FF;font-size:14px">simple</div><div style="font-size:20px;font-weight:600;margin-top:4px">hyperframes</div></div>
+          <div style="padding:16px 32px;border:1px solid #FF375F;border-radius:12px;background:#1C1C1E"><div class="badge" style="color:#FF375F;font-size:14px">complex</div><div style="font-size:20px;font-weight:600;margin-top:4px">remotion</div></div>
+        </div>
+        <div id="s4c-foot" class="badge" style="color:#38383A;margin-top:20px;font-size:13px;opacity:0">declarative vs imperative · both valid</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S5: Key Differences -->
+  <div id="scene-5" class="clip" data-start="84.408" data-duration="23.016" data-track-index="1">
+    <div class="sn">05 / 06</div>
+    <div class="center" style="text-align:center">
+      <div id="s5-title" style="opacity:0">
+        <div class="badge" style="color:#636366;font-size:14px">key differences</div>
+        <div class="h-md" style="margin-top:6px;margin-bottom:24px">五大差异</div>
+      </div>
+      <div id="s5-table" style="border:1px solid #38383A;border-radius:16px;overflow:hidden;text-align:left;opacity:0">
+        <div style="display:flex;background:#1C1C1E;border-bottom:1px solid #38383A">
+          <div style="width:14%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.1em;color:#FF9F0A"></div>
+          <div style="width:43%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.1em;color:#0A84FF">hyperframes</div>
+          <div style="width:43%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.1em;color:#FF375F">remotion</div>
+        </div>
+        <div id="s5r1" style="display:flex;border-bottom:1px solid #38383A;opacity:0">
+          <div style="width:14%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.08em;color:#FF9F0A">build</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px;border-right:1px solid #38383A">零构建，HTML 即视频</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px">需打包工具</div>
+        </div>
+        <div id="s5r2" style="display:flex;border-bottom:1px solid #38383A;opacity:0">
+          <div style="width:14%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.08em;color:#FF9F0A">animation</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px;border-right:1px solid #38383A">CSS 声明式动画</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px">JS 逐帧控制</div>
+        </div>
+        <div id="s5r3" style="display:flex;border-bottom:1px solid #38383A;opacity:0">
+          <div style="width:14%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.08em;color:#FF9F0A">ai fit</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px;border-right:1px solid #38383A">纯 HTML，LLM 擅长</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px">JSX 理解门槛高</div>
+        </div>
+        <div id="s5r4" style="display:flex;border-bottom:1px solid #38383A;opacity:0">
+          <div style="width:14%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.08em;color:#FF9F0A">license</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px;border-right:1px solid #38383A">Apache 2.0 完全开源</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px">商用需授权</div>
+        </div>
+        <div id="s5r5" style="display:flex;opacity:0">
+          <div style="width:14%;padding:14px 20px;font-family:monospace;font-size:14px;letter-spacing:0.08em;color:#FF9F0A">ecosystem</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px;border-right:1px solid #38383A">起步阶段</div>
+          <div style="width:43%;padding:14px 20px;font-size:18px">成熟完善</div>
+        </div>
+      </div>
+      <div id="s5-foot" style="margin-top:24px;opacity:0"><div class="sep-line" style="background:#0A84FF"></div></div>
+    </div>
+  </div>
+
+  <!-- S6: Recommendation -->
+  <div id="scene-6" class="clip" data-start="107.424" data-duration="9.576" data-track-index="1">
+    <div class="sn">06 / 06</div>
+    <div id="s6a" class="center" style="text-align:center;opacity:0">
+      <div class="badge" style="color:#0A84FF;margin-bottom:12px;font-size:15px">option a</div>
+      <div class="h-xl" style="color:#0A84FF">hyper<span style="color:#fff">frames</span></div>
+      <div class="sep-line" style="background:#0A84FF;margin:14px auto 18px"></div>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <span class="tag" style="color:#636366">快速原型</span>
+        <span class="tag" style="color:#636366">AI 生成</span>
+        <span class="tag" style="color:#636366">传统前端栈</span>
+      </div>
+    </div>
+    <div id="s6b" class="center" style="text-align:center;opacity:0">
+      <div class="badge" style="color:#FF375F;margin-bottom:12px;font-size:15px">option b</div>
+      <div class="h-xl" style="color:#FF375F">remotion<span style="color:#fff">.</span></div>
+      <div class="sep-line" style="background:#FF375F;margin:14px auto 18px"></div>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <span class="tag" style="color:#636366">产品级</span>
+        <span class="tag" style="color:#636366">3D 场景</span>
+        <span class="tag" style="color:#636366">成熟生态</span>
+      </div>
+    </div>
+    <div id="s6c" class="center" style="text-align:center;opacity:0">
+      <div class="sep-line" style="background:#FF9F0A;margin:0 auto 20px"></div>
+      <div class="h-lg" style="color:#fff">没有 <span style="color:#AEAEB2">赢家</span></div>
+      <div class="h-lg" style="color:#FF9F0A;margin-top:-6px">选适合你的</div>
+      <div style="margin-top:28px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <span class="badge" style="color:#38383A;font-size:13px">github.com/heygen-com/hyperframes</span>
+        <span style="color:#38383A">·</span>
+        <span class="badge" style="color:#38383A;font-size:13px">github.com/remotion-dev/remotion</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="subBar" class="sub-bar clip" data-start="0" data-duration="117" data-track-index="2" style="opacity:0"><div class="sub-t" id="subText"></div></div>
+  <audio id="narration-audio" data-start="0" data-duration="117" data-track-index="3" src="assets/narration.mp3"></audio>
+  <audio id="bgm-audio" data-start="0" data-duration="117" data-track-index="4" src="assets/bgm.mp3"></audio>
+
+</div>
+
+<script>
+window.__timelines = window.__timelines || {};
+var tl = gsap.timeline({ paused: true });
+// Sound effects helper
+function sfx(name){try{var a=new Audio('assets/'+name+'.mp3');a.volume=0.5;a.play()}catch(e){}}
+var subs = [
+  // S1: 开场 0-11.4s (1条)
+  '用写网页的方式做视频。或者用 React 组件定义每一帧。今天对比两个编程视频框架——Hyperframes 和 Remotion。理念不同，目标相同。',
+  // S2a: Hyperframes 品牌 11.4-17s (1条)
+  'Hyperframes 是 HeyGen 2026 年 4 月开源的，Apache 2.0 完全免费。核心思想是 HTML 写好就能渲染成视频，零构建步骤。',
+  // S2b: 工作原理 17-26s (1条)
+  '你写 HTML CSS JavaScript，通过 data-start 和 data-duration 属性控制时间轴。支持 GSAP、Lottie、Three.js 等动画库。',
+  // S2c: AI友好 26-38.6s (1条)
+  '渲染流程是 Puppeteer 截帧加 FFmpeg 编码。因为输出纯 HTML，对 AI 特别友好。',
+  // S3a: React every frame 38.6-46s (1条)
+  'Remotion 走的是另一条路。用 React 组件定义每一帧画面，useCurrentFrame 获取帧号，interpolate 映射到任意值。',
+  // S3b: 生态 46-54s (1条)
+  '自有 Chromium 引擎精确渲染。生态非常成熟：Studio 可视化编辑、Player 嵌入网页、Lambda 云端渲染，还有大量社区模板。',
+  // S3c: 学习曲线 54-61.1s (1条)
+  '熟悉 React 的话学习曲线几乎是平的。',
+  // S4a+S4b: 代码对比 61.1-76s (1条)
+  '文字渐入效果，两种写法。Hyperframes 里写 HTML 加 CSS 动画。Remotion 里写 React 组件，interpolate 控制透明度。',
+  // S4c: 洞察 76-84.4s (1条)
+  'Hyperframes 是把网页变成视频，Remotion 是视频等于带时间的 React 组件。简单动画 Hyperframes 更直接，复杂场景 Remotion 组件化优势更大。',
+  // S5a: 表格前半 84.4-93s (1条)
+  '关键差异：Hyperframes 零构建，Remotion 需打包。Hyperframes CSS 声明式动画，Remotion JS 逐帧控制。',
+  // S5b: 表格后半 93-107.4s (1条)
+  'Hyperframes HTML 对 AI 友好，Remotion JSX 门槛更高。Hyperframes Apache 2.0 开源，商用需授权。Hyperframes 刚起步，Remotion 生态更完善。',
+  // S6: 推荐 107.4-117s (1条)
+  '怎么选？快速原型、AI 生成、传统前端栈——Hyperframes。产品级内容、3D 场景、需要成熟生态——Remotion。没有赢家，选适合你的。'
+];
+
+// ── Subtitle block: seamless, no gaps ──
+// Show at start
+tl.call(function(){subText.textContent=subs[0];subBar.style.opacity='1';},[],0.1);
+// Instant swap at each scene boundary
+tl.call(function(){subText.textContent=subs[1];},[],11.424);
+tl.call(function(){subText.textContent=subs[2];},[],17.2);
+tl.call(function(){subText.textContent=subs[3];},[],26.2);
+tl.call(function(){subText.textContent=subs[4];},[],38.568);
+tl.call(function(){subText.textContent=subs[5];},[],46.2);
+tl.call(function(){subText.textContent=subs[6];},[],54.2);
+tl.call(function(){subText.textContent=subs[7];},[],61.128);
+tl.call(function(){subText.textContent=subs[8];},[],76.2);
+tl.call(function(){subText.textContent=subs[9];},[],84.408);
+tl.call(function(){subText.textContent=subs[10];},[],93.0);
+tl.call(function(){subText.textContent=subs[11];},[],107.424);
+// Hide at end
+tl.to("#subBar",{opacity:0,duration:0.25},116.5);
+tl.set("#subBar",{opacity:0},117);
+
+// S1
+tl.fromTo("#s1-row", {opacity:0},{opacity:1,duration:0.01},0.2);
+tl.call(function(){sfx('se-whoosh')},[],0.2);
+tl.fromTo("#s1-row .card:first-child", {x:-80,opacity:0,rotate:-3},{x:0,opacity:1,rotate:0,duration:0.5,ease:"power3.out"},0.2);
+tl.fromTo("#s1-row .card:last-child", {x:80,opacity:0,rotate:3},{x:0,opacity:1,rotate:0,duration:0.5,ease:"power3.out"},0.4);
+tl.fromTo("#s1-vs", {opacity:0,scale:0,rotation:-180},{opacity:1,scale:1,rotation:0,duration:0.5,ease:"back.out(2)"},0.5);
+tl.call(function(){sfx('se-pop')},[],0.5);
+tl.fromTo("#s1-row .card:first-child .badge", {opacity:0,y:-12},{opacity:1,y:0,duration:0.2},0.5);
+tl.fromTo("#s1-row .card:first-child div:nth-child(2)", {opacity:0,x:-14},{opacity:1,x:0,duration:0.25},0.6);
+tl.fromTo("#s1-row .card:first-child .sep-line", {scaleX:0},{scaleX:1,duration:0.3,ease:"power2.out",transformOrigin:"left center"},0.7);
+tl.fromTo("#s1-row .card:first-child .body-text", {opacity:0,y:8},{opacity:1,y:0,duration:0.2},0.8);
+tl.fromTo("#s1-row .card:first-child .tag", {opacity:0,y:6},{opacity:1,y:0,duration:0.2,ease:"power2.out",stagger:0.07},0.9);
+tl.fromTo("#s1-row .card:last-child .badge", {opacity:0,y:-12},{opacity:1,y:0,duration:0.2},0.7);
+tl.fromTo("#s1-row .card:last-child div:nth-child(2)", {opacity:0,x:14},{opacity:1,x:0,duration:0.25},0.8);
+tl.fromTo("#s1-row .card:last-child .sep-line", {scaleX:0},{scaleX:1,duration:0.3,ease:"power2.out",transformOrigin:"left center"},0.9);
+tl.fromTo("#s1-row .card:last-child .body-text", {opacity:0,y:8},{opacity:1,y:0,duration:0.2},1.0);
+tl.fromTo("#s1-row .card:last-child .tag", {opacity:0,y:6},{opacity:1,y:0,duration:0.2,ease:"power2.out",stagger:0.07},1.1);
+tl.fromTo("#s1-thesis", {opacity:0,y:24,scale:0.95},{opacity:1,y:0,scale:1,duration:0.5,ease:"power3.out"},3.5);
+tl.call(function(){sfx('se-sparkle')},[],3.5);
+tl.to("#s1-vs", {scale:1.1,duration:1.2,ease:"sine.inOut",yoyo:true,repeat:3},3.0);
+tl.to("#s1-row .card:first-child", {y:-5,duration:2.5,ease:"sine.inOut",yoyo:true,repeat:2},3.5);
+tl.to("#s1-row .card:last-child", {y:-5,duration:2.5,ease:"sine.inOut",yoyo:true,repeat:2,delay:0.5},3.5);
+// S1 subtitles
+
+// S2a
+tl.fromTo("#s2a", {opacity:0},{opacity:1,duration:0.01},11.5);
+tl.fromTo("#s2a .badge", {opacity:0,y:-14},{opacity:1,y:0,duration:0.25},11.6);
+tl.fromTo("#s2a .h-xl", {opacity:0,scale:0.6,rotation:-4},{opacity:1,scale:1,rotation:0,duration:0.5,ease:"back.out(1.4)"},11.8);
+tl.call(function(){sfx('se-click')},[],11.8);
+tl.fromTo("#s2a .sep-line", {scaleX:0},{scaleX:1,duration:0.35,ease:"power3.out",transformOrigin:"center center"},12.2);
+tl.fromTo("#s2a .body-text", {opacity:0,y:12},{opacity:1,y:0,duration:0.3},12.4);
+tl.fromTo("#s2a .tag", {opacity:0,y:8,scale:0.8},{opacity:1,y:0,scale:1,duration:0.25,ease:"back.out(2)",stagger:0.1},12.6);
+tl.fromTo("#s2a .stat-box", {opacity:0,y:14,scale:0.9},{opacity:1,y:0,scale:1,duration:0.3,ease:"power2.out",stagger:0.12},13.0);
+tl.to("#s2a .stat-box", {y:-4,duration:2.2,ease:"sine.inOut",yoyo:true,repeat:1,stagger:0.2},14.5);
+
+// S2b
+tl.to("#s2a", {opacity:0,scale:0.95,duration:0.25,ease:"power2.in"},17.2);
+tl.fromTo("#s2b", {opacity:0},{opacity:1,duration:0.01},17.4);
+tl.fromTo("#s2b .badge", {opacity:0,y:-12},{opacity:1,y:0,duration:0.2},17.5);
+tl.fromTo("#s2b .h-lg", {opacity:0,y:-8},{opacity:1,y:0,duration:0.3,ease:"power3.out"},17.7);
+tl.fromTo("#s2b-code", {opacity:0,x:30,scaleY:0.9,transformOrigin:"top center"},{opacity:1,x:0,scaleY:1,duration:0.4,ease:"power3.out"},18.0);
+tl.call(function(){sfx('se-pop')},[],18.0);
+tl.call(function(){var e=document.getElementById('s2b-body');if(e){var c=e.children;for(var i=0;i<c.length;i++){(function(j){setTimeout(function(){if(c[j]){c[j].style.transition='opacity 0.35s';c[j].style.opacity='1';}},300+j*350);})(i);}}},[],18.3);
+tl.fromTo("#s2b-extras", {opacity:0,x:-24},{opacity:1,x:0,duration:0.3,ease:"power2.out"},18.8);
+tl.fromTo("#s2b-extras .tag", {opacity:0,y:8},{opacity:1,y:0,duration:0.2,stagger:0.08},19.0);
+tl.fromTo("#s2b-pipe", {opacity:0},{opacity:1,duration:0.01},19.5);
+tl.fromTo("#s2b-pipe .tag", {opacity:0,y:8,scale:0.85},{opacity:1,y:0,scale:1,duration:0.25,ease:"back.out(1.6)",stagger:0.1},19.6);
+tl.fromTo("#s2b-feat", {opacity:0,y:18},{opacity:1,y:0,duration:0.35,ease:"power3.out"},20.5);
+tl.to("#s2b-code", {borderColor:"#0A84FF",duration:1.2,ease:"sine.inOut",yoyo:true,repeat:3},21.5);
+
+// S2c
+tl.to("#s2b", {opacity:0,scale:0.95,duration:0.25,ease:"power2.in"},26.2);
+tl.fromTo("#s2c", {opacity:0},{opacity:1,duration:0.01},26.4);
+tl.fromTo("#s2c .badge", {opacity:0,y:-12},{opacity:1,y:0,duration:0.2},26.5);
+tl.fromTo("#s2c .h-xl", {opacity:0,scale:0.5,rotation:-3},{opacity:1,scale:1,rotation:0,duration:0.45,ease:"back.out(1.5)"},26.7);
+tl.call(function(){sfx('se-click')},[],26.7);
+tl.fromTo("#s2c .sep-line", {scaleX:0},{scaleX:1,duration:0.3,ease:"power3.out",transformOrigin:"center center"},27.0);
+tl.fromTo("#s2c .body-text", {opacity:0,y:12},{opacity:1,y:0,duration:0.3},27.1);
+tl.fromTo("#s2c-flow", {opacity:0},{opacity:1,duration:0.01},27.3);
+tl.fromTo("#s2c-flow span", {opacity:0,y:10},{opacity:1,y:0,duration:0.25,stagger:0.1},27.4);
+tl.fromTo("#s2c-cards", {opacity:0},{opacity:1,duration:0.01},28.0);
+tl.fromTo("#s2c-cards .stat-box", {opacity:0,y:24,rotateX:-15},{opacity:1,y:0,rotateX:0,duration:0.35,ease:"power3.out",stagger:0.08},28.1);
+tl.fromTo("#s2c-tagline", {opacity:0},{opacity:1,duration:0.4},29.5);
+tl.to("#s2c-cards .stat-box", {y:-4,duration:2,ease:"sine.inOut",yoyo:true,repeat:2,stagger:0.3},30.5);
+
+// S3a
+tl.fromTo("#s3a", {opacity:0},{opacity:1,duration:0.01},38.6);
+tl.fromTo("#s3a .badge", {opacity:0,y:-12},{opacity:1,y:0,duration:0.2},38.7);
+tl.fromTo("#s3a .h-xl", {opacity:0,scale:0.7,rotation:2},{opacity:1,scale:1,rotation:0,duration:0.45,ease:"back.out(1.5)"},38.9);
+tl.fromTo("#s3a .sep-line", {scaleX:0},{scaleX:1,duration:0.3,ease:"power3.out",transformOrigin:"center center"},39.2);
+tl.fromTo("#s3a .body-text", {opacity:0,y:12},{opacity:1,y:0,duration:0.3},39.3);
+tl.fromTo("#s3a .tag", {opacity:0,scale:0.5},{opacity:1,scale:1,duration:0.3,ease:"back.out(2.5)",stagger:0.08},39.6);
+tl.fromTo("#s3a .stat-box", {opacity:0,y:18,rotation:4},{opacity:1,y:0,rotation:0,duration:0.35,ease:"power3.out",stagger:0.1},40.2);
+tl.to("#s3a .tag", {y:-3,duration:1.8,ease:"sine.inOut",yoyo:true,repeat:1,stagger:0.2},42.0);
+tl.to("#s3a .stat-box", {y:-4,duration:2.2,ease:"sine.inOut",yoyo:true,repeat:1,stagger:0.3},42.5);
+
+// S3b
+tl.to("#s3a", {opacity:0,scale:0.95,duration:0.2,ease:"power2.in"},46.2);
+tl.fromTo("#s3b", {opacity:0},{opacity:1,duration:0.01},46.4);
+tl.fromTo("#s3b .badge", {opacity:0,y:-10},{opacity:1,y:0,duration:0.2},46.5);
+tl.fromTo("#s3b .h-lg", {opacity:0,y:-8},{opacity:1,y:0,duration:0.3,ease:"power3.out"},46.7);
+tl.fromTo("#s3b-grid", {opacity:0},{opacity:1,duration:0.01},47.0);
+tl.fromTo("#s3b-grid .card:nth-child(1)", {opacity:0,x:-40,rotate:-5},{opacity:1,x:0,rotate:0,duration:0.35,ease:"power3.out"},47.0);
+tl.fromTo("#s3b-grid .card:nth-child(2)", {opacity:0,y:24,scale:0.85},{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(1.6)"},47.15);
+tl.fromTo("#s3b-grid .card:nth-child(3)", {opacity:0,y:-24,scale:0.85},{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(1.6)"},47.3);
+tl.fromTo("#s3b-grid .card:nth-child(4)", {opacity:0,x:40,rotate:5},{opacity:1,x:0,rotate:0,duration:0.35,ease:"power3.out"},47.45);
+tl.fromTo("#s3b-stats", {opacity:0},{opacity:1,duration:0.01},48.0);
+tl.fromTo("#s3b-stats .stat-box", {opacity:0,y:14,scale:0.9},{opacity:1,y:0,scale:1,duration:0.3,stagger:0.1},48.0);
+tl.to("#s3b-grid .card", {y:-4,duration:2.4,ease:"sine.inOut",yoyo:true,repeat:1,stagger:0.15,delay:0.5},49.0);
+
+// S3c
+tl.to("#s3b", {opacity:0,scale:0.95,duration:0.2,ease:"power2.in"},54.2);
+tl.fromTo("#s3c", {opacity:0},{opacity:1,duration:0.01},54.4);
+tl.fromTo("#s3c .badge", {opacity:0,y:-12},{opacity:1,y:0,duration:0.2},54.5);
+tl.fromTo("#s3c .h-xl", {opacity:0,scale:0.6,rotation:-2},{opacity:1,scale:1,rotation:0,duration:0.45,ease:"back.out(1.5)"},54.7);
+tl.fromTo("#s3c .sep-line", {scaleX:0},{scaleX:1,duration:0.3,ease:"power3.out",transformOrigin:"center center"},55.0);
+tl.fromTo("#s3c .body-text", {opacity:0,y:12},{opacity:1,y:0,duration:0.3},55.1);
+tl.fromTo("#s3c .card", {opacity:0,scaleX:0.85,transformOrigin:"center center"},{opacity:1,scaleX:1,duration:0.35,ease:"power3.out",stagger:0.12},55.5);
+tl.fromTo("#s3c-tag", {opacity:0},{opacity:1,duration:0.4},57.5);
+
+// S4a+S4b subtitles (61.128-76s) — same text across title + code panels
+tl.fromTo("#s4a", {opacity:0},{opacity:1,duration:0.01},61.2);
+tl.fromTo("#s4a .badge", {opacity:0,y:-12,scale:0.9},{opacity:1,y:0,scale:1,duration:0.25},61.3);
+tl.fromTo("#s4a .h-lg", {opacity:0,y:18,scale:0.95},{opacity:1,y:0,scale:1,duration:0.4,ease:"power3.out"},61.5);
+tl.fromTo("#s4a .sep-line", {scaleX:0},{scaleX:1,duration:0.3,ease:"power3.out",transformOrigin:"center center"},61.8);
+tl.fromTo("#s4a .body-text", {opacity:0,y:10},{opacity:1,y:0,duration:0.3},62.0);
+
+// S4b
+tl.to("#s4a", {opacity:0,duration:0.15},64.0);
+tl.fromTo("#s4b", {opacity:0},{opacity:1,duration:0.01},64.2);
+tl.fromTo("#s4b .badge", {opacity:0,y:-10},{opacity:1,y:0,duration:0.2},64.3);
+tl.fromTo("#s4b-hyper", {opacity:0,x:-70,rotate:-3},{opacity:1,x:0,rotate:0,duration:0.4,ease:"power3.out"},64.5);
+tl.fromTo("#s4b-remo", {opacity:0,x:70,rotate:3},{opacity:1,x:0,rotate:0,duration:0.4,ease:"power3.out"},65.0);
+tl.call(function(){var e1=document.getElementById('s4b-body1'),e2=document.getElementById('s4b-body2');if(e1){var c1=e1.children;for(var i=0;i<c1.length;i++){(function(j){setTimeout(function(){if(c1[j]){c1[j].style.transition='opacity 0.35s';c1[j].style.opacity='1';}},500+j*350);})(i);}}if(e2){var c2=e2.children;for(var i=0;i<c2.length;i++){(function(j){setTimeout(function(){if(c2[j]){c2[j].style.transition='opacity 0.35s';c2[j].style.opacity='1';}},500+Math.max(j-1,0)*350);})(i);}}},[],65.0);
+tl.fromTo("#s4b-tags", {opacity:0},{opacity:1,duration:0.01},67.0);
+tl.fromTo("#s4b-tags .tag", {opacity:0,y:10,scale:0.85},{opacity:1,y:0,scale:1,duration:0.25,ease:"back.out(1.6)",stagger:0.07},67.0);
+tl.to("#s4b-hyper", {borderColor:"rgba(10,132,255,0.3)",duration:1.5,ease:"sine.inOut",yoyo:true,repeat:2},68.5);
+tl.to("#s4b-remo", {borderColor:"rgba(255,55,95,0.3)",duration:1.5,ease:"sine.inOut",yoyo:true,repeat:2,delay:0.2},68.5);
+
+// S4c subtitles (76-84.408s)
+tl.to("#s4b", {opacity:0,scale:0.95,duration:0.2,ease:"power2.in"},76.2);
+tl.fromTo("#s4c", {opacity:0},{opacity:1,duration:0.01},76.4);
+tl.fromTo("#s4c .badge", {opacity:0,y:-10},{opacity:1,y:0,duration:0.2},76.5);
+tl.fromTo("#s4c .h-lg", {opacity:0,y:-8},{opacity:1,y:0,duration:0.3,ease:"power3.out"},76.7);
+tl.fromTo("#s4c-rows", {opacity:0},{opacity:1,duration:0.01},77.0);
+tl.fromTo("#s4c-rows .card:nth-child(1)", {opacity:0,x:-50,rotate:-4},{opacity:1,x:0,rotate:0,duration:0.35,ease:"power3.out"},77.0);
+tl.fromTo("#s4c-rows .card:nth-child(2)", {opacity:0,x:50,rotate:4},{opacity:1,x:0,rotate:0,duration:0.35,ease:"power3.out"},77.4);
+tl.fromTo("#s4c-verdict", {opacity:0},{opacity:1,duration:0.01},78.5);
+tl.fromTo("#s4c-verdict div", {opacity:0,y:14,scale:0.9},{opacity:1,y:0,scale:1,duration:0.3,ease:"back.out(1.6)",stagger:0.1},78.5);
+tl.fromTo("#s4c-foot", {opacity:0},{opacity:1,duration:0.35},80.0);
+tl.to("#s4c-rows .card:nth-child(1)", {y:-4,duration:2.5,ease:"sine.inOut",yoyo:true,repeat:1,delay:0.3},79.5);
+tl.to("#s4c-rows .card:nth-child(2)", {y:-4,duration:2.5,ease:"sine.inOut",yoyo:true,repeat:1,delay:0.8},79.5);
+
+// S5a subtitles (84.408-93s) — first half of table
+tl.to("#s4c", {opacity:0,scale:0.95,duration:0.2,ease:"power2.in"},84.5);
+tl.fromTo("#s5-title", {opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out"},85.0);
+tl.fromTo("#s5-table", {opacity:0,scaleY:0.9,transformOrigin:"top center"},{opacity:1,scaleY:1,duration:0.3,ease:"power3.out"},85.3);
+tl.fromTo("#s5r1", {opacity:0,x:-24},{opacity:1,x:0,duration:0.3,ease:"power3.out"},85.7);
+tl.fromTo("#s5r2", {opacity:0,x:-24},{opacity:1,x:0,duration:0.3,ease:"power3.out"},87.0);
+tl.fromTo("#s5r3", {opacity:0,x:-24},{opacity:1,x:0,duration:0.3,ease:"power3.out"},90.0);
+// S5b subtitles (93-107.4s) — second half of table
+tl.fromTo("#s5r4", {opacity:0,x:-24},{opacity:1,x:0,duration:0.3,ease:"power3.out"},94.0);
+tl.fromTo("#s5r5", {opacity:0,x:-24},{opacity:1,x:0,duration:0.3,ease:"power3.out"},100.0);
+tl.fromTo("#s5-foot", {opacity:0},{opacity:1,duration:0.01},104.5);
+tl.fromTo("#s5-foot .sep-line", {scaleX:0},{scaleX:1,duration:0.4,ease:"power3.out",transformOrigin:"center center"},104.5);
+
+// S6
+tl.to("#s5-foot", {opacity:0,duration:0.1},107.5);
+tl.fromTo("#s6a", {opacity:0,x:-100,scale:0.7,rotate:-8},{opacity:1,x:0,scale:1,rotate:0,duration:0.4,ease:"power3.out"},107.6);
+tl.to("#s6a", {opacity:0,scale:0.8,x:-50,duration:0.3,ease:"power2.in"},108.6);
+tl.fromTo("#s6b", {opacity:0,x:100,scale:0.7,rotate:8},{opacity:1,x:0,scale:1,rotate:0,duration:0.4,ease:"power3.out"},109.0);
+tl.to("#s6b", {opacity:0,scale:0.8,x:50,duration:0.3,ease:"power2.in"},110.0);
+tl.fromTo("#s6c", {opacity:0},{opacity:1,duration:0.01},110.4);
+tl.fromTo("#s6c .sep-line", {scaleX:0},{scaleX:1,duration:0.35,ease:"power3.out",transformOrigin:"center center"},110.5);
+tl.fromTo("#s6c .h-lg", {opacity:0,y:18},{opacity:1,y:0,duration:0.4,ease:"power3.out",stagger:0.1},110.7);
+tl.fromTo("#s6c .badge", {opacity:0,y:10},{opacity:1,y:0,duration:0.3,stagger:0.1},111.5);
+tl.to("#s6c .sep-line", {opacity:0.4,duration:1.5,ease:"sine.inOut",yoyo:true,repeat:2},113.0);
+
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: -apple-system, "Helvetica Neue", "SF Pro Display", sans-serif; -webkit-font-smoothing: antialiased; color: #fff; }
+    .clip { position: absolute; }
+    .b1 { background: linear-gradient(180deg, #000 0%, #0a0a12 40%, #0d0d1a 100%); }
+    .b2 { background: linear-gradient(180deg, #000 0%, #090912 40%, #0d0d1a 100%); }
+    .b3 { background: linear-gradient(180deg, #000 0%, #080a10 40%, #0c0e18 100%); }
+    .b4 { background: linear-gradient(180deg, #000 0%, #0a0808 40%, #0d0a0a 100%); }
+    .b5 { background: linear-gradient(180deg, #000 0%, #0a0a0a 40%, #0d0d0d 100%); }
+    .pill { display: inline-flex; align-items: center; gap: 14px; padding: 14px 30px; border-radius: 100px; font-size: 28px; font-weight: 500; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04); }
+    .pd { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+    .red { color: #FF4444; }
+    .gold { color: #D4A843; }
+    .s1-num { font-size: 220px; font-weight: 900; text-align: center; color: #fff; letter-spacing: -4px; line-height: 1; }
+    .s1-num .h { color: #D4A843; }
+    .s1-lb { font-size: 44px; font-weight: 400; text-align: center; color: rgba(255,255,255,0.3); letter-spacing: 10px; }
+    .s1-gr { display: flex; gap: 14px; justify-content: center; }
+    .s1-gr > div { flex: 1; max-width: 220px; padding: 18px 10px; border-radius: 20px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.04); text-align: center; }
+    .s1-gn { font-size: 48px; font-weight: 700; color: #fff; }
+    .s1-gl { font-size: 26px; color: rgba(255,255,255,0.3); margin-top: 6px; }
+    .s1-ft { font-size: 32px; color: rgba(255,255,255,0.2); text-align: center; }
+    .s2-tt { font-size: 76px; font-weight: 700; line-height: 1.1; }
+    .s2-tt .lt { font-weight: 400; color: rgba(255,255,255,0.45); }
+    .s2-ls { display: flex; flex-direction: column; gap: 16px; }
+    .s2-r { display: flex; align-items: center; gap: 24px; padding: 24px 28px; border-radius: 20px; background: rgba(255,255,255,0.03); }
+    .s2-d { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 600; flex-shrink: 0; }
+    .s2-t { font-size: 36px; font-weight: 500; color: #fff; }
+    .s2-s { font-size: 28px; color: rgba(255,255,255,0.3); margin-top: 4px; }
+    .s3-tt { font-size: 64px; font-weight: 700; line-height: 1.1; }
+    .s3-tt .lt { font-weight: 400; color: rgba(255,255,255,0.45); }
+    .s3-bs { display: flex; gap: 14px; flex-wrap: wrap; }
+    .s3-bg { display: inline-block; padding: 10px 22px; border-radius: 12px; background: rgba(212,168,67,0.1); font-size: 26px; color: #D4A843; }
+    .s3-ls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+    .s3-li { font-size: 28px; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 14px; padding: 12px 18px; border-radius: 12px; background: rgba(255,255,255,0.02); }
+    .s3-li .dk { width: 12px; height: 12px; border-radius: 50%; background: #D4A843; display: inline-block; flex-shrink: 0; }
+    .s3-ft { font-size: 30px; color: #D4A843; text-align: center; }
+    .s4-tt { font-size: 60px; font-weight: 700; line-height: 1.1; }
+    .s4-tt .lt { font-weight: 400; color: rgba(255,255,255,0.45); font-size: 50px; }
+    .s4-r { display: flex; justify-content: space-between; padding: 14px 0; font-size: 34px; border-bottom: 0.5px solid rgba(255,255,255,0.04); }
+    .s4-r:last-child { border-bottom: none; border-top: 1px solid rgba(212,168,67,0.2); margin-top: 6px; padding-top: 16px; }
+    .s4-l { color: rgba(255,255,255,0.45); }
+    .s4-v { color: #fff; font-weight: 500; }
+    .s4-r:last-child .s4-l { color: #D4A843; }
+    .s4-r:last-child .s4-v { color: #D4A843; font-weight: 600; }
+    .s4-f1 { font-size: 32px; text-align: center; color: rgba(255,255,255,0.4); }
+    .s4-f2 { font-size: 28px; text-align: center; color: rgba(255,255,255,0.2); }
+    .s5-tt { font-size: 90px; font-weight: 700; line-height: 1.1; }
+    .s5-tt .lt { font-weight: 400; color: rgba(255,255,255,0.45); }
+    .s5-bd { font-size: 40px; color: rgba(255,255,255,0.4); text-align: center; }
+    .s5-ft { font-size: 32px; color: rgba(255,255,255,0.15); text-align: center; }
+    .s5-ct { display: inline-flex; align-items: center; gap: 10px; padding: 20px 44px; border-radius: 100px; font-size: 30px; font-weight: 500; color: #D4A843; background: rgba(212,168,67,0.1); border: 0.5px solid rgba(212,168,67,0.15); white-space: nowrap; }
+    .s5-wm { font-size: 22px; color: rgba(255,255,255,0.06); }
+    .cta-btn { display: inline-flex; align-items: center; gap: 10px; padding: 20px 36px; border-radius: 100px; font-size: 30px; font-weight: 500; color: #fff; background: rgba(255,255,255,0.06); }
+    .sub { position: absolute; bottom: 120px; left: 60px; right: 60px; min-height: 90px; display: flex; align-items: center; justify-content: center; padding: 18px 30px; border-radius: 20px; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); text-align: center; pointer-events: none; z-index: 100; }
+    .sub-t { font-size: 28px; font-weight: 400; color: rgba(255,255,255,0.9); line-height: 1.4; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920">
+  <div class="clip" data-start="0" data-duration="20" data-track-index="0"><div id="bg" style="position:absolute;inset:0;width:100%;height:100%"></div></div>
+  <div class="clip" data-start="0" data-duration="3.5" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="b1" style="position:absolute;inset:0"></div>
+    <div class="pill" id="a1" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>申请开放中</div>
+    <div class="red" id="a2" style="position:absolute;top:13%;left:6%;font-size:28px;opacity:0">仅限 5,000 个名额</div>
+    <div class="s1-num" id="a3" style="position:absolute;top:28%;left:0;width:100%;opacity:0"><span class="h">5,000</span></div>
+    <div class="s1-lb" id="a4" style="position:absolute;top:42%;left:0;width:100%;opacity:0">个名额</div>
+    <div class="s1-gr" id="a5" style="position:absolute;top:48%;left:6%;right:6%;opacity:0">
+      <div><div class="s1-gn">18-30</div><div class="s1-gl">年龄</div></div>
+      <div><div class="s1-gn">6.25</div><div class="s1-gl">截止</div></div>
+      <div><div class="s1-gn">6%</div><div class="s1-gl">中签率</div></div>
+      <div><div class="s1-gn">$25</div><div class="s1-gl">EOI</div></div>
+    </div>
+    <div class="cta-btn" id="a6" style="position:absolute;top:57%;left:6%;opacity:0">3 分钟看懂<span style="opacity:0.3">→</span></div>
+    <div class="s1-ft" id="a7" style="position:absolute;bottom:16%;left:6%;right:6%;opacity:0">大部分人在前两步就走错了</div>
+    <div id="a8" style="position:absolute;bottom:4%;right:6%;font-size:22px;color:rgba(255,255,255,0.06);opacity:0">WHV 462</div>
+  </div>
+  <div class="clip" data-start="3.5" data-duration="3.5" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="b2" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>申请条件</div>
+    <div class="s2-tt" id="b2" style="position:absolute;top:13%;left:6%;right:6%;opacity:0">三个硬门槛<br><span class="lt">缺一不可</span></div>
+    <div class="s2-ls" id="b3" style="position:absolute;top:25%;left:6%;right:6%;opacity:0">
+      <div class="s2-r"><div class="s2-d" style="background:rgba(255,68,68,0.12);color:#FF4444">1</div><div><div class="s2-t">年龄 18–30 岁</div><div class="s2-s">未满 31 周岁</div></div></div>
+      <div class="s2-r"><div class="s2-d" style="background:rgba(212,168,67,0.12);color:#D4A843">2</div><div><div class="s2-t">大专以上学历</div><div class="s2-s">或本科 ≥ 2 年</div></div></div>
+      <div class="s2-r"><div class="s2-d" style="background:rgba(48,209,88,0.12);color:#30D158">3</div><div><div class="s2-t">英语雅思 4.5</div><div class="s2-s">PTE 30 · 真的不难</div></div></div>
+    </div>
+  </div>
+  <div class="clip" data-start="7" data-duration="4.5" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="b3" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>申请流程</div>
+    <div class="s3-tt" id="c2" style="position:absolute;top:11%;left:6%;right:6%;opacity:0">抽签 + 28 天<br><span class="lt">备齐材料</span></div>
+    <div class="s3-bs" id="c3" style="position:absolute;top:21%;left:6%;right:6%;opacity:0">
+      <span class="s3-bg">① 注册</span>
+      <span class="s3-bg">② 提交 · $25</span>
+      <span class="s3-bg">③ 等抽签</span>
+      <span class="s3-bg">④ 收邮件</span>
+    </div>
+    <div class="s3-ls" id="c4" style="position:absolute;top:29%;left:6%;right:6%;opacity:0">
+      <span class="s3-li"><span class="dk"></span>有效护照</span>
+      <span class="s3-li"><span class="dk"></span>学历公证</span>
+      <span class="s3-li"><span class="dk"></span>英语成绩单</span>
+      <span class="s3-li"><span class="dk"></span>$5,000 存款</span>
+      <span class="s3-li"><span class="dk"></span>无犯罪记录</span>
+      <span class="s3-li"><span class="dk"></span>体检报告</span>
+    </div>
+    <div class="s3-ft" id="c5" style="position:absolute;bottom:20%;left:6%;right:6%;opacity:0">建议先考英语、做公证</div>
+  </div>
+  <div class="clip" data-start="11.5" data-duration="4.5" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="b4" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#D4A843"></span>费用</div>
+    <div class="s4-tt" id="d2" style="position:absolute;top:10%;left:6%;right:6%;opacity:0">费用明细<br><span class="lt">全部 1-2 万</span></div>
+    <div id="d3" style="position:absolute;left:6%;right:6%;top:20%;opacity:0">
+      <div class="s4-r"><span class="s4-l">签证费</span><span class="s4-v">$670</span></div>
+      <div class="s4-r"><span class="s4-l">EOI 注册</span><span class="s4-v">$25</span></div>
+      <div class="s4-r"><span class="s4-l">体检</span><span class="s4-v">¥1,000</span></div>
+      <div class="s4-r"><span class="s4-l">英语考试</span><span class="s4-v">¥2,000</span></div>
+      <div class="s4-r"><span class="s4-l">全部合计</span><span class="s4-v">≈ ¥1-2万</span></div>
+    </div>
+    <div class="s4-f1" id="d4" style="position:absolute;bottom:16%;left:6%;right:6%;opacity:0">最低时薪 <span class="gold">20+ 澳币</span></div>
+    <div class="s4-f2" id="d5" style="position:absolute;bottom:11%;left:6%;right:6%;opacity:0">存款 $5,000（¥25,000）</div>
+  </div>
+  <div class="clip" data-start="16" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="b5" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#D4A843"></span>行动</div>
+    <div class="s5-tt" id="e2" style="position:absolute;top:18%;left:6%;right:6%;opacity:0">窗口即将关闭<br><span class="lt">6 月 25 日截止</span></div>
+    <div class="s5-bd" id="e3" style="position:absolute;top:32%;left:6%;right:6%;opacity:0">现在开始准备</div>
+    <div class="s5-ft" id="e4" style="position:absolute;top:36%;left:6%;right:6%;opacity:0">清单已整理好</div>
+    <div class="s5-ct" id="e5" style="position:absolute;bottom:36%;left:6%;opacity:0">关注 · 下期 28 天全攻略<span style="opacity:0.4">→</span></div>
+    <div class="s5-wm" id="e6" style="position:absolute;bottom:4%;right:6%;opacity:0">2026 · Australia WHV</div>
+  </div>
+  <div class="clip sub" id="subBar" data-start="0" data-duration="20" data-track-index="2" style="opacity:0"><div class="sub-t" id="subText"></div></div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+const subs = ['哎，想去澳洲打工度假？今年就5000个名额，6月25就截止了。','先看看你够不够格——18到30岁？大专以上？雅思4.5？不难的。','怎么搞？官网注册→交25刀→等抽签。中了之后28天交齐6样材料。','多少钱？签证670+体检一千+英语两千，总共1到2万。澳洲时薪20多澳币。','记住了啊，6月25就关了。关注我，下期教你怎么准备材料。'];
+tl.fromTo("#a2",{opacity:0,y:6},{opacity:1,y:0,duration:0.35},0.2);
+tl.fromTo("#a3",{opacity:0,scale:0.5},{opacity:1,scale:1,duration:0.7},0.4);
+tl.fromTo("#a4",{opacity:0,y:8},{opacity:1,y:0,duration:0.4},0.9);
+tl.fromTo("#a5",{opacity:0,y:8},{opacity:1,y:0,duration:0.4},1.2);
+tl.fromTo("#a6",{opacity:0,y:6},{opacity:1,y:0,duration:0.35},2.0);
+tl.fromTo("#a7",{opacity:0},{opacity:1,duration:0.35},2.4);
+tl.fromTo("#a8",{opacity:0},{opacity:1,duration:0.35},2.9);
+tl.call(function(){subText.textContent=subs[0];subBar.style.opacity='1';},[],0.2);
+tl.to("#subBar",{opacity:0,duration:0.3},3.2);
+tl.set("#bg",{backgroundColor:"#000"},0);
+tl.to("#bg",{backgroundColor:"#090912",duration:0.5},3.5);
+tl.to("#bg",{backgroundColor:"#080a10",duration:0.5},7);
+tl.to("#bg",{backgroundColor:"#0a0808",duration:0.5},11.5);
+tl.to("#bg",{backgroundColor:"#0a0a0a",duration:0.5},16);
+tl.fromTo("#b2",{opacity:0,y:12},{opacity:1,y:0,duration:0.5},3.8);
+tl.fromTo("#b3",{opacity:0,y:8},{opacity:1,y:0,duration:0.5},4.2);
+tl.call(function(){subText.textContent=subs[1];subBar.style.opacity='1';},[],3.7);
+tl.to("#subBar",{opacity:0,duration:0.3},6.7);
+tl.fromTo("#c2",{opacity:0,y:12},{opacity:1,y:0,duration:0.5},7.3);
+tl.fromTo("#c3",{opacity:0},{opacity:1,duration:0.35},7.7);
+tl.fromTo("#c4",{opacity:0},{opacity:1,duration:0.45},8.0);
+tl.fromTo("#c5",{opacity:0},{opacity:1,duration:0.35},10.5);
+tl.call(function(){subText.textContent=subs[2];subBar.style.opacity='1';},[],7.2);
+tl.to("#subBar",{opacity:0,duration:0.3},11.2);
+tl.fromTo("#d2",{opacity:0,y:12},{opacity:1,y:0,duration:0.5},11.8);
+tl.fromTo("#d3",{opacity:0,y:8},{opacity:1,y:0,duration:0.45},12.2);
+tl.fromTo("#d4",{opacity:0},{opacity:1,duration:0.35},13.8);
+tl.fromTo("#d5",{opacity:0},{opacity:1,duration:0.35},14.2);
+tl.call(function(){subText.textContent=subs[3];subBar.style.opacity='1';},[],11.7);
+tl.to("#subBar",{opacity:0,duration:0.3},15.7);
+tl.fromTo("#e2",{opacity:0,y:15},{opacity:1,y:0,duration:0.55},16.3);
+tl.fromTo("#e3",{opacity:0},{opacity:1,duration:0.35},16.7);
+tl.fromTo("#e4",{opacity:0},{opacity:1,duration:0.35},17.0);
+tl.fromTo("#e5",{opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.5},17.3);
+tl.fromTo("#e6",{opacity:0},{opacity:1,duration:0.35},18.8);
+tl.call(function(){subText.textContent=subs[4];subBar.style.opacity='1';},[],16.2);
+tl.to("#subBar",{opacity:0,duration:0.3},19.7);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "apple-ai-wwdc26",
+  "private": true,
+  "scripts": {
+    "dev": "npx hyperframes preview",
+    "lint": "npx hyperframes lint",
+    "render": "npx hyperframes render"
+  },
+  "dependencies": {
+    "hyperframes": "latest"
+  }
+}

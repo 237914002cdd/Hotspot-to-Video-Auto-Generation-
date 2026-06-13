@@ -1,0 +1,10 @@
+{
+  "segments": [
+    {"id":"hook","start":0,"duration":5,"text":"写 HTML → 渲染成 MP4，不需要 PR 也不需要 Final Cut。","style":"energetic"},
+    {"id":"what","start":5,"duration":4,"text":"HeyGen 开源的，写 HTML 就能出视频。就这么简单。","style":"calm"},
+    {"id":"why","start":9,"duration":4,"text":"不用剪辑软件、AI 帮你写代码出片、Apache 2.0 开源免费。","style":"clear"},
+    {"id":"how","start":13,"duration":4,"text":"就三步：init → 写 HTML → render。真的一行。","style":"quick"},
+    {"id":"compare","start":17,"duration":4,"text":"纯 HTML 不用学 React，Apache 2.0 随便用不收费。","style":"contrast"},
+    {"id":"cta","start":21,"duration":4,"text":"想试试？GitHub 搜 hyperframes，现在就上手。","style":"encourage"}
+  ]
+}

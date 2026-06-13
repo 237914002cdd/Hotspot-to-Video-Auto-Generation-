@@ -1,0 +1,29 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "01-opener",
+      "file": "01-opener.mp3",
+      "frames": 133,
+      "duration": 4.44
+    },
+    {
+      "id": "02-what",
+      "file": "02-what.mp3",
+      "frames": 331,
+      "duration": 11.04
+    },
+    {
+      "id": "03-features",
+      "file": "03-features.mp3",
+      "frames": 301,
+      "duration": 10.03
+    },
+    {
+      "id": "04-cta",
+      "file": "04-cta.mp3",
+      "frames": 171,
+      "duration": 5.69
+    }
+  ]
+}

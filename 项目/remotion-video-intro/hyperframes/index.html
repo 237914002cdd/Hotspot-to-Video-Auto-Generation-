@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; font-family: -apple-system, "Helvetica Neue", "SF Pro Display", sans-serif; -webkit-font-smoothing: antialiased; color: #fff; }
+    .clip { position: absolute; }
+    .abs { position: absolute; }
+    .bg1 { background: linear-gradient(180deg, #0a0a1a 0%, #0d0d2a 30%, #0a0a0a 100%); }
+    .bg2 { background: linear-gradient(180deg, #0a0a0a 0%, #0d0d1a 30%, #000 100%); }
+    .bg3 { background: linear-gradient(180deg, #000 0%, #0a0a14 30%, #0a0a0a 100%); }
+    .bg4 { background: linear-gradient(180deg, #0a0a0a 0%, #000 30%, #0a0a0a 100%); }
+    .bg5 { background: linear-gradient(180deg, #000 0%, #0a0a0a 30%, #0a0a0a 100%); }
+    .bg6 { background: linear-gradient(180deg, #0a0a0a 0%, #0d0d2a 30%, #0a0a0a 100%); }
+    .pill { display: inline-flex; align-items: center; gap: 15px; padding: 15px 36px; border-radius: 100px; font-size: 30px; font-weight: 500; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04); backdrop-filter: blur(60px); }
+    .pd { width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0; }
+    .h1 { font-size: 84px; font-weight: 700; line-height: 1.1; color: #fff; letter-spacing: -1.5px; }
+    .h1 .lt { font-weight: 400; color: rgba(255,255,255,0.45); }
+    .sn { position: absolute; top: 5%; right: 6%; font-size: 27px; font-weight: 500; color: rgba(255,255,255,0.15); letter-spacing: 3px; }
+    .ed { border-radius: 42px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.06); backdrop-filter: blur(60px); overflow: hidden; }
+    .eb { height: 72px; background: rgba(255,255,255,0.03); border-bottom: 0.5px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 15px; padding: 0 30px; }
+    .edot { width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0; }
+    .edot.r { background: #FF5F56; }
+    .edot.y { background: #FFBD2E; }
+    .edot.g { background: #27C93F; }
+    .cd { font-family: "SF Mono", "JetBrains Mono", monospace; font-size: 30px; line-height: 1.7; padding: 24px 36px; color: rgba(255,255,255,0.4); }
+    .cd .tg { color: #5FC8FF; }
+    .cd .kw { color: #FF7AB2; }
+    .cd .st { color: #FFD500; }
+    .cd .cm { color: rgba(255,255,255,0.45); }
+    .card { padding: 30px 36px; border-radius: 36px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.05); }
+    .pv { position: absolute; right: 6%; bottom: 18%; width: 420px; height: 600px; border-radius: 42px; background: linear-gradient(135deg, rgba(48,209,88,0.12), rgba(0,122,255,0.08)); border: 0.5px solid rgba(255,255,255,0.06); overflow: hidden; backdrop-filter: blur(30px); }
+    .pv .ln { position: absolute; left: 36px; right: 36px; height: 12px; border-radius: 6px; background: rgba(255,255,255,0.1); }
+    .pv .hl { position: absolute; left: 36px; right: 36px; height: 12px; border-radius: 6px; background: #5FC8FF; opacity: 0.7; }
+    .pv .bar { position: absolute; left: 36px; right: 36px; bottom: 24px; height: 9px; border-radius: 6px; background: rgba(255,255,255,0.06); }
+    .pv .bar-fill { height: 100%; width: 0%; border-radius: 6px; background: linear-gradient(90deg, #30D158, #5FC8FF); }
+    .pv .sp { position: absolute; top: 50%; left: 50%; width: 72px; height: 72px; margin: -36px; border: 6px solid rgba(255,255,255,0.05); border-top-color: #30D158; border-radius: 50%; }
+    .term { background: rgba(0,0,0,0.4); border: 0.5px solid rgba(255,255,255,0.06); border-radius: 30px; padding: 30px 42px; font-family: "SF Mono", monospace; font-size: 30px; line-height: 1.8; }
+    .term .pm { color: #30D158; }
+    .term .cmd { color: #fff; }
+    .term .out { color: rgba(255,255,255,0.3); }
+    .msg-b { display: inline-flex; align-items: center; gap: 18px; padding: 24px 36px; border-radius: 30px; background: rgba(48,209,88,0.08); border: 0.5px solid rgba(48,209,88,0.12); font-size: 33px; color: #fff; }
+    .msg-b .dot { width: 12px; height: 12px; border-radius: 50%; background: #30D158; animation: pulse 1.2s ease-in-out infinite; }
+    .msg-b .dot:nth-child(2) { animation-delay: 0.2s; }
+    .msg-b .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .cmpr { display: flex; gap: 24px; }
+    .cmpr > div { flex: 1; padding: 24px 18px; border-radius: 30px; text-align: center; }
+    .cmp-a { background: rgba(48,209,88,0.08); border: 0.5px solid rgba(48,209,88,0.12); }
+    .cmp-b { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.04); }
+    .cmp-l { font-size: 27px; color: rgba(255,255,255,0.25); margin-bottom: 9px; }
+    .cmp-v { font-size: 42px; font-weight: 600; color: #fff; }
+    .cmp-s { font-size: 27px; color: rgba(255,255,255,0.2); margin-top: 6px; }
+    .cta-b { display: inline-flex; align-items: center; gap: 12px; padding: 24px 54px; border-radius: 100px; font-size: 33px; font-weight: 500; color: #30D158; background: rgba(48,209,88,0.1); border: 0.5px solid rgba(48,209,88,0.15); }
+    .sub { position: absolute; bottom: 144px; left: 48px; right: 48px; min-height: 108px; display: flex; align-items: center; justify-content: center; padding: 18px 30px; border-radius: 30px; background: rgba(0,0,0,0.5); backdrop-filter: blur(60px); text-align: center; pointer-events: none; z-index: 100; }
+    .sub-t { font-size: 33px; font-weight: 400; color: rgba(255,255,255,0.9); line-height: 1.4; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .tag-s { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border-radius: 24px; font-size: 27px; background: rgba(48,209,88,0.08); color: #30D158; border: 0.5px solid rgba(48,209,88,0.15); }
+    .tag-p { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border-radius: 24px; font-size: 27px; background: rgba(0,122,255,0.08); color: #5FC8FF; border: 0.5px solid rgba(0,122,255,0.15); }
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="25" data-width="1080" data-height="1920">
+
+  <!-- ==================== S1: 0-4s 钩子 ==================== -->
+  <div class="clip" data-start="0" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg1" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>AI 做视频 · Remotion Skill</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">01/06</div>
+    <div class="ed" id="a2" style="position:absolute;top:16%;left:6%;right:40%;height:40%;opacity:0;transform:translateY(45px)">
+      <div class="eb"><span class="edot r"></span><span class="edot y"></span><span class="edot g"></span></div>
+      <div class="cd" style="position:relative">
+        <div>&gt; <span class="kw">你</span>："<span class="st">用代码做视频</span>"</div>
+        <div id="c01" style="opacity:0">&gt; <span class="tg">Claude</span>：正在创建视频项目...</div>
+        <div id="c02" style="opacity:0"><span class="cm"> ✓ 骨架搭建</span></div>
+        <div id="c03" style="opacity:0"><span class="cm"> ✓ 场景组件生成</span></div>
+        <div id="c04" style="opacity:0"><span class="cm"> ✓ 配音就绪</span></div>
+        <div id="c05" style="opacity:0"><span class="kw">$</span> 渲染完成 → output.mp4</div>
+      </div>
+    </div>
+    <div class="pv" id="a3" style="opacity:0;transform:translateY(45px)">
+      <div class="ln" style="top:54px;width:60%"></div>
+      <div class="ln" style="top:90px;width:80%"></div>
+      <div class="hl" style="top:126px;width:55%"></div>
+      <div class="ln" style="bottom:150px;width:45%"></div>
+      <div class="ln" style="bottom:114px;width:65%"></div>
+      <div class="bar"><div class="bar-fill" id="a2fill"></div></div>
+      <div class="sp" id="a2sp" style="opacity:0"></div>
+    </div>
+    <div id="ab" style="position:absolute;bottom:22%;left:6%;right:6%;text-align:center;opacity:0;transform:scale(0.8)"><div class="msg-b"><span>🎬</span><span>正在生成视频...</span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+  </div>
+
+  <!-- ==================== S2: 4-7s 是什么 ==================== -->
+  <div class="clip" data-start="4" data-duration="3" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg2" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#5FC8FF"></span>什么是 Remotion Skill</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">02/06</div>
+    <div class="h1" id="b1" style="position:absolute;top:13%;left:6%;right:6%;opacity:0;transform:translateY(45px)">Claude Code 的<br><span class="lt">编程视频 Skill</span></div>
+    <div class="ed" id="b2" style="position:absolute;top:24%;left:6%;right:6%;height:30%;opacity:0;transform:translateY(36px)">
+      <div class="eb"><span class="edot r"></span><span class="edot y"></span><span class="edot g"></span></div>
+      <div class="cd">
+        <div id="bc1" style="opacity:0"><span class="cm"># 安装</span></div>
+        <div id="bc2" style="opacity:0"><span class="kw">$</span> git clone remotion-video-skill</div>
+        <div id="bc3" style="opacity:0"><span class="kw">$</span> cp -r remotion-video ~/.claude/skills/</div>
+        <div id="bc4" style="opacity:0"><span class="pm">✓</span> 安装完成，现在就说"用代码做视频"</div>
+      </div>
+    </div>
+    <div id="b3" style="position:absolute;bottom:20%;left:6%;right:6%;display:flex;gap:15px;justify-content:center;opacity:0;transform:translateY(18px)">
+      <span class="tag-s">🎯 说句话就触发</span>
+      <span class="tag-p">⚡ 零配置启动</span>
+    </div>
+  </div>
+
+  <!-- ==================== S3: 7-12s 核心卖点 ⭐ ==================== -->
+  <div class="clip" data-start="7" data-duration="5" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg3" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>三大核心能力</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">03/06</div>
+    <div class="h1" id="c1" style="position:absolute;top:12%;left:6%;right:6%;opacity:0;transform:translateY(45px)">一开口<br><span class="lt">三个能力全自动</span></div>
+    <div class="card" id="cc1" style="position:absolute;top:26%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">⚛️</span><div><div style="font-size:36px;font-weight:600;color:#fff">React 组件写场景</div><div style="font-size:30px;color:rgba(255,255,255,0.3);margin-top:6px">Remotion 原生，每个场景一个组件</div></div></div></div>
+    <div class="card" id="cc2" style="position:absolute;top:37%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">🔊</span><div><div style="font-size:36px;font-weight:600;color:#fff">AI 自动生成配音</div><div style="font-size:30px;color:rgba(255,255,255,0.3);margin-top:6px">Edge TTS / MiniMax 双引擎</div></div></div></div>
+    <div class="card" id="cc3" style="position:absolute;top:48%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">📝</span><div><div style="font-size:36px;font-weight:600;color:#fff">字幕动画全自动</div><div style="font-size:30px;color:rgba(255,255,255,0.3);margin-top:6px">时间轴同步，场景时长自动计算</div></div></div></div>
+  </div>
+
+  <!-- ==================== S4: 12-15s 怎么触发 ==================== -->
+  <div class="clip" data-start="12" data-duration="3" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg4" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#5FC8FF"></span>使用方法</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">04/06</div>
+    <div class="h1" id="d1" style="position:absolute;top:13%;left:6%;right:6%;opacity:0;transform:translateY(45px)">直接说<br><span class="lt">剩下的交给 AI</span></div>
+    <div class="ed" id="d2" style="position:absolute;top:24%;left:6%;right:6%;height:32%;opacity:0;transform:translateY(36px)">
+      <div class="eb"><span class="edot r"></span><span class="edot y"></span><span class="edot g"></span></div>
+      <div class="cd" style="font-size:33px">
+        <div id="dl1" style="opacity:0">/remotion-video</div>
+        <div id="dl2" style="opacity:0"><span class="cm">帮我做一个讲解 Python 装饰器的视频</span></div>
+        <div id="dl3" style="opacity:0"><span class="pm">✓</span> 场景 1：什么是装饰器</div>
+        <div id="dl4" style="opacity:0"><span class="pm">✓</span> 场景 2：@语法糖</div>
+        <div id="dl5" style="opacity:0"><span class="pm">✓</span> 场景 3：实际应用</div>
+        <div id="dl6" style="opacity:0"><span class="kw">$</span> 渲染中...</div>
+      </div>
+    </div>
+    <div id="d3" style="position:absolute;bottom:16%;left:6%;right:6%;text-align:center;opacity:0;transform:translateY(18px)">
+      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+        <span class="tag-s">🐍 Python 教程</span>
+        <span class="tag-p">📊 数据动画</span>
+        <span class="tag-s">🎵 音乐可视化</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== S5: 15-19s TTS亮点 ⭐ ==================== -->
+  <div class="clip" data-start="15" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg5" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>配音方案</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">05/06</div>
+    <div class="h1" id="e1" style="position:absolute;top:14%;left:6%;right:6%;opacity:0;transform:translateY(45px)">两种 TTS 方案<br><span class="lt">丰俭由人</span></div>
+    <div class="cmpr" id="e2" style="position:absolute;top:27%;left:6%;right:6%;opacity:0;transform:translateY(36px)">
+      <div class="cmp-a"><div class="cmp-l">方案 A</div><div class="cmp-v">Edge TTS</div><div class="cmp-s" style="color:#30D158;font-weight:500">完全免费</div></div>
+      <div class="cmp-b"><div class="cmp-l">方案 B</div><div class="cmp-v">MiniMax</div><div class="cmp-s" style="color:#5FC8FF;font-weight:500">声音克隆</div></div>
+    </div>
+    <div class="card" id="ec1" style="position:absolute;bottom:46%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">🆓</span><div><div style="font-size:33px;font-weight:600;color:#fff">Edge TTS：零配置免费</div><div style="font-size:27px;color:rgba(255,255,255,0.3);margin-top:6px">pip install edge-tts 就行</div></div></div></div>
+    <div class="card" id="ec2" style="position:absolute;bottom:34%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">🎙️</span><div><div style="font-size:33px;font-weight:600;color:#fff">MiniMax：声音克隆</div><div style="font-size:27px;color:rgba(255,255,255,0.3);margin-top:6px">API 配置，克隆你自己的声音</div></div></div></div>
+  </div>
+
+  <!-- ==================== S6: 19-25s 收尾CTA ⭐ ==================== -->
+  <div class="clip" data-start="19" data-duration="6" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg6" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>开始</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">06/06</div>
+    <div class="h1" id="f1" style="position:absolute;top:20%;left:6%;right:6%;opacity:0;transform:translateY(45px)">现在开始<br><span class="lt">免费·开源·装好就能用</span></div>
+    <div class="term" id="f2" style="position:absolute;top:34%;left:6%;right:6%;opacity:0;transform:translateY(36px)">
+      <span class="pm">$</span> <span class="cmd">git clone https://github.com/wshuyi/remotion-video-skill.git</span><br>
+      <span class="pm">$</span> <span class="cmd">cp -r remotion-video-skill ~/.claude/skills/</span><br>
+      <span class="out">✓ 安装完成</span>
+    </div>
+    <div class="cta-b" id="f3" style="position:absolute;bottom:26%;left:50%;transform:translateX(-50%) scale(0.85);opacity:0">GitHub 搜 remotion-video-skill →</div>
+    <div id="f4" style="position:absolute;bottom:10%;left:0;width:100%;text-align:center;font-size:27px;color:rgba(255,255,255,0.08);opacity:0">安装一行命令，说句话就出片</div>
+  </div>
+
+  <!-- Subtitle -->
+  <div class="clip sub" id="subBar" data-start="0" data-duration="25" data-track-index="2" style="opacity:0"><div class="sub-t" id="subText"></div></div>
+</div>
+
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+
+const subs = [
+  '对 AI 说句话，视频就做出来了。不是 demo，真的能跑。',
+  'Remotion 做编程视频，现在变成了 Claude Code 的 Skill，装好就能玩。',
+  'React 组件写场景，AI 自动配音，字幕动画一步到位。',
+  '装好之后跟 Claude 说"用代码做视频"，它直接帮你把项目搭好。',
+  '配音有俩选择——Edge 免费版和 MiniMax 克隆版，丰俭由人。',
+  'GitHub 搜 remotion-video-skill，现在就去试试。'
+];
+
+// === S1: 0-4s ===
+tl.fromTo("#a2", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},0.3);
+tl.fromTo("#a3", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},0.3);
+tl.fromTo("#ab", {opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.4,ease:"back.out(1.7)"},1.0);
+tl.call(function(){
+  ['c01','c02','c03','c04','c05'].forEach(function(id,i){
+    setTimeout(function(){var e=document.getElementById(id);if(e){e.style.transition='opacity 0.25s';e.style.opacity='1';}},600+i*300);
+  });
+},[],0.6);
+tl.call(function(){var e=document.getElementById('a2fill');if(e){e.style.transition='width 3s linear';e.style.width='100%';}},[],1.0);
+tl.call(function(){var e=document.getElementById('a2sp');if(e){e.style.transition='opacity 0.3s';e.style.opacity='1';e.style.animation='spin 1.2s linear infinite';}},[],2.0);
+tl.call(function(){subText.textContent=subs[0];subBar.style.opacity='1';},[],0.1);
+tl.to("#subBar",{opacity:0,duration:0.2},3.7);
+
+// === S2: 4-7s ===
+tl.fromTo("#b1", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},4.2);
+tl.fromTo("#b2", {opacity:0,y:36},{opacity:1,y:0,duration:0.5,ease:"power2.out"},4.5);
+tl.call(function(){
+  ['bc1','bc2','bc3','bc4'].forEach(function(id,i){
+    setTimeout(function(){var e=document.getElementById(id);if(e){e.style.transition='opacity 0.2s';e.style.opacity='1';}},400+i*250);
+  });
+},[],4.7);
+tl.fromTo("#b3", {opacity:0,y:18},{opacity:1,y:0,duration:0.3,ease:"power2.out"},5.8);
+tl.call(function(){subText.textContent=subs[1];subBar.style.opacity='1';},[],4.1);
+tl.to("#subBar",{opacity:0,duration:0.2},6.7);
+
+// === S3: 7-12s ===
+tl.fromTo("#c1", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},7.2);
+tl.fromTo("#cc1", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},7.8);
+tl.fromTo("#cc2", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},8.4);
+tl.fromTo("#cc3", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},9.0);
+tl.call(function(){subText.textContent=subs[2];subBar.style.opacity='1';},[],7.1);
+tl.to("#subBar",{opacity:0,duration:0.2},11.7);
+
+// === S4: 12-15s ===
+tl.fromTo("#d1", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},12.2);
+tl.fromTo("#d2", {opacity:0,y:36},{opacity:1,y:0,duration:0.5,ease:"power2.out"},12.5);
+tl.call(function(){
+  ['dl1','dl2','dl3','dl4','dl5','dl6'].forEach(function(id,i){
+    setTimeout(function(){var e=document.getElementById(id);if(e){e.style.transition='opacity 0.2s';e.style.opacity='1';}},300+i*200);
+  });
+},[],12.7);
+tl.fromTo("#d3", {opacity:0,y:18},{opacity:1,y:0,duration:0.3,ease:"power2.out"},13.8);
+tl.call(function(){subText.textContent=subs[3];subBar.style.opacity='1';},[],12.1);
+tl.to("#subBar",{opacity:0,duration:0.2},14.7);
+
+// === S5: 15-19s ===
+tl.fromTo("#e1", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},15.2);
+tl.fromTo("#e2", {opacity:0,y:36},{opacity:1,y:0,duration:0.5,ease:"power2.out"},15.6);
+tl.fromTo("#ec1", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},16.4);
+tl.fromTo("#ec2", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},17.0);
+tl.call(function(){subText.textContent=subs[4];subBar.style.opacity='1';},[],15.1);
+tl.to("#subBar",{opacity:0,duration:0.2},18.7);
+
+// === S6: 19-25s ===
+tl.fromTo("#f1", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},19.2);
+tl.fromTo("#f2", {opacity:0,y:36},{opacity:1,y:0,duration:0.5,ease:"power2.out"},19.7);
+tl.fromTo("#f3", {opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.5,ease:"back.out(1.7)"},20.5);
+tl.fromTo("#f4", {opacity:0},{opacity:1,duration:0.4},21.5);
+tl.call(function(){subText.textContent=subs[5];subBar.style.opacity='1';},[],19.1);
+tl.to("#subBar",{opacity:0,duration:0.3},24.5);
+
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

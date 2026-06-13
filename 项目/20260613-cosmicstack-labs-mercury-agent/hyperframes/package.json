@@ -1,0 +1,14 @@
+{
+  "name": "project-name",
+  "private": true,
+  "scripts": {
+    "dev": "npx hyperframes preview",
+    "check": "npx hyperframes lint --verbose && npx hyperframes inspect",
+    "render": "npx hyperframes render",
+    "publish": "npx hyperframes publish",
+    "tts": "npx hyperframes tts transcript.json --voice zh_CN --lang zh --output assets/narration.mp3"
+  },
+  "dependencies": {
+    "hyperframes": "latest"
+  }
+}

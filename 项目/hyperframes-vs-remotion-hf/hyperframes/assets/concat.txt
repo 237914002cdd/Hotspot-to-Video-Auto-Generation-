@@ -1,0 +1,6 @@
+file '/d/claude code mode/files/hyperframes-vs-remotion-hf/hyperframes/assets/01-opener.mp3'
+file '/d/claude code mode/files/hyperframes-vs-remotion-hf/hyperframes/assets/02-hyperframes-intro.mp3'
+file '/d/claude code mode/files/hyperframes-vs-remotion-hf/hyperframes/assets/03-remotion-intro.mp3'
+file '/d/claude code mode/files/hyperframes-vs-remotion-hf/hyperframes/assets/04-code-comparison.mp3'
+file '/d/claude code mode/files/hyperframes-vs-remotion-hf/hyperframes/assets/05-key-differences.mp3'
+file '/d/claude code mode/files/hyperframes-vs-remotion-hf/hyperframes/assets/06-recommendation.mp3'

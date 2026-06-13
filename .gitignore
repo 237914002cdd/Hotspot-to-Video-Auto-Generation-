@@ -1,0 +1,31 @@
+# 依赖
+node_modules/
+
+# 运行时数据（API key 缓存、热搜数据等）
+看板/data/
+项目/*/renders/
+项目/*/**/renders/
+项目/*/02-制作文件/
+项目/*/03-成品/*.mp4
+# 注意：项目模板目录保留路径但不保留制作过程文件
+模板/项目模板/02-制作文件/*
+!模板/项目模板/02-制作文件/README.md
+
+# 临时文件
+temp/
+tmp/
+*.log
+.DS_Store
+Thumbs.db
+
+# 环境变量（可能含 API Key）
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

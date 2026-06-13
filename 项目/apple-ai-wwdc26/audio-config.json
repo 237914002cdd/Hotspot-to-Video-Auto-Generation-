@@ -1,0 +1,29 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "01-opener",
+      "file": "01-opener.mp3",
+      "frames": 163,
+      "duration": 5.45
+    },
+    {
+      "id": "02-what",
+      "file": "02-what.mp3",
+      "frames": 383,
+      "duration": 12.77
+    },
+    {
+      "id": "03-key",
+      "file": "03-key.mp3",
+      "frames": 232,
+      "duration": 7.73
+    },
+    {
+      "id": "04-privacy",
+      "file": "04-privacy.mp3",
+      "frames": 172,
+      "duration": 5.74
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "segments": [
+    {"id":"segment1","start":0,"duration":5,"text":"","style":""},
+    {"id":"segment2","start":5,"duration":5,"text":"","style":""},
+    {"id":"segment3","start":10,"duration":5,"text":"","style":""}
+  ]
+}

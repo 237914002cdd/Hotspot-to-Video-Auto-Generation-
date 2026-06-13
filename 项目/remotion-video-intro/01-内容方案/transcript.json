@@ -1,0 +1,10 @@
+{
+  "segments": [
+    {"id":"hook","start":0,"duration":4,"text":"对 AI 说句话，视频就做出来了。不是 demo，真的能跑。","style":"energetic"},
+    {"id":"what","start":4,"duration":3,"text":"Remotion 做编程视频，现在变成了 Claude Code 的 Skill，装好就能玩。","style":"explain"},
+    {"id":"features","start":7,"duration":5,"text":"React 组件写场景，AI 自动配音，字幕动画一步到位。","style":"quick"},
+    {"id":"trigger","start":12,"duration":3,"text":"装好之后跟 Claude 说\"用代码做视频\"，它直接帮你把项目搭好。","style":"calm"},
+    {"id":"tts","start":15,"duration":4,"text":"配音有俩选择——Edge 免费版和 MiniMax 克隆版，丰俭由人。","style":"contrast"},
+    {"id":"cta","start":19,"duration":6,"text":"GitHub 搜 remotion-video-skill，现在就去试试。","style":"encourage"}
+  ]
+}

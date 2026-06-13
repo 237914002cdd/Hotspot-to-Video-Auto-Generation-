@@ -1,0 +1,11 @@
+{
+  "name": "gorden-ppt-skill",
+  "private": true,
+  "scripts": {
+    "dev": "npx hyperframes preview",
+    "render": "npx hyperframes render"
+  },
+  "dependencies": {
+    "hyperframes": "latest"
+  }
+}

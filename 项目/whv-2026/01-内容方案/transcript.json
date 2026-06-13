@@ -1,0 +1,11 @@
+{
+  "segments": [
+    {"id":"hook","start":0,"duration":12,"text":"2026澳洲WHV打工度假签证，注册窗口6月4号已经开了，6月25号截止。但有一个很残酷的数字——今年只有5000个名额。","style":"urgent"},
+    {"id":"empathy","start":12,"duration":28,"text":"我知道很多00后、95后都在纠结：要不要去澳洲打工度假？花一两万块钱值得吗？我的答案是——值，但水深。","style":"warm"},
+    {"id":"step1","start":40,"duration":20,"text":"第一步：三个硬门槛——年龄18到30岁、大专以上学历、英语雅思4.5或PTE30。4.5不是6.5，真的不难。","style":"quick"},
+    {"id":"step2","start":60,"duration":30,"text":"第二步：6月25号前注册ImmiAccount，交EOI付25澳币，等抽签。","style":"professional"},
+    {"id":"step3","start":90,"duration":30,"text":"第三步：中签后28天备齐6样：护照、学历公证、英语成绩单、5千存款证明、无犯罪记录、体检报告。","style":"serious"},
+    {"id":"step4","start":120,"duration":30,"text":"第四步：签证670+EOI25+体检一千+英语两千，全部1到2万人民币。","style":"data"},
+    {"id":"outro","start":150,"duration":30,"text":"WHV不是逃避是投资。6月25号截止。关注我，下期讲中签后28天全攻略。","style":"warm_encourage"}
+  ]
+}

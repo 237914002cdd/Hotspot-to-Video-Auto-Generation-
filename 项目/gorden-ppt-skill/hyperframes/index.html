@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Inter','PingFang SC','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
+.clip{position:absolute;inset:0}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:92%;max-width:960px}
+.tag{display:inline-flex;padding:8px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:14px;border:1px solid #38383A;color:#AEAEB2}
+.badge{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase}
+.h-xl{font-size:100px;font-weight:700;line-height:0.92;letter-spacing:-0.045em}
+.h-lg{font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-0.035em}
+.h-md{font-size:48px;font-weight:700;line-height:1.15;letter-spacing:-0.025em}
+.h-sm{font-size:32px;font-weight:600;line-height:1.3}
+.body-text{font-size:24px;font-weight:400;line-height:1.5;color:#AEAEB2}
+.card{background:#1C1C1E;border:1px solid #38383A;border-radius:18px;padding:40px}
+.card-glow{background:linear-gradient(135deg,#1C1C1E,#242428);border:1px solid rgba(10,132,255,0.3);border-radius:18px;padding:36px;box-shadow:0 0 60px rgba(10,132,255,0.08)}
+.stat-box{text-align:center;background:#1C1C1E;border:1px solid #38383A;border-radius:12px;padding:18px 28px;min-width:140px}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="31.2" data-width="1080" data-height="1920">
+
+  <!-- ===== S1: Opener ===== -->
+  <div id="scene-1" class="clip" data-start="0" data-duration="4.44" data-track-index="1">
+    <div class="center" style="text-align:center">
+      <div id="s1-badge" style="opacity:0;margin-bottom:24px">
+        <span class="badge" style="color:#0A84FF;font-size:16px;border:1px solid rgba(10,132,255,0.3);padding:10px 24px;border-radius:10px">🔥 github 1800 ★</span>
+      </div>
+      <div id="s1-title" style="opacity:0">
+        <div class="h-xl" style="margin-bottom:10px">gorden<span style="color:#0A84FF">PPT</span></div>
+        <div class="h-xl">skill</div>
+      </div>
+      <div id="s1-sub" style="opacity:0;margin-top:32px">
+        <div class="body-text" style="font-size:26px;color:#636366">还在熬夜做 PPT？</div>
+        <div class="body-text" style="font-size:26px;color:#636366;margin-top:4px">现在你只需要 <span style="color:#0A84FF">一句话</span></div>
+      </div>
+      <div id="s1-line" style="opacity:0;margin-top:40px;text-align:center">
+        <svg width="120" height="3" viewBox="0 0 120 3"><rect width="120" height="3" rx="1.5" fill="#0A84FF"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S2: What is it ===== -->
+  <div id="scene-2" class="clip" data-start="4.44" data-duration="11.04" data-track-index="1">
+    <div id="s2a" style="opacity:0;position:absolute;inset:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#0A84FF;margin-bottom:16px;font-size:14px">open source · ppt generator</div>
+        <div class="h-lg" style="margin-bottom:30px">AI <span style="color:#0A84FF">PPT</span><br>生成工具</div>
+        <div class="card-glow" style="margin:0 auto;max-width:800px;text-align:left">
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="font-size:48px;line-height:1">⚡</div>
+            <div>
+              <div class="h-sm" style="font-size:32px;margin-bottom:6px">一句话生成</div>
+              <div class="body-text" style="font-size:20px">输入需求 → AI 自动排版 → 输出 .pptx</div>
+            </div>
+          </div>
+        </div>
+        <div id="s2-models" style="display:flex;gap:14px;justify-content:center;margin-top:28px;flex-wrap:wrap">
+          <span class="tag">DeepSeek</span>
+          <span class="tag" style="border-color:#0A84FF;color:#0A84FF">Claude</span>
+          <span class="tag" style="border-color:#FF9F0A;color:#FF9F0A">GPT</span>
+          <span class="tag">MiMo</span>
+        </div>
+        <div style="margin-top:30px;display:flex;gap:24px;justify-content:center">
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:12px">模板</div><div style="font-size:28px;font-weight:700;margin-top:6px">17<span style="font-size:16px;color:#636366"> 套</span></div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:12px">语言</div><div style="font-size:28px;font-weight:700;margin-top:6px">中文</div></div>
+          <div class="stat-box"><div class="badge" style="color:#636366;font-size:12px">许可</div><div style="font-size:28px;font-weight:700;margin-top:6px">开源</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="s2b" style="opacity:0;position:absolute;inset:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#636366;margin-bottom:14px;font-size:13px">how it works</div>
+        <div class="h-lg" style="margin-bottom:16px;font-size:64px;line-height:1.15">install → edit → build</div>
+        <div style="background:#1C1C1E;border:1px solid #38383A;border-radius:14px;padding:28px 32px;margin:0 auto;max-width:700px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:16px;line-height:2;color:#F5F5F7">
+          <div><span style="color:#5FC8FF">$</span> pip install python-pptx</div>
+          <div><span style="color:#5FC8FF">$</span> python build_pptx.py <span style="color:#FFD500">template.pptx</span> <span style="color:#FF7AB2">edits.json</span> <span style="color:#30D158">output.pptx</span></div>
+          <div style="color:#636366;margin-top:8px;font-size:14px"># 17 套中文模板 · 自动排版</div>
+        </div>
+        <div style="margin-top:32px">
+          <span class="badge" style="color:#30D158;font-size:14px">✅ 兼容所有主流模型</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S3: Features ===== -->
+  <div id="scene-3" class="clip" data-start="15.48" data-duration="10.03" data-track-index="1">
+    <div id="s3a" style="opacity:0;position:absolute;inset:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#0A84FF;margin-bottom:14px;font-size:14px">features</div>
+        <div class="h-lg" style="font-size:64px;margin-bottom:32px">三大亮点</div>
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;margin:0 auto">
+          <div class="card" style="display:flex;align-items:center;gap:20px;padding:28px 32px;text-align:left">
+            <div style="font-size:36px">📊</div>
+            <div><div style="font-size:22px;font-weight:600">信息密度高</div><div style="font-size:16px;color:#AEAEB2;margin-top:2px">排版复杂 · 商务质感 · 真能用</div></div>
+          </div>
+          <div class="card" style="display:flex;align-items:center;gap:20px;padding:28px 32px;text-align:left">
+            <div style="font-size:36px">🤖</div>
+            <div><div style="font-size:22px;font-weight:600">模型无关</div><div style="font-size:16px;color:#AEAEB2;margin-top:2px">DeepSeek/Mimo/Claude/GPT 全部兼容</div></div>
+          </div>
+          <div class="card" style="display:flex;align-items:center;gap:20px;padding:28px 32px;text-align:left">
+            <div style="font-size:36px">🔄</div>
+            <div><div style="font-size:22px;font-weight:600">自动更新</div><div style="font-size:16px;color:#AEAEB2;margin-top:2px">技能像软件一样更新，模板持续增加</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="s3b" style="opacity:0;position:absolute;inset:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#FF9F0A;margin-bottom:14px;font-size:14px">perfect for</div>
+        <div class="h-lg" style="font-size:56px;margin-bottom:30px">适合谁用？</div>
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
+          <div class="card" style="padding:28px 32px;width:320px"><div style="font-size:32px;margin-bottom:8px">🏢</div><div style="font-size:20px;font-weight:600">国企</div><div style="font-size:14px;color:#AEAEB2;margin-top:4px">标准商务模板</div></div>
+          <div class="card" style="padding:28px 32px;width:320px"><div style="font-size:32px;margin-bottom:8px">🚀</div><div style="font-size:20px;font-weight:600">互联网大厂</div><div style="font-size:14px;color:#AEAEB2;margin-top:4px">高密度信息页</div></div>
+          <div class="card" style="padding:28px 32px;width:320px"><div style="font-size:32px;margin-bottom:8px">🧑‍💻</div><div style="font-size:20px;font-weight:600">AI 玩家</div><div style="font-size:14px;color:#AEAEB2;margin-top:4px">一键生成 PPT</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S4: CTA ===== -->
+  <div id="scene-4" class="clip" data-start="25.51" data-duration="5.69" data-track-index="1">
+    <div id="s4a" style="opacity:0;position:absolute;inset:0">
+      <div class="center" style="text-align:center">
+        <div class="badge" style="color:#0A84FF;margin-bottom:16px;font-size:14px">github · open source</div>
+        <div class="h-lg" style="font-size:72px;margin-bottom:10px">⭐ 1800<span style="font-size:32px;color:#636366"> stars</span></div>
+        <div class="body-text" style="font-size:24px;margin-bottom:6px">完全开源 · 个人免费</div>
+        <div class="body-text" style="font-size:20px;color:#636366;margin-bottom:32px">链接在评论区 👇</div>
+        <div style="background:#1C1C1E;border:1px solid #38383A;border-radius:12px;padding:16px 28px;display:inline-flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:16px;color:#AEAEB2">
+          <span style="color:#0A84FF">→</span> GordenSun/GordenPPTSkill
+        </div>
+        <div style="margin-top:36px;opacity:0.3;font-size:14px;color:#636366;letter-spacing:0.05em">PROMPT · BUILD · DELIVER</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BGM 和配音 -->
+<audio id="narration-audio" data-start="0" data-duration="31.2" data-track-index="3" src="assets/narration.mp3"></audio>
+
+<script>
+// ===== GSAP Timeline =====
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({defaults:{ease:'power2.out'}});
+window.__timelines.main = tl;
+
+// S1: Opener (0s → 4.44s)
+tl.fromTo('#s1-badge', {y:20,opacity:0}, {y:0,opacity:1,duration:0.5}, 0.3);
+tl.fromTo('#s1-title', {y:30,opacity:0}, {y:0,opacity:1,duration:0.7}, 0.7);
+tl.fromTo('#s1-sub', {y:20,opacity:0}, {y:0,opacity:1,duration:0.6}, 1.5);
+tl.fromTo('#s1-line', {scaleX:0,opacity:0}, {scaleX:1,opacity:1,duration:0.5,transformOrigin:'center'}, 2.2);
+
+// S2: What is it (4.44s → 15.48s)
+// Part A: intro
+tl.fromTo('#s2a', {opacity:0}, {opacity:1,duration:0.4}, 4.5);
+tl.fromTo('#s2-models', {y:20,opacity:0}, {y:0,opacity:1,duration:0.5}, 5.5);
+// Part B: how it works (transition at ~9s)
+tl.to('#s2a', {opacity:0,duration:0.3}, 9.5);
+tl.fromTo('#s2b', {opacity:0}, {opacity:1,duration:0.4}, 9.8);
+
+// S3: Features (15.48s → 25.51s)
+tl.to('#s2b', {opacity:0,duration:0.3}, 15.5);
+tl.fromTo('#s3a', {opacity:0}, {opacity:1,duration:0.4}, 15.8);
+tl.to('#s3a', {opacity:0,duration:0.3}, 20.5);
+tl.fromTo('#s3b', {opacity:0}, {opacity:1,duration:0.4}, 20.8);
+
+// S4: CTA (25.51s → 31.20s)
+tl.to('#s3b', {opacity:0,duration:0.3}, 25.5);
+tl.fromTo('#s4a', {y:20,opacity:0}, {y:0,opacity:1,duration:0.5}, 25.8);
+</script>
+</body>
+</html>

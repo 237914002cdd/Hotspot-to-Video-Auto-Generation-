@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; font-family: -apple-system, "Helvetica Neue", "SF Pro Display", sans-serif; -webkit-font-smoothing: antialiased; color: #fff; }
+    .clip { position: absolute; }
+    .abs { position: absolute; }
+    .bg1 { background: linear-gradient(180deg, #0a0a1a 0%, #0d0d2a 30%, #0a0a0a 100%); }
+    .bg2 { background: linear-gradient(180deg, #0a0a0a 0%, #0d0d1a 30%, #000 100%); }
+    .bg3 { background: linear-gradient(180deg, #000 0%, #0a0a14 30%, #0a0a0a 100%); }
+    .bg4 { background: linear-gradient(180deg, #0a0a0a 0%, #000 30%, #0a0a0a 100%); }
+    .bg5 { background: linear-gradient(180deg, #000 0%, #0a0a0a 30%, #0a0a0a 100%); }
+    .bg6 { background: linear-gradient(180deg, #0a0a0a 0%, #0d0d2a 30%, #0a0a0a 100%); }
+    .pill { display: inline-flex; align-items: center; gap: 15px; padding: 15px 36px; border-radius: 100px; font-size: 30px; font-weight: 500; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04); backdrop-filter: blur(60px); }
+    .pd { width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0; }
+    .h1 { font-size: 84px; font-weight: 700; line-height: 1.1; color: #fff; letter-spacing: -1.5px; }
+    .h1 .lt { font-weight: 400; color: rgba(255,255,255,0.45); }
+    .ed { border-radius: 42px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.06); backdrop-filter: blur(60px); overflow: hidden; }
+    .eb { height: 72px; background: rgba(255,255,255,0.03); border-bottom: 0.5px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 15px; padding: 0 30px; }
+    .edot { width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0; }
+    .edot.r { background: #FF5F56; }
+    .edot.y { background: #FFBD2E; }
+    .edot.g { background: #27C93F; }
+    .cd { font-family: "SF Mono", "JetBrains Mono", monospace; font-size: 30px; line-height: 1.7; padding: 24px 36px; color: rgba(255,255,255,0.4); }
+    .cd .tg { color: #5FC8FF; }
+    .cd .at { color: #FFD500; }
+    .cd .vl { color: #FF7AB2; }
+    .cd .st { color: #FFD500; }
+    .cd .cm { color: rgba(255,255,255,0.15); }
+    .cd .kw { color: #FF7AB2; }
+    .card { padding: 30px 36px; border-radius: 36px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.05); }
+    .pv { position: absolute; right: 6%; bottom: 18%; width: 420px; height: 600px; border-radius: 42px; background: linear-gradient(135deg, rgba(212,168,67,0.12), rgba(0,122,255,0.08)); border: 0.5px solid rgba(255,255,255,0.06); overflow: hidden; backdrop-filter: blur(30px); }
+    .pv .ln { position: absolute; left: 36px; right: 36px; height: 12px; border-radius: 6px; background: #D4A843; opacity: 0.25; }
+    .pv .hl1 { position: absolute; left: 36px; right: 36px; height: 12px; border-radius: 6px; background: #30D158; opacity: 0.7; }
+    .pv .hl2 { position: absolute; left: 36px; right: 36px; height: 12px; border-radius: 6px; background: #5FC8FF; }
+    .pv .bar { position: absolute; left: 36px; right: 36px; bottom: 24px; height: 9px; border-radius: 6px; background: rgba(255,255,255,0.06); }
+    .pv .bar-fill { height: 100%; width: 0%; border-radius: 6px; background: linear-gradient(90deg, #007AFF, #5FC8FF); }
+    .pv .sp { position: absolute; top: 50%; left: 50%; width: 72px; height: 72px; margin: -36px; border: 6px solid rgba(255,255,255,0.05); border-top-color: #007AFF; border-radius: 50%; }
+    .pv .ri { position: absolute; top: 50%; left: 50%; width: 96px; height: 96px; margin: -48px; border: 4.5px solid rgba(48,209,88,0.06); border-right-color: #30D158; border-radius: 50%; }
+    .term { background: rgba(0,0,0,0.4); border: 0.5px solid rgba(255,255,255,0.06); border-radius: 30px; padding: 30px 42px; font-family: "SF Mono", monospace; font-size: 30px; line-height: 1.8; }
+    .term .pm { color: #30D158; }
+    .term .cmd { color: #fff; }
+    .term .out { color: rgba(255,255,255,0.3); }
+    .cmpr { display: flex; gap: 24px; }
+    .cmpr > div { flex: 1; padding: 30px 18px; border-radius: 30px; text-align: center; }
+    .cmp-a { background: rgba(0,122,255,0.08); border: 0.5px solid rgba(0,122,255,0.12); }
+    .cmp-b { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.04); }
+    .cmp-l { font-size: 27px; color: rgba(255,255,255,0.25); margin-bottom: 9px; }
+    .cmp-v { font-size: 42px; font-weight: 600; color: #fff; }
+    .cmp-s { font-size: 27px; color: rgba(255,255,255,0.2); margin-top: 6px; }
+    .cta-b { display: inline-flex; align-items: center; gap: 12px; padding: 24px 54px; border-radius: 100px; font-size: 33px; font-weight: 500; color: #007AFF; background: rgba(0,122,255,0.1); border: 0.5px solid rgba(0,122,255,0.15); }
+    .sn { position: absolute; top: 5%; right: 6%; font-size: 27px; font-weight: 500; color: rgba(255,255,255,0.15); letter-spacing: 3px; }
+    .sub { position: absolute; bottom: 144px; left: 48px; right: 48px; min-height: 108px; display: flex; align-items: center; justify-content: center; padding: 18px 30px; border-radius: 30px; background: rgba(0,0,0,0.5); backdrop-filter: blur(60px); text-align: center; pointer-events: none; z-index: 100; }
+    .sub-t { font-size: 33px; font-weight: 400; color: rgba(255,255,255,0.9); line-height: 1.4; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="25" data-width="1080" data-height="1920">
+
+  <!-- Background transition layer (removed - each scene has its own gradient) -->
+
+
+  <!-- S1: 0-5s -->
+  <div class="clip" data-start="0" data-duration="5" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg1" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>开源 · HTML 即是视频</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">01/06</div>
+    <div id="a2" class="ed" style="position:absolute;top:16%;left:6%;right:40%;height:40%;opacity:0;transform:translateY(45px)">
+      <div class="eb"><span class="edot r"></span><span class="edot y"></span><span class="edot g"></span></div>
+      <div class="cd">
+        <div id="cl1">&lt;<span class="tg">div</span>&gt;</div>
+        <div id="cl2" style="opacity:0">&nbsp;&lt;<span class="tg">h1</span>&gt;<span class="st">Hello World</span>&lt;/<span class="tg">h1</span>&gt;</div>
+        <div id="cl3" style="opacity:0">&nbsp;&lt;<span class="tg">p</span>&gt;<span class="st">这是一段视频</span>&lt;/<span class="tg">p</span>&gt;</div>
+        <div id="cl4" style="opacity:0">&lt;/<span class="tg">div</span>&gt;</div>
+        <div id="cl5" style="opacity:0"><span class="cm">/* 渲染中... */</span></div>
+        <div id="cl6" style="opacity:0"><span class="kw">$</span> npx hyperframes render</div>
+      </div>
+    </div>
+    <div id="a3" class="pv" style="opacity:0;transform:translateY(45px)">
+      <div class="ln" id="v1" style="top:54px;width:60%"></div>
+      <div class="ln" id="v2" style="top:90px;width:80%"></div>
+      <div class="ln" id="v3" style="bottom:126px;width:45%"></div>
+      <div class="ln" id="v4" style="bottom:90px;width:65%"></div>
+      <div class="hl1" id="vh1" style="top:90px;opacity:0"></div>
+      <div class="hl2" id="vh2" style="bottom:126px;opacity:0"></div>
+      <div class="bar"><div class="bar-fill" id="vb" style="width:0%"></div></div>
+      <div class="sp" id="vs" style="opacity:0"></div>
+      <div class="ri" id="vr" style="opacity:0"></div>
+    </div>
+    <div id="a4" style="position:absolute;bottom:16%;left:6%;right:6%;text-align:center;opacity:0;transform:translateY(30px)"><div style="font-size:48px;font-weight:700;color:#fff;letter-spacing:-1.5px">HTML 写视频？</div><div style="font-size:33px;color:rgba(255,255,255,0.4);margin-top:12px">对，你没看错</div></div>
+  </div>
+
+  <!-- S2: 5-9s -->
+  <div class="clip" data-start="5" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg2" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#007AFF"></span>什么是 HyperFrames</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">02/06</div>
+    <div class="h1" id="b01" style="position:absolute;top:14%;left:6%;right:6%;opacity:0;transform:translateY(45px)">开源框架<br><span class="lt">HTML + CSS → MP4</span></div>
+    <div class="ed" id="b02" style="position:absolute;top:24%;left:6%;right:6%;height:40%;opacity:0;transform:translateY(36px)">
+      <div class="eb"><span class="edot r"></span><span class="edot y"></span><span class="edot g"></span></div>
+      <div class="cd">
+        <div id="bc1" style="opacity:0">&lt;<span class="tg">div</span> <span class="at">data-start</span>=<span class="vl">"0"</span>&gt;</div>
+        <div id="bc2" style="opacity:0">&nbsp;&lt;<span class="tg">h1</span>&gt;Hello&lt;/<span class="tg">h1</span>&gt;</div>
+        <div id="bc3" style="opacity:0">&lt;/<span class="tg">div</span>&gt;</div>
+        <div id="bc4" style="opacity:0"><span class="cm">/* GSAP */</span></div>
+        <div id="bc5" style="opacity:0"><span class="cm">/* Chrome 渲染 */</span></div>
+      </div>
+    </div>
+    <div class="abs" style="bottom:16%;left:6%;right:6%">
+      <div style="display:flex;flex-direction:column;gap:15px">
+        <div id="bs1" style="display:flex;align-items:center;gap:24px;padding:21px 30px;border-radius:24px;background:rgba(255,255,255,0.03);opacity:0;transform:translateX(-24px)"><span style="font-size:33px;width:54px;text-align:center;flex-shrink:0">📝</span><span style="font-size:30px;color:rgba(255,255,255,0.55)">写 HTML 定义时间轴</span></div>
+        <div id="bs2" style="display:flex;align-items:center;gap:24px;padding:21px 30px;border-radius:24px;background:rgba(255,255,255,0.03);opacity:0;transform:translateX(-24px)"><span style="font-size:33px;width:54px;text-align:center;flex-shrink:0">⚡</span><span style="font-size:30px;color:rgba(255,255,255,0.55)">GSAP 驱动的动画</span></div>
+        <div id="bs3" style="display:flex;align-items:center;gap:24px;padding:21px 30px;border-radius:24px;background:rgba(255,255,255,0.03);opacity:0;transform:translateX(-24px)"><span style="font-size:33px;width:54px;text-align:center;flex-shrink:0">🎬</span><span style="font-size:30px;color:rgba(255,255,255,0.55)">逐帧截图 + FFmpeg 合成</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3: 9-13s -->
+  <div class="clip" data-start="9" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg3" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>核心优势</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">03/06</div>
+    <div class="h1" id="c01" style="position:absolute;top:13%;left:6%;right:6%;opacity:0;transform:translateY(45px)">三个理由<br><span class="lt">为什么不学？</span></div>
+    <div class="card" id="c02" style="position:absolute;top:30%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">🎬</span><div><div style="font-size:36px;font-weight:600;color:#fff">不用专业剪辑软件</div><div style="font-size:30px;color:rgba(255,255,255,0.3);margin-top:6px">HTML + CSS 就够了，Final Cut 和 PR 全拜拜</div></div></div></div>
+    <div class="card" id="c03" style="position:absolute;top:41%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">🤖</span><div><div style="font-size:36px;font-weight:600;color:#fff">AI 原生支持</div><div style="font-size:30px;color:rgba(255,255,255,0.3);margin-top:6px">Claude/Cursor 直接写 HTML 出片</div></div></div></div>
+    <div class="card" id="c04" style="position:absolute;top:52%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div style="display:flex;align-items:center;gap:24px"><span style="font-size:48px;width:72px;text-align:center;flex-shrink:0">🔓</span><div><div style="font-size:36px;font-weight:600;color:#fff">Apache 2.0 开源</div><div style="font-size:30px;color:rgba(255,255,255,0.3);margin-top:6px">商用无限制，社区活跃</div></div></div></div>
+  </div>
+
+  <!-- S4: 13-17s -->
+  <div class="clip" data-start="13" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg4" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#30D158"></span>怎么用</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">04/06</div>
+    <div class="h1" id="d01" style="position:absolute;top:14%;left:6%;right:6%;opacity:0;transform:translateY(45px)">三行命令<br><span class="lt">正式开始</span></div>
+    <div class="term" id="d02" style="position:absolute;top:25%;left:6%;right:6%;opacity:0;transform:translateY(36px)">
+      <span class="pm">$</span> <span class="cmd">npx hyperframes init</span><br>
+      <span class="pm">$</span> <span class="cmd">cd my-video && npm install</span><br>
+      <span class="out">✓ 项目已创建</span><br>
+      <span class="pm">$</span> <span class="cmd">npx hyperframes render</span><br>
+      <span class="out">✓ 输出: output.mp4</span>
+    </div>
+    <div class="abs" style="bottom:18%;left:6%;right:6%;text-align:center">
+      <div style="display:flex;gap:15px;justify-content:center">
+        <span id="dt1" class="tag active" style="opacity:0;transform:translateY(18px)">① 初始化</span>
+        <span id="dt2" class="tag active" style="opacity:0;transform:translateY(18px)">② 写 HTML</span>
+        <span id="dt3" class="tag active" style="opacity:0;transform:translateY(18px)">③ 渲染出片</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S5: 17-21s -->
+  <div class="clip" data-start="17" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg5" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#007AFF"></span>对比</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">05/06</div>
+    <div class="h1" id="e01" style="position:absolute;top:14%;left:6%;right:6%;opacity:0;transform:translateY(45px)">HyperFrames vs Remotion<br><span class="lt">为什么选这个？</span></div>
+    <div class="cmpr" id="e02" style="position:absolute;top:28%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div class="cmp-a"><div class="cmp-l">技术栈</div><div class="cmp-v">纯 HTML</div><div class="cmp-s">不用学框架</div></div><div class="cmp-b"><div class="cmp-l">技术栈</div><div class="cmp-v">React</div><div class="cmp-s">要学 JSX</div></div></div>
+    <div class="cmpr" id="e03" style="position:absolute;top:40%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div class="cmp-a"><div class="cmp-l">许可</div><div class="cmp-v">Apache</div><div class="cmp-s">完全免费</div></div><div class="cmp-b"><div class="cmp-l">许可</div><div class="cmp-v">自定义</div><div class="cmp-s">商用需付费</div></div></div>
+    <div class="cmpr" id="e04" style="position:absolute;top:52%;left:6%;right:6%;opacity:0;transform:translateY(36px)"><div class="cmp-a"><div class="cmp-l">Agent</div><div class="cmp-v">✅ 原生</div><div class="cmp-s">AI 直接写</div></div><div class="cmp-b"><div class="cmp-l">Agent</div><div class="cmp-v">⚠ 需适配</div><div class="cmp-s">容易出错</div></div></div>
+  </div>
+
+  <!-- S6: 21-25s -->
+  <div class="clip" data-start="21" data-duration="4" data-track-index="1" style="inset:0;width:100%;height:100%">
+    <div class="bg6" style="position:absolute;inset:0"></div>
+    <div class="pill" style="position:absolute;top:6%;left:6%"><span class="pd" style="background:#007AFF"></span>开始</div>
+    <div class="sn" style="position:absolute;top:5%;right:6%">06/06</div>
+    <div class="h1" id="f01" style="position:absolute;top:20%;left:6%;right:6%;opacity:0;transform:translateY(45px)">现在开始<br><span class="lt">免费·开源·一分钟上手</span></div>
+    <div class="term" id="f02" style="position:absolute;top:34%;left:6%;right:6%;opacity:0;transform:translateY(36px)">
+      <span class="pm">$</span> <span class="cmd">npx hyperframes init</span><br>
+      <span class="pm">$</span> <span class="cmd">npx hyperframes render</span>
+    </div>
+    <div class="cta-b" id="f03" style="position:absolute;bottom:26%;left:50%;transform:translateX(-50%);opacity:0">GitHub 搜 hyperframes<span style="opacity:0.4">→</span></div>
+    <div id="f04" style="position:absolute;bottom:8%;left:0;width:100%;text-align:center;font-size:27px;color:rgba(255,255,255,0.08);opacity:0">github.com/heygen-com/hyperframes</div>
+  </div>
+
+  <!-- Subtitle -->
+  <div class="clip sub" id="subBar" data-start="0" data-duration="25" data-track-index="2" style="opacity:0"><div class="sub-t" id="subText"></div></div>
+
+</div>
+
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+
+const subs = [
+  '写 HTML → 渲染成 MP4，不需要 PR 也不需要 Final Cut。',
+  'HeyGen 开源的，写 HTML 就能出视频。就这么简单。',
+  '不用剪辑软件、AI 帮你写代码出片、Apache 2.0 开源免费。',
+  '就三步：init → 写 HTML → render。真的一行。',
+  '纯 HTML 不用学 React，Apache 2.0 随便用不收费。',
+  '想试试？GitHub 搜 hyperframes，现在就上手。'
+];
+
+// S1 (0-5s)
+tl.fromTo("#a2", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},0.3);
+tl.fromTo("#a3", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},0.3);
+tl.fromTo("#a4", {opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power2.out"},1.5);
+tl.call(function(){
+  ['cl2','cl3','cl4','cl5','cl6'].forEach(function(id,i){
+    setTimeout(function(){var e=document.getElementById(id);if(e){e.style.transition='opacity 0.25s';e.style.opacity='1';}},600+i*350);
+  });
+},[],0.6);
+tl.call(function(){var e=document.getElementById('vh1');if(e){e.style.transition='opacity 0.3s';e.style.opacity='0.7';setTimeout(function(){e.style.transition='opacity 0.5s';e.style.opacity='0';},1000);}},[],1.0);
+tl.call(function(){var e=document.getElementById('vh2');if(e){e.style.transition='opacity 0.3s';e.style.opacity='0.7';setTimeout(function(){e.style.transition='opacity 0.5s';e.style.opacity='0';},700);}},[],2.3);
+tl.call(function(){var e=document.getElementById('vb');if(e){e.style.transition='width 3s linear';e.style.width='100%';}},[],0.9);
+tl.call(function(){var e=document.getElementById('vs');if(e){e.style.transition='opacity 0.3s';e.style.opacity='1';e.style.animation='spin 1.2s linear infinite';}},[],2.0);
+tl.call(function(){var e=document.getElementById('vr');if(e){e.style.transition='opacity 0.3s';e.style.opacity='1';e.style.animation='spin 2s linear infinite';}},[],2.3);
+tl.call(function(){subText.textContent=subs[0];subBar.style.opacity='1';},[],0.1);
+tl.to("#subBar",{opacity:0,duration:0.3},4.7);
+
+// Background transitions removed - each scene has its own gradient layer
+
+// S2 (5-9s)
+tl.fromTo("#b01", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},5.2);
+tl.fromTo("#b02", {opacity:0,y:36},{opacity:1,y:0,duration:0.5,ease:"power2.out"},5.6);
+tl.call(function(){
+  ['bc1','bc2','bc3','bc4','bc5'].forEach(function(id,i){
+    setTimeout(function(){var e=document.getElementById(id);if(e){e.style.transition='opacity 0.25s';e.style.opacity='1';}},600+i*260);
+  });
+},[],5.8);
+tl.fromTo("#bs1", {opacity:0,x:-24},{opacity:1,x:0,duration:0.35,ease:"power2.out"},7.0);
+tl.fromTo("#bs2", {opacity:0,x:-24},{opacity:1,x:0,duration:0.35,ease:"power2.out"},7.5);
+tl.fromTo("#bs3", {opacity:0,x:-24},{opacity:1,x:0,duration:0.35,ease:"power2.out"},8.0);
+tl.call(function(){subText.textContent=subs[1];subBar.style.opacity='1';},[],5.1);
+tl.to("#subBar",{opacity:0,duration:0.3},8.7);
+
+// S3 (9-13s)
+tl.fromTo("#c01", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},9.2);
+tl.fromTo("#c02", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},9.8);
+tl.fromTo("#c03", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},10.4);
+tl.fromTo("#c04", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},11.0);
+tl.call(function(){subText.textContent=subs[2];subBar.style.opacity='1';},[],9.1);
+tl.to("#subBar",{opacity:0,duration:0.3},12.7);
+
+// S4 (13-17s)
+tl.fromTo("#d01", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},13.2);
+tl.fromTo("#d02", {opacity:0,y:36},{opacity:1,y:0,duration:0.5,ease:"power2.out"},13.7);
+tl.fromTo("#dt1", {opacity:0,y:18},{opacity:1,y:0,duration:0.35,ease:"power2.out"},14.3);
+tl.fromTo("#dt2", {opacity:0,y:18},{opacity:1,y:0,duration:0.35,ease:"power2.out"},14.8);
+tl.fromTo("#dt3", {opacity:0,y:18},{opacity:1,y:0,duration:0.35,ease:"power2.out"},15.3);
+tl.call(function(){subText.textContent=subs[3];subBar.style.opacity='1';},[],13.1);
+tl.to("#subBar",{opacity:0,duration:0.3},16.7);
+
+// S5 (17-21s)
+tl.fromTo("#e01", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},17.2);
+tl.fromTo("#e02", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},17.7);
+tl.fromTo("#e03", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},18.2);
+tl.fromTo("#e04", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},18.7);
+tl.call(function(){subText.textContent=subs[4];subBar.style.opacity='1';},[],17.1);
+tl.to("#subBar",{opacity:0,duration:0.3},20.7);
+
+// S6 (21-25s)
+tl.fromTo("#f01", {opacity:0,y:45},{opacity:1,y:0,duration:0.5,ease:"power2.out"},21.2);
+tl.fromTo("#f02", {opacity:0,y:36},{opacity:1,y:0,duration:0.4,ease:"power2.out"},21.7);
+tl.fromTo("#f03", {opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.5,ease:"back.out(1.7)"},22.2);
+tl.fromTo("#f04", {opacity:0},{opacity:1,duration:0.4},22.8);
+tl.call(function(){subText.textContent=subs[5];subBar.style.opacity='1';},[],21.1);
+tl.to("#subBar",{opacity:0,duration:0.3},24.7);
+
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>
