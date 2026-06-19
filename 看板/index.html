@@ -3,58 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>内容决策看板</title>
+<title>Pipeline Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #000; --bgCard: #121214; --bgCardH: #1A1A1E; --bgInput: #1A1A1E;
-  --text: #F5F5F7; --text2: #98989D; --text3: #636366;
-  --border: #2C2C2E; --borderL: #3A3A3C;
-  --blue: #0A84FF; --blueL: #40A9FF; --pink: #FF375F; --orange: #FF9F0A;
-  --green: #30D158; --red: #FF453A;
-  --r: 10px; --rs: 6px; --rl: 14px;
-  --font: -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
-  --mono: "SF Mono","JetBrains Mono",monospace;
-}
+:root{--bg:#F4F4F5;--bgCard:#FFFFFF;--bgCardH:#E4E4E7;--bgInput:#FFFFFF;--text:#18181B;--text2:#52525B;--text3:#A1A1AA;--border:#D4D4D8;--borderL:#E4E4E7;--blue:#0A84FF;--blueL:#40A9FF;--pink:#FF375F;--orange:#FF9F0A;--green:#30D158;--red:#FF453A;--r:10px;--rs:6px;--rl:24px;--primary-fixed:#c8f252;--primary-fixed-dim:#acd537;--on-primary-fixed:#1a1c1d;--on-surface:#1a1c1d;--on-surface-variant:#444936;--outline:#757964;--outline-variant:#c5c9b0;--inverse-surface:#2f3132;--background:#f9f9fa;--aura-primary:#f0fcb3;--aura-muted:#8c9a91;--surface-container:#E8E8E9;--surface-container-low:#EEEFF0;--surface-container-high:#E0E0E2;--surface-container-lowest:#F3F3F4;--surface-dim:#dadadb;--surface-bright:#f9f9fa;--surface-container-highest:#e2e2e3;--inverse-on-surface:#f0f1f2;--primary:#4f6600;--on-primary:#ffffff;--primary-container:#d4ff5e;--on-primary-container:#5b7500;--secondary:#5f5e5e;--on-secondary:#ffffff;--secondary-container:#e2dfde;--on-secondary-container:#636262;--tertiary:#494bd6;--tertiary-container:#f0edff;--on-tertiary-container:#575ae5;--error:#ba1a1a;--on-error:#ffffff;--error-container:#ffdad6;--on-error-container:#93000a;--on-background:#1a1c1d;--surface-variant:#e2e2e3;--surface-tint:#4f6600;--font:"Manrope",sans-serif;--font-display:"Hanken Grotesk",sans-serif;--font-headline:"Hanken Grotesk",sans-serif;--font-body:"Manrope",sans-serif;--font-label:"JetBrains Mono",monospace}
+.dark{--bg:#09090B;--bgCard:#0F1113;--bgCardH:#16181C;--bgInput:#16181C;--text:#EBEBED;--text2:#7A7D85;--text3:#5A5D65;--border:#2A2C32;--borderL:#3A3A3C;--on-surface:#EBEBED;--on-surface-variant:#8c9a91;--background:#09090B;--surface-container:#1A1C1E;--surface-container-low:#131517;--surface-container-high:#222428;--surface-container-lowest:#0E0F11;--inverse-on-surface:#1a1c1d;--primary-container:rgba(200,242,82,0.12);--on-primary-container:#EBEBED;--surface-dim:#111213;--surface-bright:#37393a;--primary:#acd537;--on-primary:#1a2e00;--primary-container-custom:#334700;--secondary:#c8c6c5;--on-secondary:#2f2f2f;--secondary-container:#464545;--on-secondary-container:#e2dfde;--tertiary-container:#353399;--on-tertiary-container:#e1e0ff;--error:#ffb4ab;--on-error:#690005;--error-container:#93000a;--on-error-container:#ffdad6;--on-background:#e2e2e3;--surface-variant:#444936;--surface-tint:#acd537}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+body{font-family:var(--font-body);background:var(--background);color:var(--on-surface);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
 .app{display:flex;min-height:100vh}
 
+.glass-card{background:rgba(232,232,233,0.45);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.6);border-left:1px solid rgba(255,255,255,0.6);box-shadow:inset 0 2px 4px 0 rgba(255,255,255,0.3),0 4px 24px -4px rgba(0,0,0,0.04);border-radius:16px;transition:transform 0.2s ease,box-shadow 0.2s ease}
+.glass-card:hover{transform:translateY(-1px);box-shadow:inset 0 2px 4px 0 rgba(255,255,255,0.3),0 8px 32px -6px rgba(0,0,0,0.08)}
+.dark .glass-card{background:rgba(22,24,28,0.45);border-top:1px solid rgba(255,255,255,0.08);border-left:1px solid rgba(255,255,255,0.08)}
+.dark .glass-card:hover{box-shadow:0 8px 32px -6px rgba(0,0,0,0.3)}
+.capsule-container{background:rgba(232,232,233,0.8);border-radius:9999px;padding:4px;display:inline-flex;box-shadow:inset 0 1px 3px rgba(0,0,0,0.1)}
+.dark .capsule-container{background:rgba(30,32,37,0.8)}
+.capsule-btn{border-radius:9999px;padding:6px 16px;font-size:14px;transition:all 0.2s;background:transparent;color:var(--on-surface-variant);cursor:pointer;border:none;font-family:var(--font-body)}
+.capsule-btn.active{background:#ffffff;color:var(--on-surface);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.dark .capsule-btn.active{background:var(--on-surface-variant);color:var(--on-surface)}
+
 /* Sidebar */
-.sidebar{width:224px;flex-shrink:0;background:#0A0A0A;border-right:1px solid var(--border);position:fixed;top:0;left:0;height:100vh;z-index:100;display:flex;flex-direction:column}
-.shdr{padding:22px 18px 14px;border-bottom:1px solid var(--border)}
-.sb{display:flex;align-items:center;gap:10px}
-.sb .logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--blue),#5E5CE6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-.sb-txt{line-height:1.2}
-.sb-name{font-size:14px;font-weight:600;letter-spacing:-0.01em}
-.sb-sub{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.04em;margin-top:1px}
-.snav{padding:6px;flex:1;overflow-y:auto}
-.ns{font-size:9px;color:var(--text3);letter-spacing:0.06em;padding:14px 12px 3px;text-transform:uppercase;font-weight:600}
-.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--rs);color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;transition:all .12s;margin-bottom:1px;border:none;background:none;width:100%;text-align:left}
-.ni:hover{background:rgba(255,255,255,0.06);color:var(--text)}
-.ni.on{background:rgba(10,132,255,0.15);color:var(--blueL)}
-.ni .ic{width:16px;text-align:center;font-size:13px;flex-shrink:0}
-.ni .bd{margin-left:auto;font-size:9px;padding:1px 6px;border-radius:10px;background:var(--orange);color:#000;font-weight:700;font-family:var(--mono)}
+.aura-sidebar{position:fixed;left:24px;top:24px;bottom:24px;width:80px;z-index:100;border-radius:16px;border:1px solid rgba(255,255,255,0.04);overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(rgba(14,14,15,0.65),rgba(20,20,20,0.65));backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);box-shadow:rgba(0,0,0,0.35) 0px 20px 60px,rgba(255,255,255,0.04) 1px 0px 0px inset;transition:width .4s cubic-bezier(0.34,1.56,0.64,1);overflow-y:auto;pointer-events:none}
+.aura-sidebar *{pointer-events:auto}
+.aura-sidebar:hover{width:240px}
+.aura-sidebar:hover .nav-label{opacity:1;margin-left:12px;max-width:120px}
+.app:has(.aura-sidebar:hover) .main{margin-left:288px}
+.aura-logo{height:72px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.05)}
+.aura-logo-ring{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--primary-fixed);color:var(--on-primary-fixed);font-family:var(--font-headline);font-size:18px;font-weight:700}
+.aura-nav{flex:1;padding:16px 10px;display:flex;flex-direction:column;gap:6px}
+.aura-nav-item{position:relative;width:100%;height:48px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:none;background:transparent;cursor:pointer;gap:12px;transition:all .4s cubic-bezier(0.34,1.56,0.64,1);padding:0 14px}
+.aura-nav-item .nav-icon svg{width:20px;height:20px;color:rgba(255,255,255,0.5)}
+.aura-nav-item:hover .nav-icon svg{color:rgba(255,255,255,0.8)}
+.aura-nav-item.on{background:rgba(200,242,82,0.15);justify-content:flex-start}
+.aura-nav-item.on .nav-icon svg{color:var(--primary-fixed);filter:drop-shadow(0 0 8px rgba(200,242,82,0.3))}
+.aura-nav-item .nav-label{font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);white-space:nowrap;overflow:hidden;max-width:0;opacity:0;transition:all .3s cubic-bezier(0.34,1.56,0.64,1) .06s}
+.aura-nav-item .nav-badge{position:absolute;top:6px;right:6px;font-size:8px;padding:1px 5px;border-radius:10px;background:var(--orange);color:#000;font-weight:700;font-family:var(--font-label)}
+.aura-nav-bottom{padding:16px 12px;border-top:1px solid rgba(255,255,255,0.05);display:flex;flex-direction:column;gap:8px;align-items:center}
 
 /* Main */
-.main{margin-left:224px;flex:1;min-width:0}
-.top{position:sticky;top:0;z-index:50;background:rgba(0,0,0,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 28px;height:48px;display:flex;align-items:center;justify-content:space-between}
-.top h2{font-size:14px;font-weight:600}
-.tr{display:flex;align-items:center;gap:14px}
-.conn{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text3)}
-.cd{width:5px;height:5px;border-radius:50%;background:var(--red);transition:background .3s}
-.cd.on{background:var(--green)}.cd.cn{background:var(--orange)}.cd.er{background:var(--red)}
-.td{font-size:11px;color:var(--text3)}
-.ct{padding:20px 28px 48px;max-width:1440px}
+.main{position:relative;z-index:10;margin-left:128px;flex:1;min-width:0;padding:0 32px;transition:margin-left .4s cubic-bezier(0.34,1.56,0.64,1)}
+.aura-top{padding:32px 0 24px;display:flex;align-items:center;justify-content:space-between}
+.aura-top h1{font-family:var(--font-display);font-size:48px;font-weight:700;letter-spacing:-0.02em;color:var(--on-surface)}
+.aura-top .sub{font-size:16px;font-weight:400;color:var(--on-surface-variant);margin-top:8px;font-family:var(--font-body)}
+.aura-top-right{display:flex;align-items:center;gap:12px}
+.aura-conn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:9999px;background:var(--surface-container);font-size:12px;font-family:var(--font-label);color:var(--on-surface-variant);transition:all .3s}
+.cd{width:8px;height:8px;border-radius:50%;background:var(--red);transition:all .3s;display:inline-block;flex-shrink:0}
+.cd.on{background:var(--green);box-shadow:0 0 8px rgba(98,204,98,0.5)}.cd.cn{background:var(--orange);animation:pulse 2s infinite}.cd.er{background:var(--red)}
+.ct{padding:20px 0 48px;max-width:1440px}
 
 /* Cards */
-.cd-card{background:var(--bgCard);border-radius:var(--rl);border:1px solid var(--border);padding:18px;margin-bottom:10px}
+.cd-card{background:rgba(18,20,19,0.4);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;border:1px solid rgba(255,255,255,0.05);padding:24px;margin-bottom:10px}
+.dark .cd-card{background:rgba(18,20,19,0.4);border:1px solid rgba(255,255,255,0.05)}
 .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;flex-wrap:wrap}
-.ct2{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
+.ct2{font-size:20px;font-weight:600;display:flex;align-items:center;gap:7px;font-family:var(--font-headline),sans-serif}
 .ct2 .ic{font-size:14px}
 .cs{font-size:11px;color:var(--text3)}
-.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:10px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .fr{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .fc{display:flex;gap:8px}.fc>*{flex:1}
@@ -72,6 +80,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font
 
 /* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:6px 14px;border-radius:var(--rs);border:none;font-size:11px;font-weight:600;cursor:pointer;transition:all .1s;font-family:var(--font);line-height:1;white-space:nowrap}
+.btn:active{transform:scale(0.95)}
 .btn-p{background:var(--blue);color:#fff}.btn-p:hover{background:var(--blueL)}
 .btn-g{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-g:hover{background:var(--bgCardH);color:var(--text);border-color:var(--borderL)}
 .btn-s{padding:4px 10px;font-size:10px}.btn-xs{padding:2px 7px;font-size:9px;border-radius:4px}
@@ -87,23 +96,23 @@ td{padding:8px 9px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:
 tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)}
 
 /* Tags */
-.tag{display:inline-flex;align-items:center;padding:1px 8px;border-radius:3px;font-size:9px;font-weight:600;letter-spacing:.02em;font-family:var(--mono);line-height:1.5}
+.tag{display:inline-flex;align-items:center;padding:1px 8px;border-radius:3px;font-size:9px;font-weight:600;letter-spacing:.02em;font-family:var(--font-label);line-height:1.5}
 .t-b{background:rgba(10,132,255,.12);color:var(--blueL)}
 .t-p{background:rgba(255,55,95,.12);color:#FF6B8A}
 .t-g{background:rgba(48,209,88,.12);color:#63E6A0}
 .t-o{background:rgba(255,159,10,.12);color:#FFB340}
 .t-r{background:rgba(255,69,58,.12);color:#FF6B5E}
 .t-gray{background:rgba(152,152,157,.1);color:var(--text2)}
-.pri{font-family:var(--mono);font-weight:700;font-size:10px}
+.pri{font-family:var(--font-label);font-weight:700;font-size:10px}
 .p-p0{color:var(--red)}.p-p1{color:var(--orange)}.p-p2{color:var(--blueL)}.p-sk{color:var(--text3)}
-.sn{font-size:18px;font-weight:700;font-family:var(--mono);line-height:1}
+.sn{font-size:18px;font-weight:700;font-family:var(--font-label);line-height:1}
 .s-g{color:var(--green)}.s-o{color:var(--orange)}.s-r{color:var(--red)}
 .dt{display:flex;gap:2px}.dt .d{width:6px;height:6px;border-radius:50%;background:var(--borderL)}.dt .d.fl{background:var(--blue)}
 
 /* Hot items */
 .hi{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
 .hi:last-child{border-bottom:none;padding-bottom:0}
-.hr{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;font-family:var(--mono)}
+.hr{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;font-family:var(--font-label)}
 .hr.r1{background:rgba(255,159,10,.2);color:var(--orange)}
 .hr.r2{background:rgba(255,159,10,.12);color:var(--orange)}
 .hr.r3{background:rgba(255,159,10,.08);color:var(--orange)}
@@ -144,7 +153,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 
 /* Keywords */
 .kr{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px}
-.kr:last-child{border-bottom:none}.kc{color:var(--text3);font-family:var(--mono);font-size:10px}
+.kr:last-child{border-bottom:none}.kc{color:var(--text3);font-family:var(--font-label);font-size:10px}
 
 /* Capacity */
 .cp{background:var(--bgCardH);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;text-align:center}
@@ -160,47 +169,130 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
   .g2,.fr2,.fr3{grid-template-columns:1fr}
 }
 @media(max-width:768px){
-  .sidebar{width:48px}
+  .aura-sidebar{width:48px}
   .ni span,.sb-txt,.ns{display:none}
   .shdr{padding:14px 8px}
   .main{margin-left:48px}
   .ct{padding:14px}
   .top{padding:0 14px}
 }
+
+@media(max-width:768px){.aura-sidebar{left:12px;top:auto;bottom:12px;width:calc(100% - 24px);height:64px;flex-direction:row;border-radius:16px}.aura-sidebar:hover{width:calc(100% - 24px)}.aura-logo{display:none}.aura-nav{flex-direction:row;padding:8px}.aura-nav-bottom{display:none}.main{margin-left:0;padding:0 14px 80px}.aura-top{flex-direction:column}.aura-top h1{font-size:32px}}
+
+@keyframes pulse-shimmer{0%,100%{opacity:0.3}50%{opacity:0.1}}
+
+/* Font utilities */
+.font-display-lg{font-family:var(--font-display);font-size:48px;font-weight:700;letter-spacing:-0.02em;line-height:56px}
+.font-headline-lg{font-family:var(--font-headline);font-size:32px;font-weight:600;letter-spacing:-0.01em;line-height:40px}
+.font-headline-md{font-family:var(--font-headline);font-size:20px;font-weight:600;letter-spacing:-0.01em}
+.font-body-md{font-family:var(--font-body);font-size:14px;font-weight:400;line-height:1.5}
+.font-label-sm{font-family:var(--font-label);font-size:12px;font-weight:500;letter-spacing:0.05em;line-height:16px}
+
+/* Icon baseline alignment */
+.material-symbols-outlined{vertical-align:middle;line-height:1;font-size:20px}
+
+
+/* --- Stitch V2 Utility Classes Base --- */
+.grid{display:grid}
+.grid-cols-3{grid-template-columns:repeat(3,1fr)}
+.flex{display:flex}
+.flex-col{flex-direction:column}
+.justify-between{justify-content:space-between}
+.items-start{align-items:flex-start}
+.items-center{align-items:center}
+.text-center{text-align:center}
+.p-6{padding:24px}
+.p-4{padding:16px}
+.gap-2{gap:8px}
+.gap-4{gap:16px}
+.gap-6{gap:24px}
+.my-auto{margin-top:auto;margin-bottom:auto}
+.mt-4{margin-top:16px}
+.mb-1{margin-bottom:4px}
+.pt-2{padding-top:8px}
+.w-2{width:8px}
+.h-2{height:8px}
+.border-r{border-right:1px solid rgba(117,121,100,0.2)}
+.border-t{border-top:1px solid rgba(117,121,100,0.2)}
+.rounded-xl{border-radius:16px}
+.rounded-full{border-radius:9999px}
+.uppercase{text-transform:uppercase}
+.tracking-wider{letter-spacing:0.05em}
+.text-2xl{font-size:24px;line-height:32px}
+.text-xs{font-size:12px;line-height:16px}
+.text-sm{font-size:14px;line-height:20px}
+.text-on-surface-variant{color:var(--on-surface-variant)}
+.text-primary{color:var(--primary-fixed)}
+.text-error{color:var(--red)}
+.font-metric-xl{font-size:40px;font-weight:700;font-family:var(--font-display);letter-spacing:-0.03em;line-height:48px}
+.pulse-dot{animation:pulse 2s infinite;background-color:var(--primary-fixed)}
+.transition-all{transition:all .3s cubic-bezier(.4,0,.2,1)}
+.hover\:shadow-lg:hover{transform:translateY(-2px);box-shadow:0 12px 32px -4px rgba(0,0,0,.08)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Kanban Asset Board */
+.kanban-col{display:flex;flex-direction:column;gap:16px;background:var(--surface-container-low);border-radius:24px;padding:20px;min-height:600px;border:1px solid rgba(117,121,100,0.15)}
+.dark .kanban-col{background:rgba(22,24,28,0.65)}
+.asset-card{background:var(--surface);border-radius:12px;padding:14px;border:1px solid var(--outline-variant);box-shadow:0 2px 8px rgba(0,0,0,0.02);display:flex;flex-direction:column;gap:12px;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.dark .asset-card{background:var(--surface-container-high)}
+.asset-card:hover{transform:translateY(-1px);box-shadow:0 8px 16px rgba(0,0,0,0.04)}
+.asset-card.completed{opacity:0.7;filter:grayscale(0.2)}
+.asset-card.completed h4{text-decoration:line-through;color:var(--on-surface-variant)}
+.asset-card.completed .asset-thumb{height:96px}
+.asset-thumb{width:100%;height:128px;border-radius:8px;overflow:hidden;background:var(--surface-container-high);position:relative}
+.asset-thumb img{width:100%;height:100%;object-fit:cover;opacity:0.85;transition:opacity .3s,transform .3s}
+.asset-card:hover .asset-thumb img{opacity:1;transform:scale(1.02)}
+.asset-hp-badge{position:absolute;top:8px;right:8px;z-index:2;background:rgba(73,75,214,0.12);color:var(--tertiary);padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:0.05em;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px)}
+.asset-ready-badge{background:var(--primary-container);color:var(--on-primary-container);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.asset-btn{flex:1;padding:8px 0;border-radius:8px;font-family:var(--font-label);font-size:12px;font-weight:600;letter-spacing:0.02em;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s}
+.asset-btn-primary{background:var(--primary-fixed);color:var(--on-primary-fixed)}
+.asset-btn-primary:hover{background:var(--primary-fixed-dim)}
+.asset-btn-ghost{background:var(--surface-container);color:var(--on-surface)}
+.asset-btn-ghost:hover{background:var(--surface-variant)}
+.asset-btn-border{border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:transparent}
+.asset-btn-border:hover{background:var(--surface-variant)}
+.asset-btn-full{flex:none;width:100%}
+
+/* Overview page enhancements */
+.card-hover{transition:all .3s cubic-bezier(.4,0,.2,1)}
+.card-hover:hover{transform:translateY(-2px);box-shadow:0 12px 24px -4px rgba(0,0,0,0.06)}
+.btn-hover{transition:transform .2s cubic-bezier(.4,0,.2,1)}
+.btn-hover:hover{transform:scale(1.05)}
+.btn-hover:active{transform:scale(0.95)}
+.icon-round{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface-container-lowest);transition:all .2s}
+.group-hover\:scale-105:hover .icon-round{transform:scale(1.1)}
+.more-btn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--on-surface-variant);cursor:pointer;transition:all .2s;border:none;background:transparent;flex-shrink:0;line-height:1;padding:0;font-size:16px}
+.more-btn:hover{background:var(--surface-container-high);color:var(--on-surface)}
 </style>
 </head>
 <body>
 
 <div class="app">
 
-<nav class="sidebar">
-  <div class="shdr">
-    <div class="sb">
-      <div class="logo">D</div>
-      <div class="sb-txt">
-        <div class="sb-name">看板</div>
-        <div class="sb-sub">content dashboard</div>
-      </div>
-    </div>
+<nav class="aura-sidebar">
+  <div class="aura-logo"><div class="aura-logo-ring" id="aura-logo">IA</div></div>
+  <div class="aura-nav">
+    <button class="aura-nav-item on" onclick="goPage('overview')" data-p="overview"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="nav-label">Pipeline Studio</span><span class="nav-badge" id="p0-badge">0</span></button>
+    <button class="aura-nav-item" onclick="goPage('hot')" data-p="hot"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span><span class="nav-label">Hotspots</span></button>
+    <button class="aura-nav-item" onclick="goPage('matrix')" data-p="matrix"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="nav-label">Topic Matrix</span></button>
+    <button class="aura-nav-item" onclick="goPage('calendar')" data-p="calendar"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span><span class="nav-label">Calendar</span></button>
+    <button class="aura-nav-item" onclick="goPage('review')" data-p="review"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><span class="nav-label">Review</span></button>
+    <button class="aura-nav-item" onclick="goPage('playbook')" data-p="playbook"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span><span class="nav-label">Playbook</span></button>
+    <button class="aura-nav-item" onclick="goPage('assets')" data-p="assets"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><circle cx="8" cy="8" r="2"/><path d="M22 15l-5-5-5 5-4-4-6 6v2a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2z"/></svg></span><span class="nav-label">Asset Board</span></button>
   </div>
-  <div class="snav">
-    <div class="ns">工作台</div>
-    <button class="ni on" data-p="overview"><span class="ic">◇</span><span>总览</span><span class="bd" id="p0-badge">0</span></button>
-    <button class="ni" data-p="hot"><span class="ic">◎</span><span>热点简报</span></button>
-    <button class="ni" data-p="matrix"><span class="ic">▦</span><span>选题矩阵</span></button>
-    <button class="ni" data-p="calendar"><span class="ic">▤</span><span>内容日历</span></button>
-    <div class="ns">分析</div>
-    <button class="ni" data-p="review"><span class="ic">◈</span><span>数据复盘</span></button>
-    <button class="ni" data-p="playbook"><span class="ic">▣</span><span>模板匹配</span></button>
+  <div class="aura-nav-bottom">
+    <button class="aura-nav-item" onclick="toggleTheme()" style="height:40px;justify-content:center"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></span><span class="nav-label" id="tt">Dark</span></button>
   </div>
 </nav>
 
 <div class="main">
-  <div class="top">
-    <h2 id="pt">总览</h2>
-    <div class="tr">
-      <span class="conn"><span class="cd cn" id="cd"></span><span id="ctxt">连接中…</span></span>
+  <div class="aura-top">
+    <div><h1 id="pt">Pipeline Studio</h1><div class="sub" id="pt-sub">AI Decisions · SOP Execution · Human Review</div></div>
+    <div class="aura-top-right">
+      <span class="aura-conn"><span class="cd cn" id="cd"></span><span id="ctxt">Connecting...</span></span>
       <span class="td" id="td"></span>
+      <button class="more-btn btn-hover" onclick="toggleTheme()" title="Toggle theme"><span class="material-symbols-outlined" style="font-size:20px">dark_mode</span></button>
+      <button class="btn btn-s btn-p btn-hover" onclick="goPage('matrix')" style="background:var(--primary-fixed);color:var(--on-primary-fixed);border-radius:9999px;padding:10px 24px;font-weight:600;gap:6px;display:flex;align-items:center"><span class="material-symbols-outlined" style="font-size:16px">add</span> Launch Growth Action</button>
     </div>
   </div>
 
@@ -208,276 +300,601 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 
 <!-- ====== 总览 ====== -->
 <div class="pg on" id="p-overview">
-  <div class="g6">
-    <div class="sc"><div class="sl">本周发布</div><div class="sv"><span id="s-pub">0</span></div></div>
-    <div class="sc"><div class="sl">平均完播率</div><div class="sv"><span id="s-cpl">—<span class="u">%</span></span></div></div>
-    <div class="sc"><div class="sl">本周涨粉</div><div class="sv"><span id="s-flw">0</span></div></div>
-    <div class="sc"><div class="sl">选题池</div><div class="sv"><span id="s-idea">0</span></div></div>
-    <div class="sc"><div class="sl">今日热点</div><div class="sv"><span id="s-hot">0</span></div></div>
-    <div class="sc"><div class="sl">P0 推荐</div><div class="sv"><span id="s-p0">0</span></div></div>
+
+  <!-- Capsule Tab Nav -->
+  <div class="capsule-container" style="margin-bottom:24px">
+    <button class="capsule-btn active">Overview</button>
+    <button class="capsule-btn">Revenue</button>
+    <button class="capsule-btn">Growth</button>
+    <button class="capsule-btn">Inventory</button>
+    <button class="capsule-btn">Operations</button>
   </div>
 
-  <!-- Platform Comparison -->
-  <div class="cd-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">📊</span>平台对比</div>
-      <div class="fr" style="font-size:10px;color:var(--text3)">🎵 抖音 &nbsp;|&nbsp; 📕 小红书</div>
-    </div>
-    <div class="g2" style="margin-bottom:0">
-      <div class="sc" style="background:rgba(255,55,95,0.05);border-color:rgba(255,55,95,0.15)">
-        <div class="sl" style="color:var(--pink)">🎵 抖音</div>
-        <div style="display:flex;gap:24px;margin-top:8px;flex-wrap:wrap">
-          <div><div style="font-size:10px;color:var(--text3)">本周发布</div><div style="font-size:20px;font-weight:700"><span id="s-dy-pub">0</span></div></div>
-          <div><div style="font-size:10px;color:var(--text3)">完播率</div><div style="font-size:20px;font-weight:700"><span id="s-dy-cpl">—%</span></div></div>
-          <div><div style="font-size:10px;color:var(--text3)">涨粉</div><div style="font-size:20px;font-weight:700"><span id="s-dy-flw">0</span></div></div>
-          <div><div style="font-size:10px;color:var(--text3)">播放</div><div style="font-size:20px;font-weight:700"><span id="s-dy-v">0</span></div></div>
+  <!-- Bento Grid: 12 columns -->
+  <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:20px">
+
+    <!-- Left Block: 8 cols -->
+    <div style="grid-column:span 8;display:flex;flex-direction:column;gap:20px">
+
+      <!-- Top Row: 3 metrics -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+        <div class="glass-card rounded-xl p-6 flex flex-col justify-between" style="background:var(--surface-container-lowest);position:relative">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2 text-on-surface-variant">
+              <span class="material-symbols-outlined" style="font-size:16px">trending_up</span>
+              <span class="font-label-sm text-xs uppercase tracking-wider">Weekly Published</span>
+            </div>
+            <button class="more-btn"><span class="material-symbols-outlined" style="font-size:18px">more_vert</span></button>
+          </div>
+          <div class="font-metric-xl text-on-surface" style="font-size:40px"><span id="s-pub">0</span></div>
+          <div class="text-sm text-on-surface-variant">vs last 7 days</div>
+          <svg style="margin-top:auto;width:100%;height:32px" preserveAspectRatio="none" viewBox="0 0 100 20">
+            <path d="M0,15 L10,14 L20,16 L30,12 L40,14 L50,10 L60,11 L70,8 L80,9 L90,5 L100,2" fill="none" stroke="var(--outline)" stroke-width="1.5"/>
+          </svg>
+        </div>
+
+        <div class="glass-card" style="padding:24px;background:var(--primary-container);position:relative;overflow:hidden">
+          <div style="position:absolute;right:-40px;top:-40px;width:120px;height:120px;background:var(--primary-fixed);opacity:0.2;border-radius:50%;filter:blur(40px)"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <span class="font-label-sm" style="color:var(--on-surface-variant)">Avg Play Rate</span>
+            <button class="more-btn"><span class="material-symbols-outlined" style="font-size:18px">more_vert</span></button>
+          </div>
+          <div style="position:relative">
+            <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:4px">
+              <span style="font-family:var(--font-display);font-size:40px;font-weight:700;letter-spacing:-0.03em;color:var(--on-surface)" id="s-cpl">—%</span>
+              <span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600;background:var(--on-primary-container);color:var(--primary-container);gap:2px"><span class="material-symbols-outlined" style="font-size:12px">arrow_upward</span>12%</span>
+            </div>
+            <div style="font-size:14px;color:var(--on-surface-variant)">Last five months</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:4px;height:40px;margin-top:16px;position:relative">
+            <div style="flex:1;background:var(--on-primary-container);border-radius:4px 4px 0 0;opacity:0.6;height:40%"></div>
+            <div style="flex:1;background:var(--on-primary-container);border-radius:4px 4px 0 0;opacity:0.6;height:60%"></div>
+            <div style="flex:1;background:var(--on-primary-container);border-radius:4px 4px 0 0;opacity:0.6;height:50%"></div>
+            <div style="flex:1;background:var(--on-primary-container);border-radius:4px 4px 0 0;opacity:0.6;height:80%"></div>
+            <div style="flex:1;background:var(--primary-fixed);border-radius:4px 4px 0 0;height:100%"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl p-6 flex flex-col justify-between transition-all hover:shadow-lg card-hover" style="position:relative">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2 text-on-surface-variant">
+              <span class="material-symbols-outlined text-sm">hub</span>
+              <span class="font-label-sm text-xs uppercase tracking-wider">Topic Pool Stream</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button class="more-btn"><span class="material-symbols-outlined" style="font-size:18px">more_vert</span></button>
+            </div>
+          </div>
+          <div style="display:flex;width:100%;margin:auto 0">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px 0">
+              <div class="font-metric-xl text-on-surface" id="s-idea" style="font-size:40px;line-height:1.1;text-align:center;width:100%;height:46px;display:flex;align-items:center;justify-content:center">--</div>
+              <div class="font-label-sm text-xs text-on-surface-variant uppercase" style="margin-top:2px;text-align:center;width:100%;line-height:1.2">Pending</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px 0;border-left:1px solid var(--outline-variant);border-right:1px solid var(--outline-variant)">
+              <div class="font-metric-xl text-primary" id="s-hot" style="font-size:40px;line-height:1.1;text-align:center;width:100%;height:46px;display:flex;align-items:center;justify-content:center">--</div>
+              <div class="font-label-sm text-xs text-on-surface-variant uppercase" style="margin-top:2px;text-align:center;width:100%;line-height:1.2">Today Hot</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px 0">
+              <div class="font-metric-xl text-error" id="s-p0" style="font-size:40px;line-height:1.1;text-align:center;width:100%;height:46px;display:flex;align-items:center;justify-content:center">--</div>
+              <div class="font-label-sm text-xs text-on-surface-variant uppercase" style="margin-top:2px;text-align:center;width:100%;line-height:1.2">P0 Count</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-2 border-t flex justify-between items-center text-xs text-on-surface-variant">
+            <span class="font-label-sm tracking-wider" style="display:flex;align-items:center;gap:6px"><span class="w-2 h-2 rounded-full pulse-dot"></span>FLOW RATE</span>
+            <span class="font-label-sm" id="s-flw">0/s</span>
+          </div>
         </div>
       </div>
-      <div class="sc" style="background:rgba(255,159,10,0.05);border-color:rgba(255,159,10,0.15)">
-        <div class="sl" style="color:var(--orange)">📕 小红书</div>
-        <div style="display:flex;gap:24px;margin-top:8px;flex-wrap:wrap">
-          <div><div style="font-size:10px;color:var(--text3)">本周发布</div><div style="font-size:20px;font-weight:700"><span id="s-xhs-pub">0</span></div></div>
-          <div><div style="font-size:10px;color:var(--text3)">完播率</div><div style="font-size:20px;font-weight:700"><span id="s-xhs-cpl">—%</span></div></div>
-          <div><div style="font-size:10px;color:var(--text3)">涨粉</div><div style="font-size:20px;font-weight:700"><span id="s-xhs-flw">0</span></div></div>
-          <div><div style="font-size:10px;color:var(--text3)">播放</div><div style="font-size:20px;font-weight:700"><span id="s-xhs-v">0</span></div></div>
+
+      <!-- Audience Growth Insight Chart -->
+      <div class="glass-card" style="padding:32px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+          <div>
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--on-surface);display:flex;align-items:center;gap:8px">
+              <span class="material-symbols-outlined" style="color:var(--outline)">show_chart</span> Audience Growth Insight
+            </div>
+            <div style="font-size:14px;color:var(--on-surface-variant);margin-top:4px">Live performance · last 7 days</div>
+          </div>
+          <select style="padding:8px 16px;border-radius:9999px;border:1px solid var(--outline-variant);background:var(--surface-container);font-family:var(--font-body);font-size:13px;color:var(--on-surface)">
+            <option>2025</option><option>2024</option>
+          </select>
+        </div>
+        <!-- Chart bars -->
+        <div style="position:relative;height:200px;display:flex;align-items:flex-end;gap:12px;padding-left:60px;padding-bottom:40px">
+          <div class="font-label-sm" style="position:absolute;left:0;top:0;bottom:40px;display:flex;flex-direction:column;justify-content:space-between;color:var(--on-surface-variant)">
+            <span>25K</span><span>18.75K</span><span>12.5K</span><span>6.25K</span><span>0</span>
+          </div>
+          <div style="flex:1;background:var(--primary-fixed);opacity:0.3;border-radius:8px 8px 0 0;height:30%"></div>
+          <div style="flex:1;background:var(--primary-fixed);opacity:0.4;border-radius:8px 8px 0 0;height:45%"></div>
+          <div style="flex:1;background:var(--primary-fixed);opacity:0.5;border-radius:8px 8px 0 0;height:40%"></div>
+          <div style="flex:1;background:var(--primary-fixed);opacity:0.6;border-radius:8px 8px 0 0;height:60%"></div>
+          <div style="flex:1;background:var(--primary-fixed);opacity:0.7;border-radius:8px 8px 0 0;height:75%"></div>
+          <div style="flex:1;background:var(--primary-fixed);opacity:0.8;border-radius:8px 8px 0 0;height:85%"></div>
+          <div style="flex:1;background:var(--primary-fixed);border-radius:8px 8px 0 0;height:100%;position:relative">
+            <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--primary-fixed);box-shadow:0 0 12px var(--primary-fixed)"></div>
+          </div>
+          <!-- X-axis labels -->
+          <div class="font-label-sm" style="position:absolute;bottom:0;left:60px;right:0;display:flex;justify-content:space-between;border-top:1px solid var(--outline-variant);padding-top:12px;color:var(--on-surface-variant)">
+            <span style="flex:1;text-align:center">Dec 25</span>
+            <span style="flex:1;text-align:center">Dec 26</span>
+            <span style="flex:1;text-align:center">Dec 27</span>
+            <span style="flex:1;text-align:center">Dec 28</span>
+            <span style="flex:1;text-align:center">Dec 29</span>
+            <span style="flex:1;text-align:center">Dec 30</span>
+            <span style="flex:1;text-align:center;font-weight:700">Today</span>
+          </div>
+          <!-- Peak marker -->
+          <div style="position:absolute;right:12%;top:0;background:var(--inverse-surface);color:var(--inverse-on-surface);padding:6px 16px;border-radius:9999px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px">
+            <span class="material-symbols-outlined" style="font-size:14px;color:var(--primary-fixed)">trending_up</span> Peak: Today 24.5K
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Right Block: 4 cols -->
+    <div style="grid-column:span 4;display:flex;flex-direction:column;gap:20px">
+
+      <!-- Quick Access -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="glass-card" style="padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;background:var(--surface-container);border:none" class="card-hover">
+          <div class="icon-round" style="margin-bottom:12px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="color:var(--on-surface-variant)">chat_bubble</span></div>
+          <span style="font-size:14px;font-weight:600">Messages</span>
+        </div>
+        <div class="glass-card" style="padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;background:var(--surface-container);border:none" class="card-hover">
+          <div class="icon-round" style="margin-bottom:12px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="color:var(--on-surface-variant)">menu_book</span></div>
+          <span style="font-size:14px;font-weight:600">Knowledge</span>
+        </div>
+      </div>
+
+      <!-- AI Recommendation compact (ref wrapper) -->
+      <div style="background:var(--surface-container);border-radius:12px;padding:16px" class="card-hover">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+          <div class="icon-round" style="width:40px;height:40px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="color:var(--primary-fixed);font-size:18px">auto_awesome</span></div>
+          <div style="flex:1"><span style="font-size:14px;font-weight:600">AI Recommendations</span><span style="font-size:11px;color:var(--on-surface-variant);margin-left:8px" id="rc-ct"></span></div>
+        </div>
+        <div id="rc-box"><div class="em"><span class="eic">⏳</span><p>Analyzing...</p></div></div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <button class="btn btn-xs btn-g btn-hover" onclick="loadRecs()" style="flex:1">Refresh</button>
+          <button class="btn btn-xs btn-g btn-hover" onclick="goPage('hot')" style="flex:1">Search</button>
+        </div>
+      </div>
+
+      <!-- Quick Record (ref wrapper) -->
+      <div style="background:var(--surface-container);border-radius:12px;padding:16px" class="card-hover">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div class="icon-round" style="width:40px;height:40px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="font-size:18px">edit_note</span></div>
+          <div style="flex:1"><span style="font-size:14px;font-weight:600">Quick Record</span><span style="font-size:11px;color:var(--on-surface-variant);margin-left:8px">Fill data after publishing</span></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <select class="fs" id="qe-pick" style="flex:2;padding:6px 10px;border-radius:8px"><option value="">— Select —</option></select>
+          <input class="fi" id="qe-date" type="date" style="flex:1;padding:6px 10px;border-radius:8px" />
+        </div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-bottom:6px">🎵 Douyin / 📕 Xiaohongshu</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <input class="fi" id="qe-dy-v" placeholder="Plays" style="padding:6px 10px;font-size:11px;border-radius:8px" />
+          <input class="fi" id="qe-dy-c" placeholder="C%" style="padding:6px 10px;font-size:11px;border-radius:8px" />
+          <input class="fi" id="qe-xhs-v" placeholder="Plays" style="padding:6px 10px;font-size:11px;border-radius:8px" />
+          <input class="fi" id="qe-xhs-c" placeholder="C%" style="padding:6px 10px;font-size:11px;border-radius:8px" />
+        </div>
+        <button class="btn btn-s btn-p btn-hover" onclick="qeSave()" style="width:100%;margin-top:8px;border-radius:8px">Save Data</button>
+      </div>
+
+      <!-- Quick note (ref wrapper) -->
+      <div style="background:var(--surface-container);border-radius:12px;padding:16px" class="card-hover">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+          <div class="icon-round" style="width:40px;height:40px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="font-size:18px">lightbulb</span></div>
+          <span style="font-size:14px;font-weight:600">Quick Note</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <input class="fi" id="qi" placeholder="Got an idea..." style="padding:6px 12px;font-size:12px;flex:1;border-radius:8px" />
+          <button class="btn btn-s btn-p btn-hover" style="flex-shrink:0;border-radius:8px" onclick="qi()">+</button>
+        </div>
+        <div id="todo-box" style="font-size:12px;color:var(--on-surface-variant);margin-top:8px"></div>
+      </div>
+
+      <!-- Agent Confidence -->
+      <div style="padding:20px;border-left:4px solid var(--primary-fixed);background:var(--surface-container-lowest);border-radius:12px" class="card-hover">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <span class="font-label-sm" style="color:var(--on-surface-variant)">Agent Confidence</span>
+          <span style="display:flex;align-items:center;gap:4px;padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:600;background:var(--primary-container);color:var(--on-primary-container)"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-fixed)"></span>Live</span>
+        </div>
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--on-surface)">82%</div>
+        <div style="font-size:14px;color:var(--on-surface-variant);margin-bottom:16px">High confidence</div>
+        <div style="height:8px;background:var(--surface-container-high);border-radius:9999px;overflow:hidden">
+          <div style="height:100%;width:82%;background:var(--primary-fixed);border-radius:9999px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:8px">Monitoring revenue velocity and conversion stability across TikTok and Douyin nodes.</div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- AI Recommendations -->
-  <div class="cd-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">🤖</span>AI 推荐分析</div>
-      <div class="fr">
-        <span class="cs" id="rc-ct"></span>
-        <button class="btn btn-s btn-g" onclick="loadRecs()">刷新</button>
-        <button class="btn btn-s btn-g" onclick="goPage('hot')">搜热点</button>
+  <!-- Bottom Row: Pipeline + Project Assets + Help -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px">
+
+    <!-- Pipeline Progress (left card) -->
+    <div style="padding:20px;border-left:4px solid var(--primary-fixed);background:var(--surface-container-lowest);border-radius:12px" class="card-hover">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span class="font-label-sm" style="color:var(--on-surface-variant)">Pipeline Progress</span>
+        <span style="display:flex;align-items:center;gap:4px;padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:600;background:var(--primary-container);color:var(--on-primary-container)"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-fixed)"></span><span id="flow-status">Calculating...</span></span>
+      </div>
+      <div style="display:flex;gap:4px;height:12px;margin-bottom:8px">
+        <div class="bar done" style="flex:1;background:var(--primary-fixed);border-radius:9999px 0 0 9999px;height:12px" id="flow-bar-1"></div>
+        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-2"></div>
+        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-3"></div>
+        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-4"></div>
+        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-5"></div>
+        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-6"></div>
+        <div class="bar" style="flex:1;background:var(--primary-fixed);height:12px;position:relative;overflow:hidden" id="flow-bar-7">
+          <div style="position:absolute;inset:0;background:rgba(255,255,255,0.3);animation:pulse-shimmer 1.5s ease-in-out infinite"></div>
+        </div>
+        <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px" id="flow-bar-8"></div>
+        <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px" id="flow-bar-9"></div>
+        <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px;border-radius:0 9999px 9999px 0" id="flow-bar-10"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--on-surface-variant)">
+        <span>Data Ingestion</span><span>Analysis</span><span>Optimization</span>
       </div>
     </div>
-    <div id="rc-box"><div class="em"><span class="eic">⏳</span><p>正在分析今日热点…</p></div></div>
-  </div>
 
-  <!-- Quick Entry -->
-  <div class="cd-card" id="qe-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">📊</span>快速录入</div>
-      <span class="cs" style="font-size:10px">发布后填数据</span>
-    </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">已发布内容</label><select class="fs" id="qe-pick"><option value="">— 选择 —</option></select></div>
-      <div class="fg"><label class="fl">日期</label><input class="fi" id="qe-date" type="date" /></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--border);margin-top:4px">
-      <div>
-        <div style="font-size:10px;font-weight:600;color:var(--pink);margin-bottom:6px">🎵 抖音</div>
-        <div class="fr2">
-          <div class="fg"><label class="fl" style="font-size:9px">播放</label><input class="fi" id="qe-dy-v" type="number" style="font-size:11px" /></div>
-          <div class="fg"><label class="fl" style="font-size:9px">完播 %</label><input class="fi" id="qe-dy-c" type="number" style="font-size:11px" /></div>
-        </div>
-        <div class="fr2">
-          <div class="fg"><label class="fl" style="font-size:9px">互动 %</label><input class="fi" id="qe-dy-i" type="number" style="font-size:11px" /></div>
-          <div class="fg"><label class="fl" style="font-size:9px">涨粉</label><input class="fi" id="qe-dy-f" type="number" style="font-size:11px" /></div>
-        </div>
-        <div class="fg"><label class="fl" style="font-size:9px">搜索 %</label><input class="fi" id="qe-dy-s" type="number" style="font-size:11px" /></div>
+    <!-- Project Assets (mini, middle card) -->
+    <div style="background:var(--surface-container-lowest);border-radius:12px;padding:20px" class="card-hover">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="font-size:18px;color:var(--primary-fixed)">movie_filter</span> Project Assets</span>
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-container);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" onclick="goPage('assets')" class="btn-hover"><span class="material-symbols-outlined" style="font-size:16px;color:var(--on-surface-variant)">arrow_forward</span></div>
       </div>
-      <div>
-        <div style="font-size:10px;font-weight:600;color:var(--orange);margin-bottom:6px">📕 小红书</div>
-        <div class="fr2">
-          <div class="fg"><label class="fl" style="font-size:9px">播放</label><input class="fi" id="qe-xhs-v" type="number" style="font-size:11px" /></div>
-          <div class="fg"><label class="fl" style="font-size:9px">完播 %</label><input class="fi" id="qe-xhs-c" type="number" style="font-size:11px" /></div>
+      <div id="proj-box-mini"><div class="em"><span class="eic">⏳</span><p>Loading projects...</p></div></div>
+    </div>
+
+    <!-- Help & Support (right card) -->
+    <div style="background:var(--surface-container-lowest);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center" class="card-hover">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div class="icon-round" style="background:var(--surface-container)"><span class="material-symbols-outlined" style="color:var(--on-surface-variant)">help</span></div>
+        <div>
+          <div style="font-size:14px;font-weight:600">Help &amp; Support</div>
+          <div style="font-size:12px;color:var(--on-surface-variant)">Guides, documentation &amp; ticketing</div>
         </div>
-        <div class="fr2">
-          <div class="fg"><label class="fl" style="font-size:9px">互动 %</label><input class="fi" id="qe-xhs-i" type="number" style="font-size:11px" /></div>
-          <div class="fg"><label class="fl" style="font-size:9px">涨粉</label><input class="fi" id="qe-xhs-f" type="number" style="font-size:11px" /></div>
-        </div>
-        <div class="fg"><label class="fl" style="font-size:9px">搜索 %</label><input class="fi" id="qe-xhs-s" type="number" style="font-size:11px" /></div>
       </div>
+      <button class="btn-hover" style="width:100%;padding:10px 0;border-radius:9999px;border:1px solid var(--outline-variant);background:transparent;font-size:14px;font-weight:600;color:var(--on-surface);cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--surface-container)'" onmouseout="this.style.background='transparent'">Open Support Hub</button>
     </div>
-    <div class="bg" style="margin-top:2px"><button class="btn btn-s btn-p" onclick="qeSave()">保存数据</button></div>
+
   </div>
 
-  <div class="g2">
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">📋</span>待办</div></div>
-      <div id="todo-box"><div class="em"><p>暂无待办</p></div></div>
-    </div>
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">✏️</span>快速记录</div></div>
-      <div class="fg" style="margin-bottom:6px"><input class="fi" id="qi" placeholder="突然想到一个选题…" /></div>
-      <button class="btn btn-s btn-p" onclick="qi()">记录到选题池</button>
-    </div>
+  <!-- Safety sandbox for ro() platform metrics -->
+  <div style="display:none" id="aura-ro-safety-sandbox">
+    <span id="s-dy-pub"></span><span id="s-dy-cpl"></span><span id="s-dy-flw"></span><span id="s-dy-v"></span>
+    <span id="s-xhs-pub"></span><span id="s-xhs-cpl"></span><span id="s-xhs-flw"></span><span id="s-xhs-v"></span>
   </div>
-
-  <!-- 项目资产面板 -->
-  <div class="cd-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">📂</span>项目资产管理</div>
-      <button class="btn btn-s btn-g" onclick="loadProjects()">刷新</button>
-    </div>
-    <div id="proj-box"><div class="em"><span class="eic">⏳</span><p>加载项目列表…</p></div></div>
-  </div>
-</div>
-
-<!-- ====== 热点简报 ====== -->
+</div><!-- ====== 热点简报 ====== -->
 <div class="pg" id="p-hot">
-  <div class="cd-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">🤖</span>自动抓取</div>
-      <button class="btn btn-s btn-p" id="ft-btn" onclick="tf()">立即抓取</button>
-    </div>
-    <div id="auto-box"><div class="em"><span class="eic">⏳</span><p>等待首次抓取…</p></div></div>
+
+  <!-- Capsule Filter -->
+  <div class="capsule-container" style="margin-bottom:24px">
+    <button class="capsule-btn active" onclick="rh()">Overview</button>
+    <button class="capsule-btn" onclick="filterHot('github')">GitHub Trends</button>
+    <button class="capsule-btn" onclick="filterHot('hackernews')">Hacker News</button>
+    <button class="capsule-btn" onclick="filterHot('toutiao')">Toutiao Pulse</button>
   </div>
 
-  <div class="cd-card">
-    <div class="ch"><div class="ct2"><span class="ic">🔍</span>手动搜罗</div></div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">关键词</label><input class="fi" id="hi" /></div>
-      <div class="fg"><label class="fl">来源</label><select class="fs" id="hs"><option value="douyin">抖音</option><option value="xiaohongshu">小红书</option><option value="manual">手动</option></select></div>
+  <!-- Quick action row -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+    <div style="display:flex;gap:6px;flex:1;max-width:480px">
+      <input class="fi" id="hi" placeholder="Search hot topics..." style="flex:2;background:var(--surface-container-low);border-radius:9999px;padding:8px 16px;font-size:13px" />
+      <select class="fs" id="hs" style="width:auto;border-radius:9999px;padding:8px 14px;font-size:12px;background:var(--surface-container-low)">
+        <option value="douyin">🎵 Douyin</option><option value="xiaohongshu">📕 Xiaohongshu</option><option value="manual">✏️ Manual</option>
+      </select>
+      <select class="fs" id="hsc" style="width:auto;border-radius:9999px;padding:8px 14px;font-size:12px;background:var(--surface-container-low)">
+        <option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option>
+      </select>
     </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">热度</label><input class="fi" id="ht" /></div>
-      <div class="fg"><label class="fl">评分</label><select class="fs" id="hsc"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
-    </div>
-    <div class="bg">
-      <button class="btn btn-s btn-p" onclick="ah()">记录</button>
-      <button class="btn btn-s btn-g" onclick="gb()">简报</button>
-    </div>
+    <button class="btn btn-s btn-p" onclick="ah()" style="border-radius:9999px;padding:8px 20px;background:var(--primary-fixed);color:var(--on-surface);font-weight:600">+ Add</button>
+    <button class="btn btn-s btn-g" onclick="tf()" id="ft-btn" style="border-radius:9999px;padding:8px 20px">🤖 Auto Fetch</button>
   </div>
 
-  <div class="cd-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">📡</span>今日趋势</div>
-      <button class="btn btn-s btn-g" onclick="ch()">清空</button>
-    </div>
-    <div id="hot-box"><div class="em"><p>暂无热点</p></div></div>
-  </div>
+  <!-- Bento Grid: 12 columns -->
+  <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:20px">
 
-  <div class="cd-card" id="brief-box" style="display:none">
-    <div class="ch">
-      <div class="ct2"><span class="ic">📋</span>简报</div>
-      <button class="btn btn-s btn-g" onclick="hid('brief-box')">收起</button>
-    </div>
-    <div id="brief-body"></div>
-  </div>
+    <!-- Left Hero: col-span-8 -->
+    <div style="grid-column:span 8;display:flex;flex-direction:column;gap:20px">
 
-  <div class="cd-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">🤖</span>AI 选题分析</div>
-      <div class="fr">
-        <span class="cs" id="hrc-ct"></span>
-        <button class="btn btn-s btn-p" onclick="loadRecs()">刷新</button>
+      <!-- AI Top Pick Hero Card -->
+      <div id="top-pick-card" style="background:var(--inverse-surface);border-radius:24px;padding:36px;position:relative;overflow:hidden;min-height:240px;display:flex;flex-direction:column;justify-content:space-between">
+        <!-- Glow decoration -->
+        <div style="position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:var(--primary-fixed);opacity:0.12;border-radius:50%;filter:blur(60px)"></div>
+        <div style="position:absolute;left:30%;bottom:-40px;width:160px;height:160px;background:var(--tertiary, #494bd6);opacity:0.08;border-radius:50%;filter:blur(50px)"></div>
+
+        <div style="position:relative;z-index:1">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
+            <span class="material-symbols-outlined" style="color:var(--primary-fixed);font-size:20px">auto_awesome</span>
+            <span class="font-label-sm" style="color:rgba(255,255,255,0.6);text-transform:uppercase">AI Top Pick</span>
+            <span id="tp-source" style="padding:2px 8px;border-radius:9999px;font-size:9px;font-weight:600;background:rgba(200,242,82,0.2);color:var(--primary-fixed);font-family:var(--font-label)">Today</span>
+          </div>
+
+          <div id="tp-title" style="font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-0.02em;color:#fff;margin-bottom:24px;max-width:80%;line-height:1.2">Waiting for analysis...</div>
+
+          <!-- 4D Score bars -->
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:400px">
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="font-label-sm" style="color:rgba(255,255,255,0.5)">Heat</span><span class="font-label-sm" id="tp-heat-val" style="color:rgba(255,255,255,0.7)">—</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:9999px;overflow:hidden"><div id="tp-heat-bar" style="height:100%;width:0%;background:var(--primary-fixed);border-radius:9999px;transition:width .8s ease"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="font-label-sm" style="color:rgba(255,255,255,0.5)">Barrier</span><span class="font-label-sm" id="tp-barrier-val" style="color:rgba(255,255,255,0.7)">—</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:9999px;overflow:hidden"><div id="tp-barrier-bar" style="height:100%;width:0%;background:var(--orange);border-radius:9999px;transition:width .8s ease"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="font-label-sm" style="color:rgba(255,255,255,0.5)">Long-tail</span><span class="font-label-sm" id="tp-tail-val" style="color:rgba(255,255,255,0.7)">—</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:9999px;overflow:hidden"><div id="tp-tail-bar" style="height:100%;width:0%;background:var(--blueL);border-radius:9999px;transition:width .8s ease"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="font-label-sm" style="color:rgba(255,255,255,0.5)">Monetization</span><span class="font-label-sm" id="tp-monet-val" style="color:rgba(255,255,255,0.7)">—</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:9999px;overflow:hidden"><div id="tp-monet-bar" style="height:100%;width:0%;background:var(--pink);border-radius:9999px;transition:width .8s ease"></div></div></div>
+          </div>
+        </div>
+
+        <div style="position:relative;z-index:1;margin-top:24px;display:flex;gap:10px">
+          <button id="tp-create-btn" class="btn" onclick="createFromTopPick()" style="border-radius:9999px;padding:10px 24px;background:var(--primary-fixed);color:var(--on-surface);font-weight:600;font-size:14px;font-family:var(--font-body)">Create Project</button>
+          <button class="btn" style="border-radius:9999px;padding:10px 24px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:13px;border:1px solid rgba(255,255,255,0.1);font-family:var(--font-body)">View Details</button>
+        </div>
+      </div>
+
+      <!-- Hot List: Full-width rows -->
+      <div class="glass-card" style="padding:24px;border-radius:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div>
+            <div class="font-headline-md" style="display:flex;align-items:center;gap:6px">
+              <span class="material-symbols-outlined" style="color:var(--outline)">bolt</span> Trending Now
+            </div>
+            <div class="font-body-md" style="color:var(--on-surface-variant);margin-top:2px;font-size:12px">
+              <span id="hot-count">0</span> items · Powered by AI analysis
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-s btn-g" onclick="gb()" style="border-radius:9999px;padding:6px 14px">📋 Brief</button>
+            <button class="btn btn-s btn-g" onclick="ch()" style="border-radius:9999px;padding:6px 14px">Clear</button>
+          </div>
+        </div>
+
+        <div id="auto-box" style="margin-bottom:16px"><div class="em"><span class="eic">⏳</span><p>Waiting for first fetch...</p></div></div>
+
+        <!-- Manual hot topics rendered here -->
+        <div id="hot-box"><div class="em"><p>No hot topics</p></div></div>
       </div>
     </div>
-    <div id="hrc-box"><div class="em"><span class="eic">⏳</span><p>正在分析…</p></div></div>
-  </div>
-</div>
 
-<!-- ====== 选题矩阵 ====== -->
+    <!-- Right Panel: col-span-4 -->
+    <div style="grid-column:span 4;display:flex;flex-direction:column;gap:20px">
+
+      <!-- Market Velocity -->
+      <div class="glass-card" style="padding:28px;border-radius:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <span class="font-label-sm" style="text-transform:uppercase;color:var(--on-surface-variant)">Market Velocity</span>
+          <span class="font-label-sm" style="color:var(--on-surface-variant)" id="mv-time">—</span>
+        </div>
+        <div style="margin-bottom:20px">
+          <div class="font-display-lg" style="color:var(--on-surface);display:flex;align-items:center;gap:6px">
+            <span class="material-symbols-outlined" style="color:var(--primary-fixed);font-size:24px">trending_up</span>
+            <span id="mv-value">+$0</span>
+          </div>
+          <div class="font-body-md" style="color:var(--on-surface-variant);font-size:12px;margin-top:2px">Creator Value</div>
+        </div>
+        <div style="height:1px;background:var(--outline-variant);margin-bottom:20px;opacity:0.3"></div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:13px;color:var(--on-surface-variant);display:flex;align-items:center;gap:6px">
+              <span class="material-symbols-outlined" style="font-size:16px">auto_graph</span> Growth
+            </span>
+            <span style="display:flex;align-items:center;gap:3px;font-weight:600;color:var(--green)" id="mv-growth">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:13px;color:var(--on-surface-variant);display:flex;align-items:center;gap:6px">
+              <span class="material-symbols-outlined" style="font-size:16px">diversity_3</span> Total Creators
+            </span>
+            <span style="font-weight:600;color:var(--on-surface)" id="mv-creators">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manual Entry Card -->
+      <div class="glass-card" style="padding:20px;border-radius:16px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+          <span class="material-symbols-outlined" style="font-size:18px;color:var(--outline)">edit_note</span>
+          <span class="font-headline-md" style="font-size:16px">Manual Entry</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input class="fi" id="ht" placeholder="Trend note" style="flex:1;padding:8px 12px;border-radius:9999px;background:var(--surface-container-low);font-size:12px" />
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-s btn-p" onclick="ah()" style="border-radius:9999px;padding:6px 16px;flex:1;background:var(--primary-fixed);color:var(--on-surface);font-weight:600">Submit</button>
+          <button class="btn btn-s btn-g" onclick="gb()" style="border-radius:9999px;padding:6px 16px;flex:1">Generate Brief</button>
+        </div>
+      </div>
+
+      <!-- AI Brief Box (hidden by default) -->
+      <div class="glass-card" id="brief-box" style="padding:20px;border-radius:16px;display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <span style="display:flex;align-items:center;gap:6px;font-weight:600">
+            <span class="material-symbols-outlined" style="font-size:18px;color:var(--primary-fixed)">summarize</span> AI Brief
+          </span>
+          <button class="btn btn-xs btn-g" onclick="hid('brief-box')">Collapse</button>
+        </div>
+        <div id="brief-body"></div>
+      </div>
+
+      <!-- AI Recommendations -->
+      <div class="glass-card" style="padding:20px;border-radius:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="material-symbols-outlined" style="font-size:18px;color:var(--primary-fixed)">auto_awesome</span>
+            <span class="font-headline-md" style="font-size:16px">AI Topic Analysis</span>
+          </div>
+          <span class="cs" id="hrc-ct"></span>
+        </div>
+        <div id="hrc-box"><div class="em"><p>Loading…</p></div></div>
+        <button class="btn btn-s btn-g" onclick="loadRecs()" style="width:100%;margin-top:8px;border-radius:9999px">Refresh</button>
+      </div>
+
+    </div>
+  </div>
+</div><!-- ====== 选题矩阵 ====== -->
 <div class="pg" id="p-matrix">
-  <div class="cd-card">
-    <div class="ch"><div class="ct2"><span class="ic">➕</span>新建选题</div></div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">名称</label><input class="fi" id="it" /></div>
-      <div class="fg"><label class="fl">简述</label><input class="fi" id="id2" /></div>
-    </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl" style="color:var(--pink)">🔥 热度</label><select class="fs" id="ih"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
-      <div class="fg"><label class="fl" style="color:var(--blue)">🧱 壁垒</label><select class="fs" id="iw"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
-    </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl" style="color:var(--green)">⏳ 持久</label><select class="fs" id="idu2"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
-      <div class="fg"><label class="fl" style="color:var(--orange)">💰 变现</label><select class="fs" id="im"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
-    </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">形式</label><select class="fs" id="ifmt"><option value="remotion-demo">Remotion演示</option><option value="remotion-compare">Remotion对比</option><option value="hyperframes-text">HF文字</option><option value="hyperframes-narrate">HF配音</option><option value="image-text">图文</option></select></div>
-      <div class="fg"><label class="fl">平台</label><select class="fs" id="iplat"><option value="both">双平台</option><option value="douyin">抖音</option><option value="xiaohongshu">小红书</option></select></div>
-    </div>
-    <div class="bg"><button class="btn btn-s btn-p" onclick="ai()">计算→加入</button></div>
+
+  <!-- Capsule Filter -->
+  <div class="capsule-container" style="margin-bottom:24px">
+    <button class="capsule-btn active" onclick="filterMatrix('all')">All</button>
+    <button class="capsule-btn" onclick="filterMatrix('p0')">P0</button>
+    <button class="capsule-btn" onclick="filterMatrix('p1')">High Monetization</button>
+    <button class="capsule-btn" onclick="filterMatrix('p2')">Low Barrier</button>
   </div>
 
-  <div class="cd-card">
-    <div class="ch">
-      <div class="ct2"><span class="ic">📊</span>选题排名</div>
-      <span class="cs" id="ic-ct">0个</span>
+  <!-- Bento: Left form + right quick entry -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+
+    <!-- Left: New Topic Form -->
+    <div class="glass-card" style="padding:28px;border-radius:16px">
+      <div class="font-headline-md" style="margin-bottom:20px;display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="color:var(--primary-fixed)">add_circle</span>
+        New Topic
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <input class="fi" id="it" placeholder="Topic Name" style="padding:10px 14px;border-radius:9999px;background:var(--surface-container-low);font-size:13px" />
+        <input class="fi" id="id2" placeholder="Description (optional)" style="padding:10px 14px;border-radius:9999px;background:var(--surface-container-low);font-size:13px" />
+        <!-- 4D sliders -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div><label class="font-label-sm" style="color:var(--pink);margin-bottom:4px;display:block">🔥 Heat</label>
+            <select class="fs" id="ih" style="padding:8px 12px;border-radius:9999px;background:var(--surface-container-low)"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
+          <div><label class="font-label-sm" style="color:var(--blue);margin-bottom:4px;display:block">🧱 Barrier</label>
+            <select class="fs" id="iw" style="padding:8px 12px;border-radius:9999px;background:var(--surface-container-low)"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
+          <div><label class="font-label-sm" style="color:var(--green);margin-bottom:4px;display:block">⏳ Long-tail</label>
+            <select class="fs" id="idu2" style="padding:8px 12px;border-radius:9999px;background:var(--surface-container-low)"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
+          <div><label class="font-label-sm" style="color:var(--orange);margin-bottom:4px;display:block">💰 Monetization</label>
+            <select class="fs" id="im" style="padding:8px 12px;border-radius:9999px;background:var(--surface-container-low)"><option value="5">5</option><option value="4">4</option><option value="3" selected>3</option><option value="2">2</option><option value="1">1</option></select></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <select class="fs" id="ifmt" style="padding:8px 12px;border-radius:9999px;background:var(--surface-container-low);font-size:12px">
+            <option value="remotion-demo">Remotion Demo</option>
+            <option value="remotion-compare">Remotion Compare</option>
+            <option value="hyperframes-text">HF Text</option>
+            <option value="hyperframes-narrate">HF Narration</option>
+            <option value="image-text">Image+Text</option>
+          </select>
+          <select class="fs" id="iplat" style="padding:8px 12px;border-radius:9999px;background:var(--surface-container-low);font-size:12px">
+            <option value="both">Multi</option>
+            <option value="douyin">🎵 Douyin</option>
+            <option value="xiaohongshu">📕 Xiaohongshu</option>
+          </select>
+        </div>
+        <button class="btn" onclick="ai()" style="padding:12px;border-radius:9999px;background:var(--primary-fixed);color:var(--on-surface);font-weight:600;font-size:14px;border:none;cursor:pointer">Calculate &mdash; Add</button>
+      </div>
     </div>
-    <div class="tw">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th><th>选题</th><th style="text-align:center">🔥</th><th style="text-align:center">🧱</th><th style="text-align:center">⏳</th><th style="text-align:center">💰</th><th style="text-align:center">分</th><th>优先</th><th>形式</th><th>平台</th><th></th>
-          </tr>
-        </thead>
-        <tbody id="itb"></tbody>
-      </table>
+
+    <!-- Right: Quick Entry + Weights -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div class="glass-card" style="padding:24px;border-radius:16px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+          <span class="material-symbols-outlined" style="color:var(--outline)">edit_note</span>
+          <span class="font-headline-md" style="font-size:16px">Quick Entry</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <input class="fi" id="qe-idea" placeholder="Got an idea..." style="flex:1;padding:8px 14px;border-radius:9999px;font-size:12px;background:var(--surface-container-low)" />
+          <button class="btn" onclick="qi()" style="border-radius:9999px;padding:8px 20px;background:var(--primary-fixed);color:var(--on-surface);font-weight:600;border:none;cursor:pointer">+</button>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding:24px;border-radius:16px">
+        <div class="font-headline-md" style="font-size:16px;display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <span class="material-symbols-outlined" style="color:var(--outline)">tune</span>
+          Weights
+        </div>
+        <div style="font-size:12px;color:var(--on-surface-variant);margin-bottom:12px">Heat × 0.30 + Barrier × 0.25 + Long-tail × 0.25 + Monetization × 0.20</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="font-label-sm" style="color:var(--pink)">Heat</span><span class="font-label-sm">30%</span></div><div style="height:6px;background:var(--surface-container-high);border-radius:9999px"><div style="width:30%;height:100%;background:var(--pink);border-radius:9999px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="font-label-sm" style="color:var(--blue)">Barrier</span><span class="font-label-sm">25%</span></div><div style="height:6px;background:var(--surface-container-high);border-radius:9999px"><div style="width:25%;height:100%;background:var(--blue);border-radius:9999px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="font-label-sm" style="color:var(--green)">Long-tail</span><span class="font-label-sm">25%</span></div><div style="height:6px;background:var(--surface-container-high);border-radius:9999px"><div style="width:25%;height:100%;background:var(--green);border-radius:9999px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="font-label-sm" style="color:var(--orange)">Monetization</span><span class="font-label-sm">20%</span></div><div style="height:6px;background:var(--surface-container-high);border-radius:9999px"><div style="width:20%;height:100%;background:var(--orange);border-radius:9999px"></div></div></div>
+        </div>
+        <div style="display:flex;gap:4px;margin-top:10px">
+          <span class="tag t-r">≥4 P0</span>
+          <span class="tag t-o">3.5 P1</span>
+          <span class="tag t-b">3.0 P2</span>
+          <span class="tag t-gray">&lt;3 Skip</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="cd-card">
-    <div class="ch"><div class="ct2"><span class="ic">⚖️</span>权重</div></div>
-    <div style="font-size:11px;color:var(--text2);line-height:1.6">
-      <strong style="color:var(--text)">热度×0.30 + 壁垒×0.25 + 持久度×0.25 + 变现×0.20</strong>
-      <div class="wb">
-        <div class="ws ws-w" style="width:30%"></div>
-        <div class="ws ws-b" style="width:25%"></div>
-        <div class="ws ws-g" style="width:25%"></div>
-        <div class="ws ws-o" style="width:20%"></div>
+  <!-- Topic Cards Grid -->
+  <div class="glass-card" style="padding:28px;border-radius:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div>
+        <div class="font-headline-md" style="display:flex;align-items:center;gap:8px">
+          <span class="material-symbols-outlined" style="color:var(--outline)">grid_view</span>
+          Topic Matrix
+        </div>
+        <div class="font-body-md" style="color:var(--on-surface-variant);margin-top:2px;font-size:12px">
+          <span id="ic-ct">0</span> items · <span id="mtr-p0">0</span> P0 · <span id="mtr-p1">0</span> P1
+        </div>
       </div>
-      <div class="wl">
-        <span><span style="color:var(--pink)">●</span>热度30%</span>
-        <span><span style="color:var(--blue)">●</span>壁垒25%</span>
-        <span><span style="color:var(--green)">●</span>持久25%</span>
-        <span><span style="color:var(--orange)">●</span>变现20%</span>
-      </div>
-      <div class="fr" style="margin-top:6px">
-        <span class="tag t-r">≥4 P0</span>
-        <span class="tag t-o">3.5 P1</span>
-        <span class="tag t-b">3.0 P2</span>
-        <span class="tag t-gray">&lt;3 跳过</span>
-      </div>
+      <button class="btn btn-s btn-g" onclick="ri()" style="border-radius:9999px">Refresh</button>
     </div>
+    <div id="itb" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px"></div>
   </div>
 </div>
 
 <!-- ====== 内容日历 ====== -->
 <div class="pg" id="p-calendar">
-  <div class="cd-card">
-    <div class="ch"><div class="ct2"><span class="ic">📅</span>发布日历</div></div>
-    <div class="dn">
-      <button class="btn btn-s btn-g" onclick="sw(-1)">←上周</button>
-      <span class="lb" id="cal-lb">本周</span>
-      <button class="btn btn-s btn-g" onclick="sw(1)">下周→</button>
-      <div class="fr" style="margin-left:12px;gap:4px">
-        <button class="btn btn-xs btn-p" id="cf-all" onclick="setCF('all')">全部</button>
-        <button class="btn btn-xs btn-g" id="cf-dy" onclick="setCF('douyin')">🎵抖音</button>
-        <button class="btn btn-xs btn-g" id="cf-xhs" onclick="setCF('xiaohongshu')">📕小红书</button>
+
+  <!-- Month Navigation + Capsule + Legend -->
+  <div class="glass-card" style="padding:24px;border-radius:16px;margin-bottom:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="btn btn-s btn-g" onclick="sw(-1)" style="border-radius:9999px;padding:6px 14px;font-size:16px;cursor:pointer">←</button>
+        <span class="font-headline-md" style="font-size:20px;font-weight:600" id="cal-lb">This Week</span>
+        <button class="btn btn-s btn-g" onclick="sw(1)" style="border-radius:9999px;padding:6px 14px;font-size:16px;cursor:pointer">→</button>
       </div>
-      <span class="sp"></span>
-      <button class="btn btn-s btn-g" onclick="cc()">清空</button>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="capsule-container">
+          <button class="capsule-btn active" id="cf-all" onclick="setCF('all')">All</button>
+          <button class="capsule-btn" id="cf-dy" onclick="setCF('douyin')">🎵 TikTok</button>
+          <button class="capsule-btn" id="cf-xhs" onclick="setCF('xiaohongshu')">📕 Douyin</button>
+        </div>
+        <button class="btn btn-s btn-g" onclick="cc()" style="border-radius:9999px;cursor:pointer">Clear</button>
+      </div>
     </div>
-    <div class="tw">
-      <table>
-        <thead>
-          <tr>
-            <th>日期</th><th>优先</th><th>内容</th><th>形式</th><th>平台</th><th>状态</th><th>播放</th><th></th>
-          </tr>
-        </thead>
-        <tbody id="cal-tb"></tbody>
-      </table>
+
+    <!-- Legend -->
+    <div style="display:flex;gap:16px;font-size:11px;color:var(--on-surface-variant);font-family:var(--font-label);padding-bottom:12px;border-bottom:1px solid var(--outline-variant)">
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-fixed)"></span> Published</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--orange)"></span> Scheduled</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--blueL)"></span> In Progress</span>
+    </div>
+
+    <!-- Calendar Grid Container -->
+    <div id="cal-tb" style="display:flex;flex-direction:column;gap:4px;margin-top:16px">
+      <!-- Day headers (static) -->
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px">
+        <div class="font-label-sm" style="text-align:center;padding:8px 0;color:var(--on-surface-variant)">Mon</div>
+        <div class="font-label-sm" style="text-align:center;padding:8px 0;color:var(--on-surface-variant)">Tue</div>
+        <div class="font-label-sm" style="text-align:center;padding:8px 0;color:var(--on-surface-variant)">Wed</div>
+        <div class="font-label-sm" style="text-align:center;padding:8px 0;color:var(--on-surface-variant)">Thu</div>
+        <div class="font-label-sm" style="text-align:center;padding:8px 0;color:var(--on-surface-variant)">Fri</div>
+        <div class="font-label-sm" style="text-align:center;padding:8px 0;color:var(--on-surface-variant)">Sat</div>
+        <div class="font-label-sm" style="text-align:center;padding:8px 0;color:var(--on-surface-variant)">Sun</div>
+      </div>
+      <!-- Day cells rendered by rc2() -->
+      <div id="cal-grid"></div>
     </div>
   </div>
 
-  <div class="cd-card">
-    <div class="ch"><div class="ct2"><span class="ic">📌</span>记录发布</div></div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">标题</label><input class="fi" id="pt2" /></div>
-      <div class="fg"><label class="fl">形式</label><select class="fs" id="pf"><option value="remotion-demo">演示</option><option value="remotion-compare">对比</option><option value="hyperframes-text">HF文字</option><option value="hyperframes-narrate">HF配音</option><option value="image-text">图文</option></select></div>
+  <!-- Record Form -->
+  <div class="glass-card" style="padding:24px;border-radius:16px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <span class="material-symbols-outlined" style="color:var(--outline)">edit_note</span>
+      <span class="font-headline-md">Record</span>
     </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">平台</label><select class="fs" id="pp"><option value="douyin">抖音</option><option value="xiaohongshu">小红书</option><option value="multiple">多平台</option></select></div>
-      <div class="fg"><label class="fl">状态</label><select class="fs" id="ps"><option value="published">已发布</option><option value="scheduled">排期</option><option value="draft">制作中</option></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <input class="fi" id="pt2" placeholder="Title" style="padding:10px 14px;border-radius:9999px;background:var(--surface-container-low);font-size:13px" />
+      <select class="fs" id="pf" style="padding:10px 14px;border-radius:9999px;background:var(--surface-container-low);font-size:12px">
+        <option value="remotion-demo">Demo</option><option value="remotion-compare">Compare</option>
+        <option value="hyperframes-text">HF Text</option><option value="hyperframes-narrate">HF Narration</option><option value="image-text">Image+Text</option>
+      </select>
+      <select class="fs" id="pp" style="padding:10px 14px;border-radius:9999px;background:var(--surface-container-low);font-size:12px">
+        <option value="douyin">🎵 Douyin</option><option value="xiaohongshu">📕 Xiaohongshu</option><option value="multiple">Multi</option>
+      </select>
+      <select class="fs" id="ps" style="padding:10px 14px;border-radius:9999px;background:var(--surface-container-low);font-size:12px">
+        <option value="published">Published</option><option value="scheduled">Scheduled</option><option value="draft">In Progress</option>
+      </select>
     </div>
-    <div class="bg"><button class="btn btn-s btn-p" onclick="ac()">记录</button></div>
+    <button class="btn" onclick="ac()" style="width:100%;margin-top:14px;padding:12px;border-radius:9999px;background:var(--primary-fixed);color:var(--on-surface);font-weight:600;font-size:14px;border:none;cursor:pointer">Record</button>
   </div>
 </div>
 
@@ -485,12 +902,12 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 <div class="pg" id="p-review">
   <div class="g2">
     <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">📈</span>表现排行</div></div>
+      <div class="ch"><div class="ct2"><span class="ic">📈</span>Performance</div></div>
       <div class="tw">
         <table>
           <thead>
             <tr>
-              <th>内容</th><th>平台</th><th style="text-align:center">完播</th><th style="text-align:center">互动</th><th style="text-align:center">粉</th><th style="text-align:center">搜索</th><th style="text-align:center">播放</th>
+              <th>Content</th><th>Platform</th><th style="text-align:center">C.Rate</th><th style="text-align:center">Interact</th><th style="text-align:center">Fol.</th><th style="text-align:center">Search</th><th style="text-align:center">Views</th>
             </tr>
           </thead>
           <tbody id="rv-tb"></tbody>
@@ -498,38 +915,38 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
       </div>
     </div>
     <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">📝</span>记录数据</div></div>
+      <div class="ch"><div class="ct2"><span class="ic">📝</span>Record Data</div></div>
       <div class="fr2">
-        <div class="fg"><label class="fl">内容</label><select class="fs" id="rv-pick"><option value="">—选择—</option></select></div>
-        <div class="fg"><label class="fl">平台</label><select class="fs" id="rv-platform"><option value="douyin">🎵抖音</option><option value="xiaohongshu">📕小红书</option></select></div>
+        <div class="fg"><label class="fl">Content</label><select class="fs" id="rv-pick"><option value="">—Select—</option></select></div>
+        <div class="fg"><label class="fl">Platform</label><select class="fs" id="rv-platform"><option value="douyin">🎵Douyin</option><option value="xiaohongshu">📕Xiaohongshu</option></select></div>
       </div>
       <div class="fr3">
-        <div class="fg"><label class="fl">完播%</label><input class="fi" id="rv-c" type="number" /></div>
-        <div class="fg"><label class="fl">互动%</label><input class="fi" id="rv-i" type="number" /></div>
-        <div class="fg"><label class="fl">涨粉</label><input class="fi" id="rv-f" type="number" /></div>
+        <div class="fg"><label class="fl">C.Rate%</label><input class="fi" id="rv-c" type="number" /></div>
+        <div class="fg"><label class="fl">Interact%</label><input class="fi" id="rv-i" type="number" /></div>
+        <div class="fg"><label class="fl">Followers</label><input class="fi" id="rv-f" type="number" /></div>
       </div>
       <div class="fr2">
-        <div class="fg"><label class="fl">搜索%</label><input class="fi" id="rv-s" type="number" /></div>
-        <div class="fg"><label class="fl">播放</label><input class="fi" id="rv-v" type="number" /></div>
+        <div class="fg"><label class="fl">Search%</label><input class="fi" id="rv-s" type="number" /></div>
+        <div class="fg"><label class="fl">Views</label><input class="fi" id="rv-v" type="number" /></div>
       </div>
-      <div class="bg"><button class="btn btn-s btn-p" onclick="ar()">记录</button></div>
+      <div class="bg"><button class="btn btn-s btn-p" onclick="ar()">Record</button></div>
     </div>
   </div>
 
   <div class="g2">
     <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">🔑</span>搜索词</div></div>
+      <div class="ch"><div class="ct2"><span class="ic">🔑</span>Search Words</div></div>
       <div class="fc">
-        <input class="fi" id="sw" placeholder="关键词" />
-        <input class="fi" id="swc" type="number" placeholder="引入" />
+        <input class="fi" id="sw" placeholder="Keyword" />
+        <input class="fi" id="swc" type="number" placeholder="Volume" />
         <button class="btn btn-s btn-p" onclick="asw()" style="flex-shrink:0">+</button>
       </div>
-      <div id="sw-box"><div class="em"><p>暂无</p></div></div>
+      <div id="sw-box"><div class="em"><p>No data</p></div></div>
     </div>
     <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">💡</span>复盘笔记</div></div>
+      <div class="ch"><div class="ct2"><span class="ic">💡</span>Review Notes</div></div>
       <div class="fg"><textarea class="ft" id="wn" style="min-height:60px"></textarea></div>
-      <button class="btn btn-s btn-p" onclick="sn()">保存</button>
+      <button class="btn btn-s btn-p" onclick="sn()">Save</button>
       <div id="notes-box" style="margin-top:10px"></div>
     </div>
   </div>
@@ -539,43 +956,84 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 <div class="pg" id="p-playbook">
   <div class="g2">
     <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">🔧</span>生产方案</div></div>
+      <div class="ch"><div class="ct2"><span class="ic">🔧</span>Production Guide</div></div>
       <div class="tw">
         <table>
-          <thead><tr><th>类型</th><th>引擎</th><th>工时</th><th>复用</th></tr></thead>
+          <thead><tr><th>Type</th><th>Engine</th><th>Time</th><th>Reuse</th></tr></thead>
           <tbody>
-            <tr><td>分步教程</td><td><span class="tag t-b">Remotion</span></td><td>20-40m</td><td><span class="tag t-g">✅</span></td></tr>
-            <tr><td>A vs B 对比</td><td><span class="tag t-b">Remotion</span></td><td>30-60m</td><td><span class="tag t-g">6场景</span></td></tr>
-            <tr><td>文字观点</td><td><span class="tag t-p">HF</span></td><td>10-20m</td><td><span class="tag t-g">快</span></td></tr>
-            <tr><td>配音讲解</td><td><span class="tag t-p">HF</span></td><td>20-30m</td><td><span class="tag t-o">脚本</span></td></tr>
-            <tr><td>Top N</td><td><span class="tag t-b">Remotion</span></td><td>20-30m</td><td><span class="tag t-o">新</span></td></tr>
-            <tr><td>图文笔记</td><td><span class="tag t-gray">—</span></td><td>10-15m</td><td><span class="tag t-g">✅</span></td></tr>
+            <tr><td>Step-by-step</td><td><span class="tag t-b">Remotion</span></td><td>20-40m</td><td><span class="tag t-g">✅</span></td></tr>
+            <tr><td>A vs B Compare</td><td><span class="tag t-b">Remotion</span></td><td>30-60m</td><td><span class="tag t-g">✅</span></td></tr>
+            <tr><td>Text Opinion</td><td><span class="tag t-p">HF</span></td><td>10-20m</td><td><span class="tag t-g">✅</span></td></tr>
+            <tr><td>Narrated Guide</td><td><span class="tag t-p">HF</span></td><td>20-30m</td><td><span class="tag t-o">✎</span></td></tr>
+            <tr><td>Top N</td><td><span class="tag t-b">Remotion</span></td><td>20-30m</td><td><span class="tag t-o">✎</span></td></tr>
+            <tr><td>Image+Notes</td><td><span class="tag t-gray">—</span></td><td>10-15m</td><td><span class="tag t-g">✅</span></td></tr>
           </tbody>
         </table>
       </div>
     </div>
     <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">🎯</span>格式速查</div></div>
+      <div class="ch"><div class="ct2"><span class="ic">🎯</span>Format Ref</div></div>
       <div style="font-size:11px;color:var(--text2);line-height:2.1">
-        <p>"怎么用" → <span class="tag t-b">Remotion分步</span></p>
-        <p>"哪个好" → <span class="tag t-b">Remotion对比</span></p>
-        <p>"是什么"复杂 → <span class="tag t-b">Remotion展开</span></p>
-        <p>"是什么"简单 → <span class="tag t-p">HF文字</span></p>
-        <p>"我推荐"有数据 → <span class="tag t-b">Remotion图表</span></p>
-        <p>"我推荐"纯观点 → <span class="tag t-p">HF快出</span></p>
-        <p>"Top N" → <span class="tag t-b">Remotion逐条</span></p>
+        <p>"How-to" → <span class="tag t-b">Remotion Step</span></p>
+        <p>"Compare" → <span class="tag t-b">Remotion Compare</span></p>
+        <p>"Explain" (complex) → <span class="tag t-b">Remotion Deep</span></p>
+        <p>"Explain" (simple) → <span class="tag t-p">HF Text</span></p>
+        <p>"Review" (data) → <span class="tag t-b">Remotion Chart</span></p>
+        <p>"Review" (opinion) → <span class="tag t-p">HF Quick</span></p>
+        <p>"Top N" → <span class="tag t-b">Remotion List</span></p>
       </div>
     </div>
   </div>
 
   <div class="cd-card">
-    <div class="ch"><div class="ct2"><span class="ic">⚡</span>产能(每周5h)</div></div>
+    <div class="ch"><div class="ct2"><span class="ic">⚡</span>Capacity (5h/wk)</div></div>
     <div class="g3">
-      <div class="cp"><div class="cn">~15</div><div class="cl">全HF</div></div>
-      <div class="cp"><div class="cn">~8</div><div class="cl">全Remotion</div></div>
-      <div class="cp"><div class="cn" style="color:var(--blueL)">~10</div><div class="cl">混合推荐</div></div>
+      <div class="cp"><div class="cn">~15</div><div class="cl">All HF</div></div>
+      <div class="cp"><div class="cn">~8</div><div class="cl">All Remotion</div></div>
+      <div class="cp"><div class="cn" style="color:var(--blueL)">~10</div><div class="cl">Hybrid</div></div>
     </div>
-    <div style="font-size:10px;color:var(--text3);margin-top:6px">💡 2条R+5条HF+3条图文</div>
+    <div style="font-size:10px;color:var(--text3);margin-top:6px">💡 2R + 5HF + 3 Image+Text</div>
+  </div>
+</div>
+
+<!-- ====== Asset Board ====== -->
+<div class="pg" id="p-assets">
+  <!-- Capsule filter -->
+  <div class="capsule-container" style="margin-bottom:24px">
+    <button class="capsule-btn active" onclick="filterAssets('all')">All</button>
+    <button class="capsule-btn" onclick="filterAssets('in_progress')">In Production</button>
+    <button class="capsule-btn" onclick="filterAssets('video_ready')">Video Formed</button>
+    <button class="capsule-btn" onclick="filterAssets('completed')">Completed</button>
+  </div>
+  <!-- 3-column kanban grid -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;align-items:start">
+    <!-- Col 1: In Production -->
+    <section class="kanban-col">
+      <header style="display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--outline-variant)">
+        <span style="font-size:18px">⏳</span>
+        <span style="font-size:16px;font-weight:600;font-family:var(--font-headline);flex:1">In Production</span>
+        <span style="background:var(--surface-container-high);padding:2px 10px;border-radius:999px;font-family:var(--font-label);font-size:12px" id="ac-ip-count">0</span>
+      </header>
+      <div id="ac-col-ip" style="display:flex;flex-direction:column;gap:12px;flex:1"></div>
+    </section>
+    <!-- Col 2: Video Formed -->
+    <section class="kanban-col">
+      <header style="display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--outline-variant)">
+        <span style="font-size:18px">🎬</span>
+        <span style="font-size:16px;font-weight:600;font-family:var(--font-headline);flex:1">Video Formed</span>
+        <span style="background:var(--surface-container-high);padding:2px 10px;border-radius:999px;font-family:var(--font-label);font-size:12px" id="ac-vr-count">0</span>
+      </header>
+      <div id="ac-col-vr" style="display:flex;flex-direction:column;gap:12px;flex:1"></div>
+    </section>
+    <!-- Col 3: Completed -->
+    <section class="kanban-col">
+      <header style="display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--outline-variant)">
+        <span style="font-size:18px">✨</span>
+        <span style="font-size:16px;font-weight:600;font-family:var(--font-headline);flex:1">Completed</span>
+        <span style="background:var(--surface-container-high);padding:2px 10px;border-radius:999px;font-family:var(--font-label);font-size:12px" id="ac-co-count">0</span>
+      </header>
+      <div id="ac-col-co" style="display:flex;flex-direction:column;gap:12px;flex:1"></div>
+    </section>
   </div>
 </div>
 
@@ -585,489 +1043,6 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 
 <div id="toast-box"></div>
 
-<script>
-const $ = id => document.getElementById(id);
-const T = () => { const d = new Date(); const b = new Date(d.getTime() + d.getTimezoneOffset() * 60000 + 480 * 60000); return b.toISOString().slice(0, 10); };
-const FD = s => { const d = new Date(s + 'T00:00:00+08:00'); return `${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getDate().toString().padStart(2,'0')} 周${['日','一','二','三','四','五','六'][d.getDay()]}`; };
-const WR = s => { const d = new Date(s + 'T00:00:00+08:00'); const x = d.getDay(); const m = new Date(d.getTime() + (x === 0 ? -6 : 1 - x) * 864e5); return { ms: m.toISOString().slice(0, 10), ss: new Date(m.getTime() + 6 * 864e5).toISOString().slice(0, 10) }; };
-const CS = (h, w, d, m) => +(h * .3 + w * .25 + d * .25 + m * .2).toFixed(2);
-const PL = s => s >= 4 ? 'P0' : s >= 3.5 ? 'P1' : s >= 3 ? 'P2' : '跳过';
-const SC = s => s >= 4 ? 's-g' : s >= 3.5 ? 's-o' : 's-r';
-const DOTS = v => { let h = '<div class="dt">'; for (let i = 0; i < 5; i++) h += `<div class="d${i < v ? ' fl' : ''}"></div>`; return h + '</div>'; };
-const PRI = s => { const p = PL(s); return `<span class="pri p-p${p === 'P0' ? '0' : p === 'P1' ? '1' : p === 'P2' ? '2' : 'k'}">${p}</span>`; };
-const TAG = (t, c) => `<span class="tag t-${c}">${t}</span>`;
-const EMPTY = (m, s) => `<div class="em"><p>${m}</p>${s ? `<div class="sb2">${s}</div>` : ''}</div>`;
-const TOAST = m => { const c = $('toast-box'); const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = m; c.appendChild(t); setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 300); }, 3000); };
-const hid = id => { $(id).style.display = 'none'; };
-
-let S = { hotTopics: [], autoTopics: [], ideas: [], calendar: [], reviews: [], searchWords: [], weeklyNotes: [] };
-let wkOff = 0, cf = 'all';
-
-async function loadAll() { const r = await fetch('/api/data'); return r.json(); }
-async function saveAll(d) { return fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); }
-
-// SSE
-let sseT = null;
-function css() {
-  if (sseT) { clearTimeout(sseT); sseT = null; }
-  const dot = $('cd'), txt = $('ctxt');
-  dot.className = 'cd cn'; txt.textContent = '连接中…';
-  const es = new EventSource('/api/sse');
-  let ok = false;
-  es.addEventListener('connected', () => { ok = true; dot.className = 'cd on'; txt.textContent = '已连接'; });
-  es.addEventListener('data-update', () => refresh());
-  es.addEventListener('auto-fetch', e => { try { const d = JSON.parse(e.data); refresh(); TOAST(`📡抓取<span class="hl">${d.count}</span>条`); } catch(_) {} });
-  es.onerror = () => { es.close(); dot.className = 'cd er'; txt.textContent = ok ? '断开' : '失败'; sseT = setTimeout(css, 3000); };
-}
-
-// Routing
-const TT = { overview: '总览', hot: '热点简报', matrix: '选题矩阵', calendar: '内容日历', review: '数据复盘', playbook: '模板匹配' };
-function goPage(n) {
-  document.querySelectorAll('.ni').forEach(x => x.classList.remove('on'));
-  document.querySelector(`[data-p="${n}"]`).classList.add('on');
-  document.querySelectorAll('.pg').forEach(x => x.classList.remove('on'));
-  $('p-' + n).classList.add('on');
-  $('pt').textContent = TT[n] || n;
-}
-document.querySelectorAll('.ni').forEach(el => el.addEventListener('click', () => goPage(el.dataset.p)));
-
-async function refresh() { try { S = await loadAll(); } catch(e) {} ro(); rh(); ri(); rc2(); rr(); rsr(); rnotes(); popRV(); popQE(); loadProjects(); }
-
-// === Overview ===
-function ro() {
-  const t = T(), w = WR(t);
-  $('s-pub').textContent = S.calendar.filter(c => c.date >= w.ms && c.date <= w.ss && c.status === 'published').length;
-  const rvs = S.reviews;
-  $('s-cpl').innerHTML = rvs.length ? (rvs.reduce((s, r) => s + r.completion, 0) / rvs.length).toFixed(1) + '<span class="u">%</span>' : '—<span class="u">%</span>';
-  $('s-flw').textContent = rvs.filter(r => r.date >= w.ms && r.date <= w.ss).reduce((s, r) => s + r.followers, 0);
-  $('s-idea').textContent = S.ideas.filter(i => i.status === 'pending').length;
-  const td = T();
-  $('s-hot').textContent = (S.autoTopics || []).filter(x => x.date === td).length + (S.hotTopics || []).filter(x => x.date === td).length;
-  const p0c = S.ideas.filter(i => i.pri === 'P0' && i.status === 'pending').length;
-  $('s-p0').textContent = p0c; $('p0-badge').textContent = p0c;
-  const dy = rvs.filter(r => r.date >= w.ms && r.date <= w.ss && r.platform === 'douyin');
-  const xh = rvs.filter(r => r.date >= w.ms && r.date <= w.ss && r.platform === 'xiaohongshu');
-  $('s-dy-pub').textContent = S.calendar.filter(c => c.date >= w.ms && c.date <= w.ss && c.status === 'published').length;
-  $('s-dy-cpl').textContent = dy.length ? (dy.reduce((s, r) => s + r.completion, 0) / dy.length).toFixed(1) + '%' : '—';
-  $('s-dy-flw').textContent = dy.reduce((s, r) => s + r.followers, 0);
-  $('s-dy-v').textContent = dy.reduce((s, r) => s + r.views, 0);
-  $('s-xhs-pub').textContent = S.calendar.filter(c => c.date >= w.ms && c.date <= w.ss && c.status === 'published').length;
-  $('s-xhs-cpl').textContent = xh.length ? (xh.reduce((s, r) => s + r.completion, 0) / xh.length).toFixed(1) + '%' : '—';
-  $('s-xhs-flw').textContent = xh.reduce((s, r) => s + r.followers, 0);
-  $('s-xhs-v').textContent = xh.reduce((s, r) => s + r.views, 0);
-  popQE(); if (!window._rl) loadRecs();
-}
-
-// === Hot Topics ===
-async function ah() {
-  const t = $('hi').value.trim(), s = $('hs').value, tr = $('ht').value.trim(), sc = parseInt($('hsc').value);
-  if (!t) { alert('输入话题'); return; }
-  S.hotTopics.unshift({ id: Date.now(), title: t, source: s, trend: tr, score: sc, date: T(), time: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) });
-  await saveAll({ hotTopics: S.hotTopics }); rh(); $('hi').value = ''; $('ht').value = '';
-}
-function rh() {
-  const td = T();
-  const el = $('hot-box'), m = S.hotTopics.filter(x => x.date === td);
-  const sn = { douyin: '抖音', xiaohongshu: '小红书', manual: '手动' };
-  el.innerHTML = m.length ? m.map((x, i) => `<div class="hi"><div class="hr r${i<3?i+1:'n'}">${['①','②','③'][i]||i+1}</div><div class="hb"><div class="ht">${x.title}</div><div class="hm"><span>${sn[x.source]||x.source}</span>${x.trend?`<span>${x.trend}</span>`:''}<span>${x.score}/5</span></div></div></div>`).join('') : EMPTY('暂无');
-  const ael = $('auto-box'), a = S.autoTopics.filter(x => x.date === td);
-  if (a.length) {
-    const al = { baidu: '百度', github: 'GitHub', hackernews: 'HN', toutiao: '头条' }, at2 = { baidu: 'o', github: 'b', hackernews: 'o', toutiao: 'r' };
-    ael.innerHTML = a.map((x, i) => `<div class="hi"><div class="hr r${i<3?i+1:'n'}">${['①','②','③'][i]||i+1}</div><div class="hb"><div class="ht">${x.url?`<a href="${x.url}" target="_blank" style="color:inherit;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${x.title}</a>`:x.title}</div><div class="hm"><span class="tag t-${at2[x.source]||'gray'}">${al[x.source]||x.source}</span>${x.trend?`<span>${x.trend}</span>`:''}<span>${x.score}/5</span></div></div></div>`).join('');
-  } else { ael.innerHTML = EMPTY('⏳', '尚未抓到热点'); }
-  if (!window._rl) loadRecs();
-}
-async function ch() { const t = T(); S.hotTopics = S.hotTopics.filter(h => h.date !== t); await saveAll({ hotTopics: S.hotTopics }); rh(); }
-async function tf() {
-  const btn = $('ft-btn'); btn.textContent = '抓取中…'; btn.disabled = true;
-  try {
-    const r = await fetch('/api/trigger-fetch', { method: 'POST' });
-    if (!r.ok) { TOAST('❌服务器 ' + r.status); btn.textContent = '立即抓取'; btn.disabled = false; return; }
-    const d = await r.json();
-    if (d.ok) { TOAST(`✅抓到 ${d.fetched} 条，正在刷新…`); refresh(); }
-    else { TOAST('❌返回异常'); }
-  } catch(e) { TOAST('❌网络错误'); }
-  btn.textContent = '立即抓取'; btn.disabled = false;
-}
-async function gb() {
-  const r = await fetch('/api/brief/generate', { method: 'POST' }); const d = await r.json();
-  if (!d.brief) { alert('暂无热点'); return; }
-  const b = d.brief;
-  $('brief-body').innerHTML = `<div style="font-size:11px;color:var(--text2);margin-bottom:10px">基于${b.hotCount}条热点</div>${b.suggestions.map(s => `<div class="bi"><div class="bt">${s.title}</div><div class="bd2">热度${s.hot}/5</div><div class="fr" style="margin-top:6px"><button class="btn btn-xs btn-p" onclick="pb('${s.title.replace(/'/g,"\\'")}',${s.hot},3,3,3,'${s.type}','both')">以此选题</button></div></div>`).join('')}`;
-  $('brief-box').style.display = 'block';
-}
-
-// === Recommendations ===
-window._rl = false;
-async function loadRecs() {
-  window._rl = true;
-  try {
-    const r = await fetch('/api/today/recommend', { method: 'POST' }); const d = await r.json();
-    if (!d.recommendations || !d.recommendations.length) { $('rc-box').innerHTML = EMPTY('暂无推荐'); $('hrc-box').innerHTML = EMPTY('暂无推荐'); return; }
-    $('rc-ct').textContent = `${d.total}条·P0:${d.groups.p0} P1:${d.groups.p1}`; $('hrc-ct').textContent = `${d.total}条·P0:${d.groups.p0} P1:${d.groups.p1}`;
-    const html = mkRecs(d.recommendations); $('rc-box').innerHTML = html; $('hrc-box').innerHTML = html;
-  } catch(e) { $('rc-box').innerHTML = EMPTY('分析失败'); $('hrc-box').innerHTML = EMPTY('分析失败'); }
-}
-function mkRecs(r) {
-  const fn = {'remotion-demo':'R演示','remotion-compare':'R对比','hyperframes-text':'HF文','hyperframes-narrate':'HF配'}, sn = {github:'GitHub',hackernews:'HN',toutiao:'头条'}, pf2 = {douyin:'🎵抖音',xiaohongshu:'📕小红书',both:'🎵📕'};
-  const p0 = r.filter(x => x.pri === 'P0'), p1 = r.filter(x => x.pri === 'P1'), rs = r.filter(x => x.pri !== 'P0' && x.pri !== 'P1');
-  let h = '';
-  if (p0.length) { h += `<div style="margin-bottom:8px">${TAG('P0·今天做','r')}<span style="font-size:10px;color:var(--text3);margin-left:6px">${p0.length}个</span></div>` + p0.map(x => rc(x, fn, sn, pf2)).join(''); }
-  if (p1.length) { h += `<div style="margin:12px 0 8px">${TAG('P1·本周做','o')}<span style="font-size:10px;color:var(--text3);margin-left:6px">${p1.length}个</span></div>` + p1.map(x => rc(x, fn, sn, pf2)).join(''); }
-  if (rs.length) { h += `<div style="margin:10px 0 4px"><span style="font-size:10px;color:var(--text3)">其余</span></div>` + rs.slice(0,3).map(x => `<div class="hi" style="opacity:.45"><div class="hb"><div class="ht" style="font-size:11px">${x.title}</div><div class="hm"><span>${x.score}分·${x.pri}</span><span>${x.reason}</span></div></div></div>`).join(''); }
-  return h;
-}
-function rc(x, fn, sn, pf2) {
-  const ua = x.url ? `href="${x.url}" target="_blank"` : '';
-  return `<div class="bi"><div style="display:flex;align-items:flex-start;gap:10px"><div style="flex:1;min-width:0"><div class="bt">${ua?`<a ${ua} style="color:inherit;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${x.title}</a>`:x.title}</div><div class="bd2" style="margin-top:2px">${TAG(sn[x.source]||x.source,x.source==='github'?'b':'o')} ${TAG(pf2[x.platform]||'双平台',x.platform==='douyin'?'p':x.platform==='xiaohongshu'?'o':'gray')} ${x.trend?x.trend.slice(0,30):''}</div></div><div style="text-align:center;flex-shrink:0"><div class="sn ${SC(x.score)}">${x.score}</div><div>${TAG(x.pri,x.pri==='P0'?'r':'o')}</div></div></div><div style="display:flex;gap:6px;margin:4px 0 2px;font-size:9px;color:var(--text3)">🔥${x.hotScore}🧱${x.wallScore}⏳${x.durScore}💰${x.moneyScore}</div><div style="font-size:10px;color:var(--text2);line-height:1.4">${x.reason}</div><div class="fr" style="margin-top:5px">${TAG(fn[x.format]||x.format,'gray')}<button class="btn btn-xs btn-p" onclick="pb('${x.title.replace(/'/g,"\\'")} 教程',${x.hotScore},${x.wallScore},${x.durScore},${x.moneyScore},'${x.format}','${x.platform||'both'}')">以此选题</button><button class="btn btn-xs btn-g" onclick="pb('${x.title.replace(/'/g,"\\'")} 解读',${x.hotScore},${x.wallScore},${x.durScore},${x.moneyScore},'hyperframes-text','${x.platform||'both'}')">解读</button></div></div>`;
-}
-
-// === Topic Matrix ===
-function pb(t, h, w, d, m, f, p) { goPage('matrix'); $('it').value = t; $('ih').value = h; $('iw').value = w; $('idu2').value = d; $('im').value = m; if (f) $('ifmt').value = f; if (p) $('iplat').value = p; }
-async function ai() {
-  const t = $('it').value.trim(); if (!t) { alert('输入名称'); return; }
-  const h = parseInt($('ih').value), w = parseInt($('iw').value), d = parseInt($('idu2').value), m = parseInt($('im').value);
-  const f = $('ifmt').value, sc = CS(h, w, d, m), pr = PL(sc), p = $('iplat').value || 'both';
-  S.ideas.push({ id: Date.now(), title: t, desc: '', hot: h, wall: w, duration: d, money: m, score: sc, pri: pr, format: f, platform: p, hotlink: '', createdAt: T(), status: 'pending' });
-  await saveAll({ ideas: S.ideas }); ri(); $('it').value = ''; $('id2').value = ''; TOAST(`✅${pr}${sc}分`);
-}
-function ri() {
-  const s = [...S.ideas].sort((a, b) => b.score - a.score), tb = $('itb');
-  $('ic-ct').textContent = s.length + '个'; if (!s.length) { tb.innerHTML = `<tr><td colspan="11">${EMPTY('暂无')}</td></tr>`; return; }
-  const fn = {'remotion-demo':'演示','remotion-compare':'对比','hyperframes-text':'HF文','hyperframes-narrate':'HF配','image-text':'图文'}, pf3 = {'douyin':'🎵抖音','xiaohongshu':'📕小红书','both':'🎵📕'};
-  tb.innerHTML = s.map((x, i) => `<tr><td style="color:var(--text3);font-size:10px">${String(i+1).padStart(2,'0')}</td><td><div style="font-weight:500;font-size:12px">${x.title}</div></td><td style="text-align:center">${DOTS(x.hot)}</td><td style="text-align:center">${DOTS(x.wall)}</td><td style="text-align:center">${DOTS(x.duration)}</td><td style="text-align:center">${DOTS(x.money)}</td><td style="text-align:center"><span class="sn ${SC(x.score)}">${x.score}</span></td><td>${PRI(x.score)}</td><td><span style="font-size:9px;color:var(--text2)">${fn[x.format]||x.format}</span></td><td><span style="font-size:9px;color:${x.platform==='douyin'?'var(--pink)':x.platform==='xiaohongshu'?'var(--orange)':'var(--text2)'}">${pf3[x.platform]||'🎵📕'}</span></td><td><button class="btn-ic" onclick="di(${x.id})" style="font-size:10px">✕</button></td></tr>`).join('');
-}
-async function di(id) { S.ideas = S.ideas.filter(i => i.id !== id); await saveAll({ ideas: S.ideas }); ri(); }
-async function qi() { const v = $('qi').value.trim(); if (!v) return; const s = CS(3,3,3,3); S.ideas.push({ id: Date.now(), title: v, desc: '', hot: 3, wall: 3, duration: 3, money: 3, score: s, pri: PL(s), format: 'hyperframes-text', platform: 'both', hotlink: '', createdAt: T(), status: 'pending' }); await saveAll({ ideas: S.ideas }); $('qi').value = ''; TOAST('✅已加入选题池，项目文件夹已同步创建'); }
-
-// === Calendar ===
-function sw(d) { wkOff += d; rc2(); }
-function setCF(v) { cf = v; rc2(); }
-function rc2() {
-  const ref = new Date(); ref.setDate(ref.getDate() + wkOff * 7); const { ms, ss } = WR(ref.toISOString().slice(0, 10));
-  $('cal-lb').textContent = wkOff === 0 ? '本周' : wkOff === -1 ? '上周' : wkOff === 1 ? '下周' : `${ms}~${ss}`;
-  ['cf-all','cf-dy','cf-xhs'].forEach((id, i) => { const b = $(id); if (!b) return; b.className = `btn btn-xs ${(i===0&&cf==='all')||(i===1&&cf==='douyin')||(i===2&&cf==='xiaohongshu')?'btn-p':'btn-g'}`; });
-  const tb = $('cal-tb'); let items = S.calendar.filter(c => c.date >= ms && c.date <= ss).sort((a, b) => a.date.localeCompare(b.date));
-  if (cf !== 'all') items = items.filter(c => c.platform === cf || c.platform === 'multiple');
-  if (!items.length) { tb.innerHTML = `<tr><td colspan="8">${EMPTY('暂无发布')}</td></tr>`; return; }
-  const fn = {'remotion-demo':'演示','remotion-compare':'对比','hyperframes-text':'HF','hyperframes-narrate':'HF配','image-text':'图文'}, sn2 = {'published':'已发布','scheduled':'排期','draft':'制作中'}, pf4 = {'douyin':'🎵抖音','xiaohongshu':'📕小红书','multiple':'🎵📕'};
-  tb.innerHTML = items.map(x => `<tr><td style="font-size:11px;color:var(--text2)">${FD(x.date)}</td><td>${PRI(x.pri||'P2')}</td><td>${x.title}</td><td><span style="font-size:10px;color:var(--text2)">${fn[x.format]||x.format}</span></td><td><span style="font-size:10px;color:${x.platform==='douyin'?'var(--pink)':x.platform==='xiaohongshu'?'var(--orange)':'var(--text2)'}">${pf4[x.platform]||'—'}</span></td><td><span style="font-size:10px;color:${x.status==='published'?'var(--green)':x.status==='scheduled'?'var(--orange)':'var(--text3)'}">${sn2[x.status]||x.status}</span></td><td style="font-size:11px">${x.views!=null?x.views.toLocaleString():'—'}</td><td><button class="btn-ic" onclick="dc(${x.id})" style="font-size:10px">✕</button></td></tr>`).join('');
-}
-async function ac() { const t = $('pt2').value.trim(); if (!t) { alert('输入标题'); return; } S.calendar.push({ id: Date.now(), title: t, format: $('pf').value, status: $('ps').value, platform: $('pp').value, date: T(), views: null, pri: 'P2', score: 3 }); await saveAll({ calendar: S.calendar }); rc2(); $('pt2').value = ''; TOAST('📅已记录'); }
-async function dc(id) { S.calendar = S.calendar.filter(c => c.id !== id); await saveAll({ calendar: S.calendar }); rc2(); }
-async function cc() { S.calendar = []; await saveAll({ calendar: S.calendar }); rc2(); }
-
-// === Review ===
-function popRV() { const sel = $('rv-pick'); sel.innerHTML = '<option value="">—选择—</option>' + S.calendar.filter(c => c.status === 'published' || c.status === 'draft').map(c => `<option value="${c.id}">${c.title}</option>`).join(''); }
-function popQE() { const sel = $('qe-pick'); if (!sel) return; sel.innerHTML = '<option value="">—选择—</option>' + S.calendar.filter(c => c.status === 'published' || c.status === 'draft').map(c => `<option value="${c.id}">${c.title}</option>`).join(''); $('qe-date').value = T(); }
-
-async function ar() {
-  const id = $('rv-pick').value; if (!id) { alert('选内容'); return; }
-  const c = parseFloat($('rv-c').value) || 0, i = parseFloat($('rv-i').value) || 0, f = parseInt($('rv-f').value) || 0, s = parseFloat($('rv-s').value) || 0, v = parseInt($('rv-v').value) || 0, p = $('rv-platform').value || 'douyin';
-  const cal = S.calendar.find(c => c.id == id); if (cal) cal.views = v;
-  S.reviews.push({ id: Date.now(), calId: parseInt(id), title: cal ? cal.title : '未知', platform: p, completion: c, interact: i, followers: f, search: s, views: v, date: T() });
-  await saveAll({ reviews: S.reviews, calendar: S.calendar }); rr(); rc2(); TOAST('📊已记录');
-  $('rv-c').value = ''; $('rv-i').value = ''; $('rv-f').value = ''; $('rv-s').value = ''; $('rv-v').value = '';
-}
-async function qeSave() {
-  const id = $('qe-pick').value; if (!id) { alert('选内容'); return; }
-  const cal = S.calendar.find(c => c.id == id); if (!cal) { alert('不存在'); return; }
-  const dt = $('qe-date').value || T();
-  const dyV = parseInt($('qe-dy-v').value)||0, dyC = parseFloat($('qe-dy-c').value)||0, dyI = parseFloat($('qe-dy-i').value)||0, dyF = parseInt($('qe-dy-f').value)||0, dyS = parseFloat($('qe-dy-s').value)||0;
-  const xhsV = parseInt($('qe-xhs-v').value)||0, xhsC = parseFloat($('qe-xhs-c').value)||0, xhsI = parseFloat($('qe-xhs-i').value)||0, xhsF = parseInt($('qe-xhs-f').value)||0, xhsS = parseFloat($('qe-xhs-s').value)||0;
-  cal.status = 'published';
-  if (dyV > 0) { S.reviews.push({ id: Date.now()+1, calId: parseInt(id), title: cal.title, platform: 'douyin', views: dyV, completion: dyC, interact: dyI, followers: dyF, search: dyS, date: dt }); }
-  if (xhsV > 0) { S.reviews.push({ id: Date.now()+2, calId: parseInt(id), title: cal.title, platform: 'xiaohongshu', views: xhsV, completion: xhsC, interact: xhsI, followers: xhsF, search: xhsS, date: dt }); }
-  cal.views = (dyV||0) + (xhsV||0);
-  await saveAll({ reviews: S.reviews, calendar: S.calendar }); ro(); rr(); rc2();
-  ['qe-dy-v','qe-dy-c','qe-dy-i','qe-dy-f','qe-dy-s','qe-xhs-v','qe-xhs-c','qe-xhs-i','qe-xhs-f','qe-xhs-s'].forEach(id => $(id).value = '');
-  TOAST(`📊已保存·抖音${dyV.toLocaleString()}+小红书${xhsV.toLocaleString()}`);
-}
-function rr() { const tb = $('rv-tb'); const s = [...S.reviews].sort((a,b) => b.views - a.views); if (!s.length) { tb.innerHTML = `<tr><td colspan="7">${EMPTY('暂无')}</td></tr>`; return; } const pl = {douyin:'🎵抖音',xiaohongshu:'📕小红书'}; tb.innerHTML = s.map(r => `<tr><td>${r.title}</td><td style="font-size:10px;color:${r.platform==='douyin'?'var(--pink)':'var(--orange)'}">${pl[r.platform]||'—'}</td><td style="text-align:center;font-size:11px">${r.completion}%</td><td style="text-align:center;font-size:11px">${r.interact}%</td><td style="text-align:center;font-size:11px">${r.followers}</td><td style="text-align:center;font-size:11px">${r.search}%</td><td style="text-align:center;font-weight:600">${r.views.toLocaleString()}</td></tr>`).join(''); }
-
-// === Search Words ===
-async function asw() { const w = $('sw').value.trim(), c = parseInt($('swc').value)||0; if (!w) return; S.searchWords.push({word:w,count:c,date:T()}); await saveAll({searchWords:S.searchWords}); rsr(); $('sw').value=''; $('swc').value=''; }
-function rsr() { const el = $('sw-box'); const r = S.searchWords.slice(-20).reverse(); if (!r.length) { el.innerHTML = EMPTY('暂无'); return; } el.innerHTML = r.map(s => `<div class="kr"><span>${s.word}</span><span class="kc">${s.count}次·${s.date}</span></div>`).join(''); }
-
-// === Weekly Notes ===
-async function sn() { const t = $('wn').value.trim(); if (!t) return; const w = T(); S.weeklyNotes.push({note:t,date:w,week:WR(w).ms}); await saveAll({weeklyNotes:S.weeklyNotes}); rnotes(); $('wn').value=''; TOAST('💡已保存'); }
-function rnotes() { const el = $('notes-box'); const r = S.weeklyNotes.slice(-5).reverse(); if (!r.length) { el.innerHTML = ''; return; } el.innerHTML = r.map(n => `<div class="nb"><div class="nd">${n.date}</div>${n.note}</div>`).join(''); }
-
-// === Project Assets Panel ===
-async function loadProjects() {
-  try {
-    const r = await fetch("/api/projects");
-    const d = await r.json();
-    const el = $("proj-box");
-    if (!d.projects || !d.projects.length) { el.innerHTML = EMPTY("暂无项目"); return; }
-    const order = { completed: 0, video_ready: 1, in_progress: 2 };
-    const sorted = d.projects.sort((a, b) => (order[a.status] || 9) - (order[b.status] || 9));
-    const statusStyle = { completed:"color:#34D399;font-weight:700", video_ready:"color:#A78BFA;font-weight:600", in_progress:"color:#F59E0B;font-weight:600" };
-    el.innerHTML = `<div style="display:flex;flex-direction:column;gap:0">` +
-      sorted.map(p => {
-        const icon = p.status === "completed" ? "✨" : p.status === "video_ready" ? "🎬" : "⏳";
-        const st = statusStyle[p.status] || "color:#636366";
-        const videoBadge = p.videoCount > 0 ? `<span class="tag t-b" style="font-size:10px;padding:2px 8px;margin-right:4px">📹 ${p.videoCount}</span>` : `<span class="tag t-gray" style="font-size:10px;padding:2px 8px;margin-right:4px">📹 0</span>`;
-        const coverBadge = p.hasCover ? `<span class="tag t-g" style="font-size:10px;padding:2px 8px;margin-right:4px">🖼️ 已就绪</span>` : `<span class="tag t-gray" style="font-size:10px;padding:2px 8px;margin-right:4px">🖼️ 未生成</span>`;
-        const copyBadge = p.hasCopy ? `<span class="tag t-g" style="font-size:10px;padding:2px 8px">📝 已就绪</span>` : `<span class="tag t-gray" style="font-size:10px;padding:2px 8px">📝 缺失</span>`;
-        const hs = p.hasScript, hc = p.hasCover, hv = p.videoCount > 0;
-        const needScript = !hs; const needRender = hs && !hv; const needCover = hv && !hc;
-        let sb = hs ? `<button class="btn btn-xs btn-g" onclick="generateScript('${p.name}')">👁️ 查看剧本</button><button class="btn btn-xs btn-g" onclick="generateScript('${p.name}')">🔄 重写剧本</button>` : `<button class="btn btn-xs btn-p" onclick="generateScript('${p.name}')">✨ 生成剧本</button>`;
-        let cb = hc ? `<button class="btn btn-xs btn-g" onclick="openCoverEditor('${p.name}')">👁️ 查看封面</button><button class="btn btn-xs btn-g" onclick="openCoverEditor('${p.name}')">🔄 重做封面</button>` : `<button class="btn btn-xs btn-p" onclick="openCoverEditor('${p.name}')">🎨 生成封面</button>`;
-        let rb;
-        if (hv) { rb = `<button class="btn btn-xs btn-g" id="render-btn-${p.name}" onclick="startRender('${p.name}')">🔄 重新渲染</button>`; }
-        else if (hs) { rb = `<button class="btn btn-xs btn-p" id="render-btn-${p.name}" onclick="startRender('${p.name}')">🎬 开始渲染</button>`; }
-        else { rb = `<button class="btn btn-xs btn-g" id="render-btn-${p.name}" disabled>🎬 开始渲染</button>`; }
-        if (needScript) { cb = cb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); rb = rb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        else if (needRender) { sb = sb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); cb = cb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        else if (needCover) { sb = sb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); rb = rb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        else { sb = sb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); cb = cb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); rb = rb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        const fb = `<button class="btn btn-xs btn-g" onclick="openFolder('${p.name}')">📂 打开目录</button>`;
-        const canArchive = hv && hc;
-        const archiveBtn = canArchive ? `<button class="btn btn-xs btn-g" onclick="archiveProject('${p.name}')">📦 一键归档</button>` : '';
-        return `<div class="hi" style="padding:12px 0"><div class="hr rn" style="font-size:16px">${icon}</div><div class="hb"><div class="ht" style="font-size:14px;font-weight:600" id="status-${p.name}">${p.name}</div><div class="hm" style="margin-top:4px"><span id="label-${p.name}" style="${st};font-size:13px">${p.statusLabel}</span><span style="margin-left:8px">${videoBadge}${coverBadge}${copyBadge}</span></div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">${sb}${cb}${rb}${fb}${archiveBtn}</div></div></div>`;
-      }).join('') + `</div>`;
-  } catch(e) { $('proj-box').innerHTML = EMPTY('加载失败'); }
-}
-
-// === Cover Editor Modal ===
-function openCoverEditor(slug) {
-  const overlay = document.createElement('div');
-  overlay.id = 'cover-overlay';
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center';
-  overlay.innerHTML = `<div style="background:#1C1C1E;border:1px solid #38383A;border-radius:16px;padding:28px 32px;width:600px;max-width:90vw">
-    <div style="font-size:16px;font-weight:600;margin-bottom:16px">✏️ 编辑封面 — ${slug}</div>
-    <div class="fg"><label class="fl">标题1</label><input class="fi" id="ce-tl1" value=""></div>
-    <div class="fg"><label class="fl">标题2</label><input class="fi" id="ce-tl2" value=""></div>
-    <div class="fg"><label class="fl">副标题</label><input class="fi" id="ce-sub" value=""></div>
-    <div class="fg"><label class="fl">特性1</label><input class="fi" id="ce-f1" value=""></div>
-    <div class="fg"><label class="fl">特性2</label><input class="fi" id="ce-f2" value=""></div>
-    <div class="fg"><label class="fl">特性3</label><input class="fi" id="ce-f3" value=""></div>
-    <div class="bg"><button class="btn btn-s btn-p" onclick="saveCover('${slug}')">保存</button><button class="btn btn-s btn-g" onclick="document.getElementById('cover-overlay').remove()">取消</button></div>
-  </div>`;
-  document.body.appendChild(overlay);
-}
-
-async function saveCover(slug) {
-  const fields = {
-    TITLE_LINE_1: document.getElementById('ce-tl1').value,
-    TITLE_LINE_2: document.getElementById('ce-tl2').value,
-    SUBTITLE: document.getElementById('ce-sub').value,
-    FEATURE_1: document.getElementById('ce-f1').value,
-    FEATURE_2: document.getElementById('ce-f2').value,
-    FEATURE_3: document.getElementById('ce-f3').value,
-  };
-  try {
-    const r = await fetch('/api/projects/update-cover', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug, fields }),
-    });
-    const d = await r.json();
-    if (d.ok) { TOAST('✅ 封面已更新'); loadProjects(); } else { TOAST('❌ 更新失败'); }
-  } catch(e) { TOAST('❌ 网络错误'); }
-  document.getElementById('cover-overlay').remove();
-}
-
-// === Script Generator Modal ===
-async function generateScript(slug) {
-  const overlay = document.createElement('div');
-  overlay.id = 'script-overlay';
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center';
-  overlay.innerHTML = `<div style="background:#1C1C1E;border:1px solid #38383A;border-radius:16px;padding:24px 28px;width:860px;max-width:90vw;max-height:90vh;display:flex;flex-direction:column">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <div style="font-size:16px;font-weight:600">📜 双重审查中心 — ${slug}</div>
-      <span id="script-status" style="font-size:12px;color:#FF9F0A">⏳ 生成中…</span>
-    </div>
-    <!-- Tab 切换 -->
-    <div style="display:flex;gap:4px;margin-bottom:12px">
-      <button class="btn btn-xs btn-p" id="tab-code" onclick="switchTab('code')">🎬 视频脚本代码</button>
-      <button class="btn btn-xs btn-g" id="tab-copy" onclick="switchTab('copy')">✍️ 社交宣发文案</button>
-    </div>
-    <!-- 代码 tab -->
-    <div id="panel-code">
-      <textarea id="script-editor" style="width:100%;min-height:400px;padding:16px;border-radius:12px;background:#0A0A0A;border:1px solid #2C2C2E;color:#F5F5F7;font-family:'SF Mono','JetBrains Mono',monospace;font-size:11px;line-height:1.6;resize:vertical;outline:none" wrap="off" placeholder="正在生成…"></textarea>
-      <div class="bg" style="margin-top:12px">
-        <button class="btn btn-s btn-p" id="script-save-btn" onclick="saveScript('${slug}')">🚀 确认并写入磁盘</button>
-      </div>
-    </div>
-    <!-- 文案 tab（隐藏） -->
-    <div id="panel-copy" style="display:none;flex:1;overflow-y:auto">
-      <div style="margin-bottom:16px">
-        <div style="font-size:13px;font-weight:600;color:#FF375F;margin-bottom:8px">📕 小红书爆款文案</div>
-        <div style="background:#0A0A0A;border:1px solid #2C2C2E;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;color:#F5F5F7;white-space:pre-wrap;margin-bottom:8px" id="copy-xiaohongshu"></div>
-        <button class="btn btn-xs btn-p" onclick="copyToClip('copy-xiaohongshu')">📋 点击复制</button>
-      </div>
-      <div style="border-top:1px solid #2C2C2E;padding-top:16px">
-        <div style="font-size:13px;font-weight:600;color:#FF9F0A;margin-bottom:8px">🎵 抖音/B站宣传语</div>
-        <div style="background:#0A0A0A;border:1px solid #2C2C2E;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;color:#F5F5F7;white-space:pre-wrap;margin-bottom:8px" id="copy-douyin"></div>
-        <button class="btn btn-xs btn-p" onclick="copyToClip('copy-douyin')">📋 点击复制</button>
-      </div>
-    </div>
-    <div class="bg" style="margin-top:12px">
-      <button class="btn btn-s btn-g" onclick="document.getElementById('script-overlay').remove()">关闭</button>
-    </div>
-  </div>`;
-  document.body.appendChild(overlay);
-
-  try {
-    const r = await fetch('/api/projects/generate-blueprint', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug, topic: slug }),
-    });
-    const d = await r.json();
-    if (d.ok && d.html) {
-      document.getElementById('script-editor').value = d.html;
-      // 填充文案
-      if (d.copy) {
-        const x = d.copy.xiaohongshu;
-        document.getElementById('copy-xiaohongshu').textContent =
-          `【标题】${x.title}\n\n${x.body}\n\n${x.tags}`;
-        const y = d.copy.douyin;
-        document.getElementById('copy-douyin').textContent =
-          `【标题】${y.title}\n\n${y.body}\n\n${y.tags}`;
-      }
-      document.getElementById('script-status').textContent = '✅ 已生成';
-    } else {
-      document.getElementById('script-status').textContent = '❌ 生成失败';
-      document.getElementById('script-editor').value = '// 生成失败，请重试';
-    }
-  } catch(e) {
-    document.getElementById('script-status').textContent = '❌ 网络错误';
-    document.getElementById('script-editor').value = '// 网络错误：' + e.message;
-  }
-}
-
-async function saveScript(slug) {
-  const btn = document.getElementById('script-save-btn');
-  const html_content = document.getElementById('script-editor').value;
-  // 从文案 tab 收集已编辑的文案内容
-  const copyContent = [];
-  const xhsEl = document.getElementById('copy-xiaohongshu');
-  const dyEl = document.getElementById('copy-douyin');
-  if (xhsEl && dyEl) {
-    copyContent.push('## 小红书版\n');
-    copyContent.push(xhsEl.textContent + '\n');
-    copyContent.push('---\n');
-    copyContent.push('## 抖音版\n');
-    copyContent.push(dyEl.textContent + '\n');
-  }
-  btn.textContent = '保存中…'; btn.disabled = true;
-  try {
-    const r = await fetch('/api/projects/save-script', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug, html_content, copy_content: copyContent.join('\n') }),
-    });
-    const d = await r.json();
-    if (d.ok) { TOAST('✅ 剧本已写入磁盘'); document.getElementById('script-overlay').remove(); loadProjects(); }
-    else { TOAST('❌ 保存失败: ' + (d.error || '未知错误')); }
-  } catch(e) { TOAST('❌ 网络错误'); }
-  btn.textContent = '🚀 确认并写入磁盘'; btn.disabled = false;
-}
-
-// === Tab Switching ===
-function switchTab(tab) {
-  document.getElementById('panel-code').style.display = tab === 'code' ? 'block' : 'none';
-  document.getElementById('panel-copy').style.display = tab === 'copy' ? 'block' : 'none';
-  document.getElementById('tab-code').className = 'btn btn-xs ' + (tab === 'code' ? 'btn-p' : 'btn-g');
-  document.getElementById('tab-copy').className = 'btn btn-xs ' + (tab === 'copy' ? 'btn-p' : 'btn-g');
-}
-
-// === Copy To Clipboard ===
-function copyToClip(elementId) {
-  const el = document.getElementById(elementId);
-  if (!el) return;
-  navigator.clipboard.writeText(el.textContent).then(() => {
-    TOAST('📋 已复制到剪贴板');
-  }).catch(() => {
-    // 降级方案
-    const ta = document.createElement('textarea');
-    ta.value = el.textContent;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    TOAST('📋 已复制到剪贴板');
-  });
-}
-
-// === Phase 4.2: 渲染自动化 ===
-async function startRender(slug) {
-  const btn = $(`render-btn-${slug}`);
-  if (!btn) return;
-  btn.textContent = '💿 渲染中…'; btn.disabled = true;
-  try {
-    const r = await fetch('/api/projects/render', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug }),
-    });
-    const d = await r.json();
-    if (d.ok && d.status === 'rendering') {
-      TOAST(`🎬 渲染已启动: ${slug}`);
-      // 开始轮询渲染状态
-      const pollTimer = setInterval(async () => {
-        try {
-          const pr = await fetch(`/api/projects/render-status/${slug}`);
-          const pd = await pr.json();
-          if (pd.status === 'completed') {
-            clearInterval(pollTimer);
-            const statusLabel = $(`label-${slug}`);
-            if (statusLabel) statusLabel.textContent = '✅ 已完成';
-            btn.textContent = '🎬 开始渲染';
-            btn.disabled = false;
-            TOAST(`✅ 渲染完成! ${pd.output || ''}`);
-            loadProjects(); // 刷新列表
-          } else if (pd.status === 'failed') {
-            clearInterval(pollTimer);
-            btn.textContent = '🎬 开始渲染';
-            btn.disabled = false;
-            TOAST('❌ 渲染失败: ' + (pd.error || '未知错误'));
-          }
-        } catch(e) { /* 继续轮询 */ }
-      }, 3000);
-    } else {
-      TOAST('❌ 启动渲染失败');
-      btn.textContent = '🎬 开始渲染'; btn.disabled = false;
-    }
-  } catch(e) {
-    TOAST('❌ 网络错误'); btn.textContent = '🎬 开始渲染'; btn.disabled = false;
-  }
-}
-
-// === Phase 4.3: 一键打开文件夹 ===
-async function openFolder(slug) {
-  try {
-    await fetch('/api/projects/open-folder', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug, sub: '03-成品' }),
-    });
-  } catch(e) { /* 静默失败 */ }
-}
-
-
-// === Phase 6.1: 一键归档 ===
-async function archiveProject(slug) {
-  if (!confirm('确定归档项目 ' + slug + ' 吗？这将搬运视频和封面到 03-成品/ 并生成生产记录。')) return;
-  const btn=document.querySelector(`[onclick*="archiveProject('${slug}')"]`);
-  if(btn){btn.textContent='📦 归档中…';btn.disabled=true;}
-  try {
-    const r=await fetch('/api/projects/archive',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({slug})
-    });
-    const d=await r.json();
-    if(d.ok){TOAST('✅ 归档完成: '+slug);loadProjects();}
-    else{TOAST('❌ 归档失败');}
-  }catch(e){TOAST('❌ 网络错误');}
-  if(btn){btn.textContent='📦 一键归档';btn.disabled=false;}
-}
-// === Init ===
-$('td').textContent = T(); css(); refresh();
-</script>
+<script src="app.js"></script>
 </body>
 </html>
