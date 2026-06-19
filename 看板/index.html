@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#f3f3f4","secondary-fixed":"#e5e2e1","on-surface-variant":"#444936","on-error":"#ffffff","surface-bright":"#f9f9fa","secondary":"#5f5e5e","inverse-surface":"#2f3132","surface-tint":"#4f6600","on-tertiary":"#ffffff","surface-container":"#eeeeef","on-secondary":"#ffffff","outline":"#757964","primary-fixed":"#c8f252","inverse-primary":"#acd537","surface-container-high":"#e8e8e9","primary-fixed-dim":"#acd537","surface-container-highest":"#e2e2e3","on-secondary-fixed-variant":"#474746","surface-variant":"#e2e2e3","tertiary-fixed":"#e1e0ff","on-secondary-container":"#636262","on-primary":"#ffffff","surface":"#f9f9fa","primary":"#4f6600","tertiary-fixed-dim":"#c0c1ff","on-surface":"#1a1c1d","error-container":"#ffdad6","background":"#f9f9fa","on-primary-fixed-variant":"#3b4d00","on-tertiary-fixed":"#07006c","surface-container-lowest":"#ffffff","on-primary-fixed":"#161f00","on-tertiary-container":"#575ae5","on-secondary-fixed":"#1c1b1b","surface-dim":"#dadadb","tertiary":"#494bd6","primary-container":"#d4ff5e","tertiary-container":"#f0edff","outline-variant":"#c5c9b0","on-error-container":"#93000a","error":"#ba1a1a","secondary-container":"#e2dfde","on-primary-container":"#5b7500","on-tertiary-fixed-variant":"#2f2ebe","on-background":"#1a1c1d","secondary-fixed-dim":"#c8c6c5","inverse-on-surface":"#f0f1f2"}},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"sidebar-expanded":"240px",gutter:"24px","container-padding-mobile":"16px","container-padding-desktop":"32px","sidebar-width":"80px",base:"8px"},fontFamily:{"metric-xl":["Hanken Grotesk"],"headline-lg":["Hanken Grotesk"],"display-lg":["Hanken Grotesk"],"label-sm":["JetBrains Mono"],"headline-lg-mobile":["Hanken Grotesk"],"body-md":["Manrope"]},fontSize:{"metric-xl":["40px",{lineHeight:"48px",letterSpacing:"-0.03em",fontWeight:"700"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"600"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-sm":["12px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-lg-mobile":["24px",{lineHeight:"32px",fontWeight:"600"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}
+</script>
 <style>
 :root{--bg:#F4F4F5;--bgCard:#FFFFFF;--bgCardH:#E4E4E7;--bgInput:#FFFFFF;--text:#18181B;--text2:#52525B;--text3:#A1A1AA;--border:#D4D4D8;--borderL:#E4E4E7;--blue:#0A84FF;--blueL:#40A9FF;--pink:#FF375F;--orange:#FF9F0A;--green:#30D158;--red:#FF453A;--r:10px;--rs:6px;--rl:24px;--primary-fixed:#c8f252;--primary-fixed-dim:#acd537;--on-primary-fixed:#1a1c1d;--on-surface:#1a1c1d;--on-surface-variant:#444936;--outline:#757964;--outline-variant:#c5c9b0;--inverse-surface:#2f3132;--background:#f9f9fa;--aura-primary:#f0fcb3;--aura-muted:#8c9a91;--surface-container:#E8E8E9;--surface-container-low:#EEEFF0;--surface-container-high:#E0E0E2;--surface-container-lowest:#F3F3F4;--surface-dim:#dadadb;--surface-bright:#f9f9fa;--surface-container-highest:#e2e2e3;--inverse-on-surface:#f0f1f2;--primary:#4f6600;--on-primary:#ffffff;--primary-container:#d4ff5e;--on-primary-container:#5b7500;--secondary:#5f5e5e;--on-secondary:#ffffff;--secondary-container:#e2dfde;--on-secondary-container:#636262;--tertiary:#494bd6;--tertiary-container:#f0edff;--on-tertiary-container:#575ae5;--error:#ba1a1a;--on-error:#ffffff;--error-container:#ffdad6;--on-error-container:#93000a;--on-background:#1a1c1d;--surface-variant:#e2e2e3;--surface-tint:#4f6600;--font:"Manrope",sans-serif;--font-display:"Hanken Grotesk",sans-serif;--font-headline:"Hanken Grotesk",sans-serif;--font-body:"Manrope",sans-serif;--font-label:"JetBrains Mono",monospace}
 .dark{--bg:#09090B;--bgCard:#0F1113;--bgCardH:#16181C;--bgInput:#16181C;--text:#EBEBED;--text2:#7A7D85;--text3:#5A5D65;--border:#2A2C32;--borderL:#3A3A3C;--on-surface:#EBEBED;--on-surface-variant:#8c9a91;--background:#09090B;--surface-container:#1A1C1E;--surface-container-low:#131517;--surface-container-high:#222428;--surface-container-lowest:#0E0F11;--inverse-on-surface:#1a1c1d;--primary-container:rgba(200,242,82,0.12);--on-primary-container:#EBEBED;--surface-dim:#111213;--surface-bright:#37393a;--primary:#acd537;--on-primary:#1a2e00;--primary-container-custom:#334700;--secondary:#c8c6c5;--on-secondary:#2f2f2f;--secondary-container:#464545;--on-secondary-container:#e2dfde;--tertiary-container:#353399;--on-tertiary-container:#e1e0ff;--error:#ffb4ab;--on-error:#690005;--error-container:#93000a;--on-error-container:#ffdad6;--on-background:#e2e2e3;--surface-variant:#444936;--surface-tint:#acd537}
@@ -52,7 +56,7 @@ body{font-family:var(--font-body);background:var(--background);color:var(--on-su
 .aura-conn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:9999px;background:var(--surface-container);font-size:12px;font-family:var(--font-label);color:var(--on-surface-variant);transition:all .3s}
 .cd{width:8px;height:8px;border-radius:50%;background:var(--red);transition:all .3s;display:inline-block;flex-shrink:0}
 .cd.on{background:var(--green);box-shadow:0 0 8px rgba(98,204,98,0.5)}.cd.cn{background:var(--orange);animation:pulse 2s infinite}.cd.er{background:var(--red)}
-.ct{padding:20px 0 48px;max-width:1440px}
+.ct{padding:20px 0 48px}
 
 /* Cards */
 .cd-card{background:rgba(18,20,19,0.4);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;border:1px solid rgba(255,255,255,0.05);padding:24px;margin-bottom:10px}
@@ -188,6 +192,10 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 .font-body-md{font-family:var(--font-body);font-size:14px;font-weight:400;line-height:1.5}
 .font-label-sm{font-family:var(--font-label);font-size:12px;font-weight:500;letter-spacing:0.05em;line-height:16px}
 
+.glass-panel{background:rgba(255,255,255,0.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(197,201,176,0.4);box-shadow:0 8px 32px rgba(0,0,0,0.03)}.dark .glass-panel{background:rgba(22,24,28,0.6);border-color:rgba(197,201,176,0.1)}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.fill-icon{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24}
+
 /* Icon baseline alignment */
 .material-symbols-outlined{vertical-align:middle;line-height:1;font-size:20px}
 
@@ -314,7 +322,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
   <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:20px">
 
     <!-- Left Block: 8 cols -->
-    <div style="grid-column:span 8;display:flex;flex-direction:column;gap:20px">
+    <div style="grid-column:span 8;display:flex;flex-direction:column;gap:20px;height:100%;min-height:0">
 
       <!-- Top Row: 3 metrics -->
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
@@ -429,10 +437,53 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
           </div>
         </div>
       </div>
+
+      <!-- Pipeline Progress + Project Assets (2-col grid under chart) -->
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+
+        <!-- Pipeline Progress -->
+        <div style="display:flex;flex-direction:column;padding:20px;border-left:4px solid var(--primary-fixed);background:var(--surface-container-lowest);border-radius:12px" class="card-hover">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <span class="font-label-sm" style="color:var(--on-surface-variant)">Pipeline Progress</span>
+            <span style="display:flex;align-items:center;gap:4px;padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:600;background:var(--primary-container);color:var(--on-primary-container)"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-fixed)"></span><span id="flow-status">Calculating...</span></span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px">
+            <div style="display:flex;gap:4px;height:12px">
+              <div class="bar done" style="flex:1;background:var(--primary-fixed);border-radius:9999px 0 0 9999px;height:12px" id="flow-bar-1"></div>
+              <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-2"></div>
+              <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-3"></div>
+              <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-4"></div>
+              <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-5"></div>
+              <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-6"></div>
+              <div class="bar" style="flex:1;background:var(--primary-fixed);height:12px;position:relative;overflow:hidden" id="flow-bar-7">
+                <div style="position:absolute;inset:0;background:rgba(255,255,255,0.3);animation:pulse-shimmer 1.5s ease-in-out infinite"></div>
+              </div>
+              <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px" id="flow-bar-8"></div>
+              <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px" id="flow-bar-9"></div>
+              <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px;border-radius:0 9999px 9999px 0" id="flow-bar-10"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--on-surface-variant)">
+              <span>Data Ingestion</span><span>Analysis</span><span>Optimization</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Assets (mini) -->
+        <div style="display:flex;flex-direction:column;background:var(--surface-container-lowest);border-radius:12px;padding:20px" class="card-hover">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <span style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="font-size:18px;color:var(--primary-fixed)">movie_filter</span> Project Assets</span>
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-container);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" onclick="goPage('assets')" class="btn-hover"><span class="material-symbols-outlined" style="font-size:16px;color:var(--on-surface-variant)">arrow_forward</span></div>
+          </div>
+          <div id="proj-box-mini" style="flex:1;display:flex;flex-direction:column;justify-content:center"><div class="em"><span class="material-symbols-outlined" style="font-size:20px;display:block;margin-bottom:4px;color:var(--on-surface-variant)">pending</span><p>Loading projects...</p></div></div>
+        </div>
+
+      </div>
+
     </div>
 
     <!-- Right Block: 4 cols -->
     <div style="grid-column:span 4;display:flex;flex-direction:column;gap:20px">
+
 
       <!-- Quick Access -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -446,119 +497,73 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
         </div>
       </div>
 
-      <!-- AI Recommendation compact (ref wrapper) -->
-      <div style="background:var(--surface-container);border-radius:12px;padding:16px" class="card-hover">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-          <div class="icon-round" style="width:40px;height:40px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="color:var(--primary-fixed);font-size:18px">auto_awesome</span></div>
-          <div style="flex:1"><span style="font-size:14px;font-weight:600">AI Recommendations</span><span style="font-size:11px;color:var(--on-surface-variant);margin-left:8px" id="rc-ct"></span></div>
+      <!-- AI Recommendations -->
+      <div style="display:flex;flex-direction:column;height:352px;width:100%;background:var(--surface-container);border-radius:12px;padding:14px" class="card-hover">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:6px">
+          <div class="icon-round" style="width:36px;height:36px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="color:var(--on-surface-variant);font-size:16px">auto_awesome</span></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:600;line-height:1.2">AI Recommendations</div>
+            <div style="font-size:10px;color:var(--on-surface-variant);margin-top:1px" id="rc-ct"></div>
+          </div>
         </div>
-        <div id="rc-box"><div class="em"><span class="eic">⏳</span><p>Analyzing...</p></div></div>
-        <div style="display:flex;gap:6px;margin-top:8px">
+        <div id="rc-box" style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--outline-variant) transparent"><div class="em"><span class="eic material-symbols-outlined" style="font-size:20px;display:block;margin-bottom:6px">auto_awesome</span><p>Analyzing...</p></div></div>
+        <div style="display:flex;gap:6px;margin-top:6px">
           <button class="btn btn-xs btn-g btn-hover" onclick="loadRecs()" style="flex:1">Refresh</button>
           <button class="btn btn-xs btn-g btn-hover" onclick="goPage('hot')" style="flex:1">Search</button>
         </div>
       </div>
 
-      <!-- Quick Record (ref wrapper) -->
-      <div style="background:var(--surface-container);border-radius:12px;padding:16px" class="card-hover">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-          <div class="icon-round" style="width:40px;height:40px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="font-size:18px">edit_note</span></div>
-          <div style="flex:1"><span style="font-size:14px;font-weight:600">Quick Record</span><span style="font-size:11px;color:var(--on-surface-variant);margin-left:8px">Fill data after publishing</span></div>
+      <!-- WORKSPACE (Quick Record + Quick Note + Signal) -->
+      <div style="background:var(--surface-container);border-radius:12px;padding:14px;border:1px solid rgba(117,121,100,0.12)" class="card-hover">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:4px">
+          <div class="icon-round" style="width:36px;height:36px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="color:var(--on-surface-variant);font-size:16px">signal_cellular_alt</span></div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:13px;font-weight:600">WORKSPACE</span>
+              <span style="display:flex;align-items:center;gap:4px;padding:2px 8px;border-radius:9999px;font-size:9px;font-weight:600;background:var(--primary-container);color:var(--on-primary-container)"><span style="width:5px;height:5px;border-radius:50%;background:var(--primary-fixed)"></span>Live 82%</span>
+            </div>
+            <div style="font-size:9px;color:var(--on-surface-variant);opacity:0.7">3 records today · Signal active</div>
+          </div>
         </div>
-        <div style="display:flex;gap:8px;margin-bottom:8px">
-          <select class="fs" id="qe-pick" style="flex:2;padding:6px 10px;border-radius:8px"><option value="">— Select —</option></select>
-          <input class="fi" id="qe-date" type="date" style="flex:1;padding:6px 10px;border-radius:8px" />
+        <div style="height:4px;background:var(--surface-container-high);border-radius:2px;overflow:hidden;margin-bottom:2px">
+          <div style="height:100%;width:82%;background:var(--primary-fixed);border-radius:2px"></div>
         </div>
-        <div style="font-size:11px;color:var(--on-surface-variant);margin-bottom:6px">🎵 Douyin / 📕 Xiaohongshu</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-          <input class="fi" id="qe-dy-v" placeholder="Plays" style="padding:6px 10px;font-size:11px;border-radius:8px" />
-          <input class="fi" id="qe-dy-c" placeholder="C%" style="padding:6px 10px;font-size:11px;border-radius:8px" />
-          <input class="fi" id="qe-xhs-v" placeholder="Plays" style="padding:6px 10px;font-size:11px;border-radius:8px" />
-          <input class="fi" id="qe-xhs-c" placeholder="C%" style="padding:6px 10px;font-size:11px;border-radius:8px" />
+
+        <hr style="border:none;border-top:1px solid rgba(117,121,100,0.1);margin:8px 0">
+
+        <div style="font-size:9px;font-weight:600;color:var(--on-surface-variant);opacity:0.7;margin-bottom:6px;letter-spacing:0.03em">PERFORMANCE RECORD</div>
+        <div style="display:flex;gap:6px;margin-bottom:4px">
+          <select class="fs" id="qe-pick" style="flex:2;padding:5px 8px;border-radius:6px;font-size:10px"><option value="">— Select —</option></select>
+          <input class="fi" id="qe-date" type="date" style="flex:1;padding:5px 8px;border-radius:6px;font-size:10px" />
         </div>
-        <button class="btn btn-s btn-p btn-hover" onclick="qeSave()" style="width:100%;margin-top:8px;border-radius:8px">Save Data</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:6px">
+          <input class="fi" id="qe-dy-v" placeholder="DY Plays" style="padding:4px 6px;font-size:10px;border-radius:4px" />
+          <input class="fi" id="qe-dy-c" placeholder="DY C%" style="padding:4px 6px;font-size:10px;border-radius:4px" />
+          <input class="fi" id="qe-xhs-v" placeholder="XHS Plays" style="padding:4px 6px;font-size:10px;border-radius:4px" />
+          <input class="fi" id="qe-xhs-c" placeholder="XHS C%" style="padding:4px 6px;font-size:10px;border-radius:4px" />
+        </div>
+        <button class="btn btn-xs btn-p btn-hover" onclick="qeSave()" style="width:100%;padding:6px 0;border-radius:6px;font-size:10px;font-weight:600">Save Data</button>
+
+        <hr style="border:none;border-top:1px solid rgba(117,121,100,0.1);margin:8px 0">
+
+        <div style="font-size:9px;font-weight:600;color:var(--on-surface-variant);opacity:0.7;margin-bottom:6px;letter-spacing:0.03em">QUICK NOTE</div>
+        <div style="display:flex;gap:6px;margin-bottom:4px">
+          <input class="fi" id="qi" placeholder="Got an idea..." style="padding:5px 8px;font-size:11px;flex:1;border-radius:6px" />
+          <button class="btn btn-s btn-p btn-hover" style="flex-shrink:0;border-radius:6px;padding:5px 12px;font-size:13px;line-height:1" onclick="qi()">+</button>
+        </div>
+        <div id="todo-box" style="font-size:10px;color:var(--on-surface-variant);margin-top:4px"></div>
       </div>
 
-      <!-- Quick note (ref wrapper) -->
-      <div style="background:var(--surface-container);border-radius:12px;padding:16px" class="card-hover">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-          <div class="icon-round" style="width:40px;height:40px;background:var(--surface-container-lowest)"><span class="material-symbols-outlined" style="font-size:18px">lightbulb</span></div>
-          <span style="font-size:14px;font-weight:600">Quick Note</span>
-        </div>
-        <div style="display:flex;gap:8px">
-          <input class="fi" id="qi" placeholder="Got an idea..." style="padding:6px 12px;font-size:12px;flex:1;border-radius:8px" />
-          <button class="btn btn-s btn-p btn-hover" style="flex-shrink:0;border-radius:8px" onclick="qi()">+</button>
-        </div>
-        <div id="todo-box" style="font-size:12px;color:var(--on-surface-variant);margin-top:8px"></div>
-      </div>
-
-      <!-- Agent Confidence -->
-      <div style="padding:20px;border-left:4px solid var(--primary-fixed);background:var(--surface-container-lowest);border-radius:12px" class="card-hover">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <span class="font-label-sm" style="color:var(--on-surface-variant)">Agent Confidence</span>
-          <span style="display:flex;align-items:center;gap:4px;padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:600;background:var(--primary-container);color:var(--on-primary-container)"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-fixed)"></span>Live</span>
-        </div>
-        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--on-surface)">82%</div>
-        <div style="font-size:14px;color:var(--on-surface-variant);margin-bottom:16px">High confidence</div>
-        <div style="height:8px;background:var(--surface-container-high);border-radius:9999px;overflow:hidden">
-          <div style="height:100%;width:82%;background:var(--primary-fixed);border-radius:9999px"></div>
-        </div>
-        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:8px">Monitoring revenue velocity and conversion stability across TikTok and Douyin nodes.</div>
+      <!-- Help & Support (compact) -->
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-container);border-radius:10px;cursor:pointer" class="card-hover" onclick="window.open('about:blank','_blank')">
+        <span class="material-symbols-outlined" style="font-size:14px;color:var(--on-surface-variant)">help</span>
+        <span style="flex:1;font-size:11px;color:var(--on-surface-variant)">Help &amp; Support</span>
+        <span class="material-symbols-outlined" style="font-size:14px;color:var(--on-surface-variant);opacity:0.5">arrow_forward</span>
       </div>
 
     </div>
   </div>
 
-  <!-- Bottom Row: Pipeline + Project Assets + Help -->
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px">
-
-    <!-- Pipeline Progress (left card) -->
-    <div style="padding:20px;border-left:4px solid var(--primary-fixed);background:var(--surface-container-lowest);border-radius:12px" class="card-hover">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <span class="font-label-sm" style="color:var(--on-surface-variant)">Pipeline Progress</span>
-        <span style="display:flex;align-items:center;gap:4px;padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:600;background:var(--primary-container);color:var(--on-primary-container)"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-fixed)"></span><span id="flow-status">Calculating...</span></span>
-      </div>
-      <div style="display:flex;gap:4px;height:12px;margin-bottom:8px">
-        <div class="bar done" style="flex:1;background:var(--primary-fixed);border-radius:9999px 0 0 9999px;height:12px" id="flow-bar-1"></div>
-        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-2"></div>
-        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-3"></div>
-        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-4"></div>
-        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-5"></div>
-        <div class="bar done" style="flex:1;background:var(--primary-fixed);height:12px" id="flow-bar-6"></div>
-        <div class="bar" style="flex:1;background:var(--primary-fixed);height:12px;position:relative;overflow:hidden" id="flow-bar-7">
-          <div style="position:absolute;inset:0;background:rgba(255,255,255,0.3);animation:pulse-shimmer 1.5s ease-in-out infinite"></div>
-        </div>
-        <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px" id="flow-bar-8"></div>
-        <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px" id="flow-bar-9"></div>
-        <div class="bar" style="flex:1;background:var(--surface-container-high);height:12px;border-radius:0 9999px 9999px 0" id="flow-bar-10"></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--on-surface-variant)">
-        <span>Data Ingestion</span><span>Analysis</span><span>Optimization</span>
-      </div>
-    </div>
-
-    <!-- Project Assets (mini, middle card) -->
-    <div style="background:var(--surface-container-lowest);border-radius:12px;padding:20px" class="card-hover">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <span style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="font-size:18px;color:var(--primary-fixed)">movie_filter</span> Project Assets</span>
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-container);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" onclick="goPage('assets')" class="btn-hover"><span class="material-symbols-outlined" style="font-size:16px;color:var(--on-surface-variant)">arrow_forward</span></div>
-      </div>
-      <div id="proj-box-mini"><div class="em"><span class="eic">⏳</span><p>Loading projects...</p></div></div>
-    </div>
-
-    <!-- Help & Support (right card) -->
-    <div style="background:var(--surface-container-lowest);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center" class="card-hover">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-        <div class="icon-round" style="background:var(--surface-container)"><span class="material-symbols-outlined" style="color:var(--on-surface-variant)">help</span></div>
-        <div>
-          <div style="font-size:14px;font-weight:600">Help &amp; Support</div>
-          <div style="font-size:12px;color:var(--on-surface-variant)">Guides, documentation &amp; ticketing</div>
-        </div>
-      </div>
-      <button class="btn-hover" style="width:100%;padding:10px 0;border-radius:9999px;border:1px solid var(--outline-variant);background:transparent;font-size:14px;font-weight:600;color:var(--on-surface);cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--surface-container)'" onmouseout="this.style.background='transparent'">Open Support Hub</button>
-    </div>
-
-  </div>
 
   <!-- Safety sandbox for ro() platform metrics -->
   <div style="display:none" id="aura-ro-safety-sandbox">
@@ -898,101 +903,326 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
   </div>
 </div>
 
-<!-- ====== 数据复盘 ====== -->
+<!-- ====== Data Review ====== -->
 <div class="pg" id="p-review">
-  <div class="g2">
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">📈</span>Performance</div></div>
-      <div class="tw">
-        <table>
-          <thead>
-            <tr>
-              <th>Content</th><th>Platform</th><th style="text-align:center">C.Rate</th><th style="text-align:center">Interact</th><th style="text-align:center">Fol.</th><th style="text-align:center">Search</th><th style="text-align:center">Views</th>
-            </tr>
-          </thead>
-          <tbody id="rv-tb"></tbody>
-        </table>
-      </div>
+
+  <!-- Header Section -->
+  <div class="flex justify-between items-end mb-8">
+    <div>
+      <h1 class="font-display-lg text-on-surface mb-2 tracking-tight">Performance Deep Dive</h1>
+      <p class="font-body-md text-on-surface-variant max-w-2xl">Post-release metric aggregation across primary distribution channels. Comparing real-world performance against projected pipeline estimates.</p>
     </div>
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">📝</span>Record Data</div></div>
-      <div class="fr2">
-        <div class="fg"><label class="fl">Content</label><select class="fs" id="rv-pick"><option value="">—Select—</option></select></div>
-        <div class="fg"><label class="fl">Platform</label><select class="fs" id="rv-platform"><option value="douyin">🎵Douyin</option><option value="xiaohongshu">📕Xiaohongshu</option></select></div>
-      </div>
-      <div class="fr3">
-        <div class="fg"><label class="fl">C.Rate%</label><input class="fi" id="rv-c" type="number" /></div>
-        <div class="fg"><label class="fl">Interact%</label><input class="fi" id="rv-i" type="number" /></div>
-        <div class="fg"><label class="fl">Followers</label><input class="fi" id="rv-f" type="number" /></div>
-      </div>
-      <div class="fr2">
-        <div class="fg"><label class="fl">Search%</label><input class="fi" id="rv-s" type="number" /></div>
-        <div class="fg"><label class="fl">Views</label><input class="fi" id="rv-v" type="number" /></div>
-      </div>
-      <div class="bg"><button class="btn btn-s btn-p" onclick="ar()">Record</button></div>
+    <div class="flex gap-3">
+      <button class="px-5 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest/50 hover:bg-surface-container transition-colors font-label-sm text-on-surface flex items-center gap-2" onclick="sn()">
+        <span class="material-symbols-outlined text-[18px]">edit_note</span> Add Note
+      </button>
     </div>
   </div>
 
-  <div class="g2">
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">🔑</span>Search Words</div></div>
-      <div class="fc">
-        <input class="fi" id="sw" placeholder="Keyword" />
-        <input class="fi" id="swc" type="number" placeholder="Volume" />
-        <button class="btn btn-s btn-p" onclick="asw()" style="flex-shrink:0">+</button>
-      </div>
-      <div id="sw-box"><div class="em"><p>No data</p></div></div>
-    </div>
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">💡</span>Review Notes</div></div>
-      <div class="fg"><textarea class="ft" id="wn" style="min-height:60px"></textarea></div>
-      <button class="btn btn-s btn-p" onclick="sn()">Save</button>
-      <div id="notes-box" style="margin-top:10px"></div>
+  <!-- 6 Metric Cards -->
+  <div id="rv-metrics" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
+    <!-- Populated by rr() -->
+    <div class="glass-panel rounded-xl p-5 flex flex-col justify-between col-span-full lg:col-span-6">
+      <div class="em"><span class="material-symbols-outlined text-outline" style="font-size:32px;display:block;margin-bottom:8px">analytics</span><p class="text-on-surface-variant">Loading metrics...</p></div>
     </div>
   </div>
+
+  <!-- Multi-Channel Performance Ranking + Record Form -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+    <!-- TikTok Ranking -->
+    <div class="glass-panel rounded-2xl p-6 flex flex-col">
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-[#000000] text-white flex items-center justify-center font-bold text-xl">
+            <span class="material-symbols-outlined text-[18px]">music_note</span>
+          </div>
+          <h2 class="font-headline-md text-on-surface">TikTok Performance</h2>
+        </div>
+        <span class="font-label-sm text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">Top 5</span>
+      </div>
+      <div id="rv-tiktok-list" class="flex flex-col gap-4">
+        <div class="em"><span class="material-symbols-outlined text-outline" style="font-size:24px;display:block;margin-bottom:4px">smart_display</span><p class="text-on-surface-variant">No TikTok data</p></div>
+      </div>
+    </div>
+
+    <!-- Douyin Ranking -->
+    <div class="glass-panel rounded-2xl p-6 flex flex-col">
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-[#1C1B1B] text-white flex items-center justify-center font-bold text-xl">
+            <span class="material-symbols-outlined text-[18px]">graphic_eq</span>
+          </div>
+          <h2 class="font-headline-md text-on-surface">Douyin Performance</h2>
+        </div>
+        <span class="font-label-sm text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">Top 5</span>
+      </div>
+      <div id="rv-douyin-list" class="flex flex-col gap-4">
+        <div class="em"><span class="material-symbols-outlined text-outline" style="font-size:24px;display:block;margin-bottom:4px">smart_display</span><p class="text-on-surface-variant">No Douyin data</p></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Search Word Tracking + Record Form -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+
+    <!-- Record Data Form (col-span-4) -->
+    <div class="lg:col-span-4 glass-panel rounded-2xl p-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-8 rounded-lg bg-primary-fixed/20 flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary text-[18px]">post_add</span>
+        </div>
+        <h2 class="font-headline-md text-on-surface">Record Data</h2>
+      </div>
+      <div class="flex flex-col gap-4">
+        <div>
+          <label class="font-label-sm text-on-surface-variant mb-2 block">Content</label>
+          <select class="w-full px-3 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm text-on-surface focus:outline-none focus:border-primary-fixed transition-colors" id="rv-pick"><option value="">— Select —</option></select>
+        </div>
+        <div>
+          <label class="font-label-sm text-on-surface-variant mb-2 block">Platform</label>
+          <select class="w-full px-3 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm text-on-surface focus:outline-none focus:border-primary-fixed transition-colors" id="rv-platform">
+            <option value="douyin">🎵 Douyin</option>
+            <option value="xiaohongshu">📕 Xiaohongshu</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="font-label-sm text-on-surface-variant mb-1 block">Views</label><input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm focus:outline-none focus:border-primary-fixed transition-colors" id="rv-v" type="number" placeholder="0" /></div>
+          <div><label class="font-label-sm text-on-surface-variant mb-1 block">C.Rate %</label><input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm focus:outline-none focus:border-primary-fixed transition-colors" id="rv-c" type="number" placeholder="0" /></div>
+          <div><label class="font-label-sm text-on-surface-variant mb-1 block">Interact %</label><input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm focus:outline-none focus:border-primary-fixed transition-colors" id="rv-i" type="number" placeholder="0" /></div>
+          <div><label class="font-label-sm text-on-surface-variant mb-1 block">Followers</label><input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm focus:outline-none focus:border-primary-fixed transition-colors" id="rv-f" type="number" placeholder="0" /></div>
+          <div class="col-span-2"><label class="font-label-sm text-on-surface-variant mb-1 block">Search %</label><input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm focus:outline-none focus:border-primary-fixed transition-colors" id="rv-s" type="number" placeholder="0" /></div>
+        </div>
+        <button class="w-full py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-colors font-label-sm shadow-[0_4px_12px_rgba(79,102,0,0.2)] flex items-center justify-center gap-2" onclick="ar()">
+          <span class="material-symbols-outlined text-[18px]">check_circle</span> Record
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Word Tracking (col-span-8) -->
+    <div class="lg:col-span-8 glass-panel rounded-2xl p-6">
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-on-surface-variant">travel_explore</span>
+          <h2 class="font-headline-md text-on-surface">Search Word Tracking</h2>
+        </div>
+        <span class="font-label-sm text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">Last 20</span>
+      </div>
+
+      <!-- Add keyword row -->
+      <div class="flex gap-3 mb-6">
+        <input class="flex-1 px-4 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary-fixed transition-colors" id="sw" placeholder="Track new keyword..." />
+        <input class="w-24 px-3 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest/80 text-sm text-on-surface focus:outline-none focus:border-primary-fixed transition-colors" id="swc" type="number" placeholder="Volume" />
+        <button class="px-5 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-colors font-label-sm shadow-[0_4px_12px_rgba(79,102,0,0.2)] flex items-center gap-2" onclick="asw()">
+          <span class="material-symbols-outlined text-[18px]">add</span> Track
+        </button>
+      </div>
+
+      <!-- Search word list -->
+      <div id="sw-box" class="flex flex-col gap-3">
+        <div class="em"><span class="material-symbols-outlined text-outline" style="font-size:24px;display:block;margin-bottom:4px">search</span><p class="text-on-surface-variant">No keywords tracked</p></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Weekly Review Notes -->
+  <div class="glass-panel rounded-2xl p-6 relative overflow-hidden">
+    <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-fixed"></div>
+    <div class="flex items-start justify-between mb-4 pl-4">
+      <div>
+        <h2 class="font-headline-md text-on-surface mb-1">Weekly Review Notes</h2>
+        <p class="font-label-sm text-on-surface-variant">From: weeklyNotes.json • Auto-generated summary</p>
+      </div>
+      <div class="flex -space-x-3">
+        <div class="w-9 h-9 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center text-[10px] font-bold font-label-sm">AI</div>
+        <div class="w-9 h-9 rounded-full border-2 border-surface bg-primary-container text-on-primary-container flex items-center justify-center text-[10px] font-bold font-label-sm">JD</div>
+      </div>
+    </div>
+
+    <!-- New note input -->
+    <div class="pl-4 mb-6">
+      <textarea class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-lowest/80 text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary-fixed transition-colors resize-none" id="wn" placeholder="Write a review note..." rows="2"></textarea>
+      <div class="flex justify-end mt-2">
+        <button class="px-4 py-2 rounded-lg bg-primary-fixed text-on-primary-fixed hover:bg-primary-fixed-dim transition-colors font-label-sm flex items-center gap-2" onclick="sn()">
+          <span class="material-symbols-outlined text-[16px]">save</span> Save Note
+        </button>
+      </div>
+    </div>
+
+    <!-- Notes list -->
+    <div id="notes-box" class="pl-4 space-y-4">
+      <div class="em"><span class="material-symbols-outlined text-outline" style="font-size:24px;display:block;margin-bottom:4px">sticky_note_2</span><p class="text-on-surface-variant">No notes yet</p></div>
+    </div>
+  </div>
+
 </div>
 
-<!-- ====== 模板匹配 ====== -->
+<!-- ====== Playbook ====== -->
 <div class="pg" id="p-playbook">
-  <div class="g2">
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">🔧</span>Production Guide</div></div>
-      <div class="tw">
-        <table>
-          <thead><tr><th>Type</th><th>Engine</th><th>Time</th><th>Reuse</th></tr></thead>
-          <tbody>
-            <tr><td>Step-by-step</td><td><span class="tag t-b">Remotion</span></td><td>20-40m</td><td><span class="tag t-g">✅</span></td></tr>
-            <tr><td>A vs B Compare</td><td><span class="tag t-b">Remotion</span></td><td>30-60m</td><td><span class="tag t-g">✅</span></td></tr>
-            <tr><td>Text Opinion</td><td><span class="tag t-p">HF</span></td><td>10-20m</td><td><span class="tag t-g">✅</span></td></tr>
-            <tr><td>Narrated Guide</td><td><span class="tag t-p">HF</span></td><td>20-30m</td><td><span class="tag t-o">✎</span></td></tr>
-            <tr><td>Top N</td><td><span class="tag t-b">Remotion</span></td><td>20-30m</td><td><span class="tag t-o">✎</span></td></tr>
-            <tr><td>Image+Notes</td><td><span class="tag t-gray">—</span></td><td>10-15m</td><td><span class="tag t-g">✅</span></td></tr>
-          </tbody>
-        </table>
-      </div>
+
+  <!-- TopAppBar -->
+  <div class="flex justify-between items-center w-full mb-10">
+    <div>
+      <h1 class="font-display-lg text-on-surface tracking-tight">Playbook &amp; Capacity</h1>
+      <p class="font-body-md text-on-surface-variant mt-1">Production Strategy • Capacity Estimation</p>
     </div>
-    <div class="cd-card">
-      <div class="ch"><div class="ct2"><span class="ic">🎯</span>Format Ref</div></div>
-      <div style="font-size:11px;color:var(--text2);line-height:2.1">
-        <p>"How-to" → <span class="tag t-b">Remotion Step</span></p>
-        <p>"Compare" → <span class="tag t-b">Remotion Compare</span></p>
-        <p>"Explain" (complex) → <span class="tag t-b">Remotion Deep</span></p>
-        <p>"Explain" (simple) → <span class="tag t-p">HF Text</span></p>
-        <p>"Review" (data) → <span class="tag t-b">Remotion Chart</span></p>
-        <p>"Review" (opinion) → <span class="tag t-p">HF Quick</span></p>
-        <p>"Top N" → <span class="tag t-b">Remotion List</span></p>
+    <div class="flex items-center gap-4">
+      <div class="flex items-center bg-surface-container px-3 py-1.5 rounded-full border border-surface-variant gap-2">
+        <span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span>
+        <span class="font-label-sm text-on-surface-variant">Connected</span>
       </div>
+      <div class="font-label-sm text-on-surface-variant px-2" id="pb-date"></div>
     </div>
   </div>
 
-  <div class="cd-card">
-    <div class="ch"><div class="ct2"><span class="ic">⚡</span>Capacity (5h/wk)</div></div>
-    <div class="g3">
-      <div class="cp"><div class="cn">~15</div><div class="cl">All HF</div></div>
-      <div class="cp"><div class="cn">~8</div><div class="cl">All Remotion</div></div>
-      <div class="cp"><div class="cn" style="color:var(--blueL)">~10</div><div class="cl">Hybrid</div></div>
-    </div>
-    <div style="font-size:10px;color:var(--text3);margin-top:6px">💡 2R + 5HF + 3 Image+Text</div>
+  <!-- Grid Layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Production Guide: col-span-7 -->
+    <section class="lg:col-span-7 glass-panel rounded-xl p-6 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="material-symbols-outlined text-outline">build</span>
+          <h2 class="font-headline-md text-on-surface text-[24px]">Production Guide</h2>
+        </div>
+        <div class="w-full overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-surface-variant">
+                <th class="py-3 px-4 font-label-sm text-outline uppercase tracking-wider">Type</th>
+                <th class="py-3 px-4 font-label-sm text-outline uppercase tracking-wider">Engine</th>
+                <th class="py-3 px-4 font-label-sm text-outline uppercase tracking-wider">Time</th>
+                <th class="py-3 px-4 font-label-sm text-outline uppercase tracking-wider text-center">Reuse</th>
+              </tr>
+            </thead>
+            <tbody class="font-body-md text-on-surface text-[14px]">
+              <tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest/50 transition-colors">
+                <td class="py-4 px-4 font-medium">Step-by-step</td>
+                <td class="py-4 px-4"><span class="bg-blue-100 text-blue-800 text-[11px] font-label-sm px-2 py-1 rounded">Remotion</span></td>
+                <td class="py-4 px-4 text-on-surface-variant">20-40m</td>
+                <td class="py-4 px-4 text-center"><span class="material-symbols-outlined text-green-500 text-[18px]">check_box</span></td>
+              </tr>
+              <tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest/50 transition-colors">
+                <td class="py-4 px-4 font-medium">A vs B Compare</td>
+                <td class="py-4 px-4"><span class="bg-blue-100 text-blue-800 text-[11px] font-label-sm px-2 py-1 rounded">Remotion</span></td>
+                <td class="py-4 px-4 text-on-surface-variant">30-60m</td>
+                <td class="py-4 px-4 text-center"><span class="material-symbols-outlined text-green-500 text-[18px]">check_box</span></td>
+              </tr>
+              <tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest/50 transition-colors">
+                <td class="py-4 px-4 font-medium">Text Opinion</td>
+                <td class="py-4 px-4"><span class="bg-red-100 text-red-800 text-[11px] font-label-sm px-2 py-1 rounded">HF</span></td>
+                <td class="py-4 px-4 text-on-surface-variant">10-20m</td>
+                <td class="py-4 px-4 text-center"><span class="material-symbols-outlined text-green-500 text-[18px]">check_box</span></td>
+              </tr>
+              <tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest/50 transition-colors">
+                <td class="py-4 px-4 font-medium">Narrated Guide</td>
+                <td class="py-4 px-4"><span class="bg-red-100 text-red-800 text-[11px] font-label-sm px-2 py-1 rounded">HF</span></td>
+                <td class="py-4 px-4 text-on-surface-variant">20-30m</td>
+                <td class="py-4 px-4 text-center"><span class="material-symbols-outlined text-orange-400 text-[18px]">edit</span></td>
+              </tr>
+              <tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest/50 transition-colors">
+                <td class="py-4 px-4 font-medium">Top N</td>
+                <td class="py-4 px-4"><span class="bg-blue-100 text-blue-800 text-[11px] font-label-sm px-2 py-1 rounded">Remotion</span></td>
+                <td class="py-4 px-4 text-on-surface-variant">20-30m</td>
+                <td class="py-4 px-4 text-center"><span class="material-symbols-outlined text-orange-400 text-[18px]">edit</span></td>
+              </tr>
+              <tr class="hover:bg-surface-container-lowest/50 transition-colors">
+                <td class="py-4 px-4 font-medium">Image+Notes</td>
+                <td class="py-4 px-4 text-outline">-</td>
+                <td class="py-4 px-4 text-on-surface-variant">10-15m</td>
+                <td class="py-4 px-4 text-center"><span class="material-symbols-outlined text-green-500 text-[18px]">check_box</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Format Reference: col-span-5 -->
+    <section class="lg:col-span-5 glass-panel rounded-xl p-6 flex flex-col relative overflow-hidden">
+      <div class="relative z-10 flex-1 flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-tertiary">track_changes</span>
+            <h2 class="font-headline-md text-on-surface text-[24px]">Format Ref</h2>
+          </div>
+          <span class="font-label-sm text-[10px] px-2 py-1 rounded bg-inverse-surface text-inverse-on-surface opacity-60">Alt+Alt</span>
+        </div>
+        <div class="flex flex-col gap-1.5 font-label-sm text-on-surface-variant flex-1">
+          <div class="flex items-center gap-2 bg-surface-container-lowest/50 p-2.5 rounded-lg border border-surface-variant/40 hover:border-outline-variant/60 transition-colors">
+            <span class="text-on-surface w-28">"How-to"</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">arrow_right_alt</span>
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-[11px] font-medium">Remotion Step</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface-container-lowest/50 p-2.5 rounded-lg border border-surface-variant/40 hover:border-outline-variant/60 transition-colors">
+            <span class="text-on-surface w-28">"Compare"</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">arrow_right_alt</span>
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-[11px] font-medium">Remotion Compare</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface-container-lowest/50 p-2.5 rounded-lg border border-surface-variant/40 hover:border-outline-variant/60 transition-colors">
+            <span class="text-on-surface w-28">"Explain" (complex)</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">arrow_right_alt</span>
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-[11px] font-medium">Remotion Deep</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface-container-lowest/50 p-2.5 rounded-lg border border-surface-variant/40 hover:border-outline-variant/60 transition-colors">
+            <span class="text-on-surface w-28">"Explain" (simple)</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">arrow_right_alt</span>
+            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-[11px] font-medium">HF Text</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface-container-lowest/50 p-2.5 rounded-lg border border-surface-variant/40 hover:border-outline-variant/60 transition-colors">
+            <span class="text-on-surface w-28">"Review" (data)</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">arrow_right_alt</span>
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-[11px] font-medium">Remotion Chart</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface-container-lowest/50 p-2.5 rounded-lg border border-surface-variant/40 hover:border-outline-variant/60 transition-colors">
+            <span class="text-on-surface w-28">"Review" (opinion)</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">arrow_right_alt</span>
+            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-[11px] font-medium">HF Quick</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface-container-lowest/50 p-2.5 rounded-lg border border-surface-variant/40 hover:border-outline-variant/60 transition-colors">
+            <span class="text-on-surface w-28">"Top N"</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">arrow_right_alt</span>
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-[11px] font-medium">Remotion List</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capacity: col-span-12 -->
+    <section class="lg:col-span-12 glass-panel rounded-xl p-6 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="material-symbols-outlined text-primary-fixed">bolt</span>
+          <h2 class="font-headline-md text-on-surface text-[20px]">Capacity <span class="text-on-surface-variant text-base font-normal">(5h/wk)</span></h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-surface-container-lowest rounded-lg p-6 border border-surface-variant flex flex-col items-center justify-center text-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-container/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="font-metric-xl text-on-surface mb-1 relative z-10">~15</div>
+            <div class="font-label-sm text-outline uppercase tracking-wider relative z-10">All HF</div>
+          </div>
+          <div class="bg-surface-container-lowest rounded-lg p-6 border border-surface-variant flex flex-col items-center justify-center text-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-container-highest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="font-metric-xl text-on-surface mb-1 relative z-10">~8</div>
+            <div class="font-label-sm text-outline uppercase tracking-wider relative z-10">All Remotion</div>
+          </div>
+          <div class="bg-surface-container-lowest rounded-lg p-6 border border-surface-variant flex flex-col items-center justify-center text-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-t from-blue-100/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="font-metric-xl text-[#3B82F6] mb-1 relative z-10">~10</div>
+            <div class="font-label-sm text-outline uppercase tracking-wider relative z-10">Hybrid</div>
+          </div>
+        </div>
+        <div class="mt-4 flex items-center gap-2 text-outline font-label-sm text-[10px]">
+          <span class="material-symbols-outlined text-[14px] text-yellow-500">lightbulb</span>
+          <span>2R + 5HF + 3 Image+Text</span>
+        </div>
+      </div>
+    </section>
+
   </div>
 </div>
 
@@ -1010,7 +1240,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
     <!-- Col 1: In Production -->
     <section class="kanban-col">
       <header style="display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--outline-variant)">
-        <span style="font-size:18px">⏳</span>
+        <span class="material-symbols-outlined" style="font-size:18px;color:var(--on-surface-variant)">pending</span>
         <span style="font-size:16px;font-weight:600;font-family:var(--font-headline);flex:1">In Production</span>
         <span style="background:var(--surface-container-high);padding:2px 10px;border-radius:999px;font-family:var(--font-label);font-size:12px" id="ac-ip-count">0</span>
       </header>
@@ -1019,7 +1249,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
     <!-- Col 2: Video Formed -->
     <section class="kanban-col">
       <header style="display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--outline-variant)">
-        <span style="font-size:18px">🎬</span>
+        <span class="material-symbols-outlined" style="font-size:18px;color:var(--on-surface-variant)">movie</span>
         <span style="font-size:16px;font-weight:600;font-family:var(--font-headline);flex:1">Video Formed</span>
         <span style="background:var(--surface-container-high);padding:2px 10px;border-radius:999px;font-family:var(--font-label);font-size:12px" id="ac-vr-count">0</span>
       </header>
@@ -1028,7 +1258,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
     <!-- Col 3: Completed -->
     <section class="kanban-col">
       <header style="display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--outline-variant)">
-        <span style="font-size:18px">✨</span>
+        <span class="material-symbols-outlined" style="font-size:18px;color:var(--on-surface-variant)">check_circle</span>
         <span style="font-size:16px;font-weight:600;font-family:var(--font-headline);flex:1">Completed</span>
         <span style="background:var(--surface-container-high);padding:2px 10px;border-radius:999px;font-family:var(--font-label);font-size:12px" id="ac-co-count">0</span>
       </header>
