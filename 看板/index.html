@@ -311,13 +311,15 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 
   <!-- Capsule Tab Nav -->
   <div class="capsule-container" style="margin-bottom:24px">
-    <button class="capsule-btn active">Overview</button>
-    <button class="capsule-btn">Revenue</button>
-    <button class="capsule-btn">Growth</button>
-    <button class="capsule-btn">Inventory</button>
-    <button class="capsule-btn">Operations</button>
+    <button class="capsule-btn active" onclick="switchOverviewTab('overview', this)">Overview</button>
+    <button class="capsule-btn" onclick="switchOverviewTab('revenue', this)">Revenue</button>
+    <button class="capsule-btn" onclick="switchOverviewTab('growth', this)">Growth</button>
+    <button class="capsule-btn" onclick="switchOverviewTab('inventory', this)">Inventory</button>
+    <button class="capsule-btn" onclick="switchOverviewTab('operations', this)">Operations</button>
   </div>
 
+  <!-- Overview content panels -->
+  <div id="ov-overview">
   <!-- Bento Grid: 12 columns -->
   <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:20px">
 
@@ -564,6 +566,28 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
     </div>
   </div>
 
+
+  </div><!-- /ov-overview -->
+
+  <!-- Revenue tab -->
+  <div id="ov-revenue" style="display:none">
+    <div class="em" style="padding:80px 0"><span class="material-symbols-outlined" style="font-size:40px;display:block;margin-bottom:12px;color:var(--on-surface-variant)">payments</span><p>Revenue analytics coming soon</p></div>
+  </div>
+
+  <!-- Growth tab -->
+  <div id="ov-growth" style="display:none">
+    <div class="em" style="padding:80px 0"><span class="material-symbols-outlined" style="font-size:40px;display:block;margin-bottom:12px;color:var(--on-surface-variant)">trending_up</span><p>Growth metrics coming soon</p></div>
+  </div>
+
+  <!-- Inventory tab -->
+  <div id="ov-inventory" style="display:none">
+    <div class="em" style="padding:80px 0"><span class="material-symbols-outlined" style="font-size:40px;display:block;margin-bottom:12px;color:var(--on-surface-variant)">inventory_2</span><p>Inventory dashboard coming soon</p></div>
+  </div>
+
+  <!-- Operations tab -->
+  <div id="ov-operations" style="display:none">
+    <div class="em" style="padding:80px 0"><span class="material-symbols-outlined" style="font-size:40px;display:block;margin-bottom:12px;color:var(--on-surface-variant)">settings</span><p>Operations panel coming soon</p></div>
+  </div>
 
   <!-- Safety sandbox for ro() platform metrics -->
   <div style="display:none" id="aura-ro-safety-sandbox">

@@ -50,6 +50,14 @@ function goPage(n) {
 async function refresh() { try { S = await loadAll(); } catch(e) {} ro(); rh(); ri(); rc2(); rr(); rsr(); rnotes(); popRV(); popQE(); ra(); loadProjectsMini(); }
 
 // === Overview ===
+function switchOverviewTab(tab, btn) {
+  document.querySelectorAll('#p-overview .capsule-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['overview', 'revenue', 'growth', 'inventory', 'operations'].forEach(t => {
+    const el = document.getElementById(`ov-${t}`);
+    if (el) el.style.display = (t === tab) ? '' : 'none';
+  });
+}
 function ro() {
   const t = T(), w = WR(t);
   // Safe setters — prevent TypeError if target element doesn't exist
@@ -86,6 +94,11 @@ async function ah() {
   await saveAll({ hotTopics: S.hotTopics }); rh(); $('hi').value = ''; $('ht').value = '';
 }
 function rh() {
+  // Reset active highlight on hot tab capsule buttons
+  document.querySelectorAll('#p-hot .capsule-btn').forEach(b => b.classList.remove('active'));
+  const firstBtn = document.querySelector('#p-hot .capsule-btn');
+  if (firstBtn) firstBtn.classList.add('active');
+
   const td = T();
   const m = S.hotTopics.filter(x => x.date === td);
   const a = S.autoTopics.filter(x => x.date === td);
@@ -119,6 +132,29 @@ function rh() {
   updateMarketVelocity(all);
 
   if (!window._rl) loadRecs();
+}
+
+let _hotFilter = 'all';
+function filterHot(source) {
+  _hotFilter = source;
+  document.querySelectorAll('#p-hot .capsule-btn').forEach(b => b.classList.remove('active'));
+  // Find the button that was clicked and highlight it
+  document.querySelectorAll('#p-hot .capsule-btn').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${source}'`)) {
+      b.classList.add('active');
+    }
+  });
+  // Re-render with filter
+  const td = T();
+  const a = source === 'all' ? S.autoTopics.filter(x => x.date === td) : S.autoTopics.filter(x => x.date === td && x.source === source);
+  const ael = $('auto-box');
+  const al = { baidu: 'Baidu', github: 'GitHub', hackernews: 'HN', toutiao: 'Toutiao' };
+  const at2 = { baidu: 'o', github: 'b', hackernews: 'o', toutiao: 'r' };
+  if (a.length) {
+    ael.innerHTML = a.map((x, i) => renderHotRow(x, i, at2[x.source]||'gray', al[x.source]||x.source, true)).join('');
+  } else {
+    ael.innerHTML = EMPTY('⏳', 'No matching topics');
+  }
 }
 
 function renderHotRow(x, i, tagColor, sourceLabel, isAuto, id) {
@@ -171,7 +207,7 @@ function updateTopPick(all) {
   const cp = $('top-pick-card');
   if (!cp) return;
   if (!all.length) {
-    $('tp-title').textContent = '等待热点分析…';
+    $('tp-title').textContent = 'Waiting for topic analysis…';
     $('tp-heat-val').textContent = '—'; $('tp-heat-bar').style.width = '0%';
     $('tp-barrier-val').textContent = '—'; $('tp-barrier-bar').style.width = '0%';
     $('tp-tail-val').textContent = '—'; $('tp-tail-bar').style.width = '0%';
@@ -206,21 +242,21 @@ function updateMarketVelocity(all) {
 
 async function ch() { const t = T(); S.hotTopics = S.hotTopics.filter(h => h.date !== t); S.autoTopics = S.autoTopics.filter(h => h.date !== t); await saveAll({ hotTopics: S.hotTopics }); rh(); TOAST('Cleared today\'s topics'); }
 async function tf() {
-  const btn = $('ft-btn'); btn.textContent = '抓取中…'; btn.disabled = true;
+  const btn = $('ft-btn'); btn.textContent = 'Fetching...'; btn.disabled = true;
   try {
     const r = await fetch('/api/trigger-fetch', { method: 'POST' });
-    if (!r.ok) { TOAST('❌服务器 ' + r.status); btn.textContent = 'Fetch Now'; btn.disabled = false; return; }
+    if (!r.ok) { TOAST('❌Server ' + r.status); btn.textContent = 'Fetch Now'; btn.disabled = false; return; }
     const d = await r.json();
-    if (d.ok) { TOAST(`✅抓到 ${d.fetched} 条，正在刷新…`); refresh(); }
-    else { TOAST('❌返回异常'); }
-  } catch(e) { TOAST('❌网络错误'); }
-  btn.textContent = '立即抓取'; btn.disabled = false;
+    if (d.ok) { TOAST(`✅Fetched ${d.fetched} items, refreshing…`); refresh(); }
+    else { TOAST('❌Server error'); }
+  } catch(e) { TOAST('❌Network error'); }
+  btn.textContent = 'Fetch Now'; btn.disabled = false;
 }
 async function gb() {
   const r = await fetch('/api/brief/generate', { method: 'POST' }); const d = await r.json();
-  if (!d.brief) { alert('暂无热点'); return; }
+  if (!d.brief) { alert('No hot topics today'); return; }
   const b = d.brief;
-  $('brief-body').innerHTML = `<div style="font-size:11px;color:var(--text2);margin-bottom:10px">基于${b.hotCount}条热点</div>${b.suggestions.map(s => `<div class="bi"><div class="bt">${s.title}</div><div class="bd2">热度${s.hot}/5</div><div class="fr" style="margin-top:6px"><button class="btn btn-xs btn-p" onclick="pb('${s.title.replace(/'/g,"\\'")}',${s.hot},3,3,3,'${s.type}','both')">以此选题</button></div></div>`).join('')}`;
+  $('brief-body').innerHTML = `<div style="font-size:11px;color:var(--text2);margin-bottom:10px">Based on ${b.hotCount} topics</div>${b.suggestions.map(s => `<div class="bi"><div class="bt">${s.title}</div><div class="bd2">Heat ${s.hot}/5</div><div class="fr" style="margin-top:6px"><button class="btn btn-xs btn-p" onclick="pb('${s.title.replace(/'/g,"\\'")}',${s.hot},3,3,3,'${s.type}','both')">Use Topic</button></div></div>`).join('')}`;
   $('brief-box').style.display = 'block';
 }
 
@@ -230,11 +266,25 @@ async function loadRecs() {
   window._rl = true;
   try {
     const r = await fetch('/api/today/recommend', { method: 'POST' }); const d = await r.json();
-    if (!d.recommendations || !d.recommendations.length) { $('rc-box').innerHTML = EMPTY('No recommendations'); $('hrc-box').innerHTML = EMPTY('暂无推荐'); return; }
-    $('rc-ct').textContent = `${d.total}条·P0:${d.groups.p0} P1:${d.groups.p1}`; $('hrc-ct').textContent = `${d.total}条·P0:${d.groups.p0} P1:${d.groups.p1}`;
+    if (!d.recommendations || !d.recommendations.length) { $('rc-box').innerHTML = EMPTY('No recommendations'); $('hrc-box').innerHTML = EMPTY('No recommendations'); return; }
+    $('rc-ct').textContent = `${d.total} items · P0:${d.groups.p0} P1:${d.groups.p1}`; $('hrc-ct').textContent = `${d.total} items · P0:${d.groups.p0} P1:${d.groups.p1}`;
     const html = mkRecs(d.recommendations); $('rc-box').innerHTML = html; $('hrc-box').innerHTML = html;
-  } catch(e) { $('rc-box').innerHTML = EMPTY('Analysis failed'); $('hrc-box').innerHTML = EMPTY('分析失败'); }
+  } catch(e) { $('rc-box').innerHTML = EMPTY('Analysis failed'); $('hrc-box').innerHTML = EMPTY('Analysis failed'); }
 }
+function mkRecs(r) {
+  const fn = {'remotion-demo':'R-Demo','remotion-compare':'R-Compare','hyperframes-text':'HF-Text','hyperframes-narrate':'HF-Narr'}, sn = {github:'GitHub',hackernews:'HN',toutiao:'Toutiao'}, pf2 = {douyin:'🎵Douyin',xiaohongshu:'📕Xiaohongshu',both:'🎵📕Multi'};
+  const p0 = r.filter(x => x.pri === 'P0'), p1 = r.filter(x => x.pri === 'P1'), rs = r.filter(x => x.pri !== 'P0' && x.pri !== 'P1');
+  let h = '';
+  if (p0.length) { h += `<div style="margin-bottom:8px">${TAG('P0 · Today','r')}<span style="font-size:10px;color:var(--text3);margin-left:6px">${p0.length} items</span></div>` + p0.map(x => rc(x, fn, sn, pf2)).join(''); }
+  if (p1.length) { h += `<div style="margin:12px 0 8px">${TAG('P1 · This Week','o')}<span style="font-size:10px;color:var(--text3);margin-left:6px">${p1.length} items</span></div>` + p1.map(x => rc(x, fn, sn, pf2)).join(''); }
+  if (rs.length) { h += `<div style="margin:10px 0 4px"><span style="font-size:10px;color:var(--text3)">Others</span></div>` + rs.slice(0,3).map(x => `<div class="hi" style="opacity:.45"><div class="hb"><div class="ht" style="font-size:11px">${x.title}</div><div class="hm"><span>${x.score}pts · ${x.pri}</span><span>${x.reason}</span></div></div></div>`).join(''); }
+  return h;
+}
+function rc(x, fn, sn, pf2) {
+  const ua = x.url ? `href="${x.url}" target="_blank"` : '';
+  return `<div class="bi"><div style="display:flex;align-items:flex-start;gap:10px"><div style="flex:1;min-width:0"><div class="bt">${ua?`<a ${ua} style="color:inherit;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${x.title}</a>`:x.title}</div><div class="bd2" style="margin-top:2px">${TAG(sn[x.source]||x.source,x.source==='github'?'b':'o')} ${TAG(pf2[x.platform]||'Multi',x.platform==='douyin'?'p':x.platform==='xiaohongshu'?'o':'gray')} ${x.trend?x.trend.slice(0,30):''}</div></div><div style="text-align:center;flex-shrink:0"><div class="sn ${SC(x.score)}">${x.score}</div><div>${TAG(x.pri,x.pri==='P0'?'r':'o')}</div></div></div><div style="display:flex;gap:6px;margin:4px 0 2px;font-size:9px;color:var(--text3)">🔥${x.hotScore}🧱${x.wallScore}⏳${x.durScore}💰${x.moneyScore}</div><div style="font-size:10px;color:var(--text2);line-height:1.4">${x.reason}</div><div class="fr" style="margin-top:5px">${TAG(fn[x.format]||x.format,'gray')}<button class="btn btn-xs btn-p" onclick="pb('${x.title.replace(/'/g,"\\'")} 教程',${x.hotScore},${x.wallScore},${x.durScore},${x.moneyScore},'${x.format}','${x.platform||'both'}')">Use Topic</button><button class="btn btn-xs btn-g" onclick="pb('${x.title.replace(/'/g,"\\'")} 解读',${x.hotScore},${x.wallScore},${x.durScore},${x.moneyScore},'hyperframes-text','${x.platform||'both'}')">Deep Dive</button></div></div>`;
+}
+
 function mkRecs(r) {
   const fn = {'remotion-demo':'R演示','remotion-compare':'R对比','hyperframes-text':'HF文','hyperframes-narrate':'HF配'}, sn = {github:'GitHub',hackernews:'HN',toutiao:'头条'}, pf2 = {douyin:'🎵抖音',xiaohongshu:'📕小红书',both:'🎵📕'};
   const p0 = r.filter(x => x.pri === 'P0'), p1 = r.filter(x => x.pri === 'P1'), rs = r.filter(x => x.pri !== 'P0' && x.pri !== 'P1');
@@ -874,91 +924,12 @@ async function archiveProject(slug) {
 }
 // === Init ===
 $('td').textContent = T(); css(); refresh();
- + Number(creatorVal).toLocaleString();
-async function ch() { const t = T(); S.hotTopics = S.hotTopics.filter(h => h.date !== t); S.autoTopics = S.autoTopics.filter(h => h.date !== t); await saveAll({ hotTopics: S.hotTopics }); rh(); TOAST('已清空今日热点'); }
-async function tf() {
-  const btn = $('ft-btn'); btn.textContent = '抓取中…'; btn.disabled = true;
-  try {
-    const r = await fetch('/api/trigger-fetch', { method: 'POST' });
-    if (!r.ok) { TOAST('❌服务器 ' + r.status); btn.textContent = '立即抓取'; btn.disabled = false; return; }
-    const d = await r.json();
-    if (d.ok) { TOAST(`✅抓到 ${d.fetched} 条，正在刷新…`); refresh(); }
-    else { TOAST('❌返回异常'); }
-  } catch(e) { TOAST('❌网络错误'); }
-  btn.textContent = '立即抓取'; btn.disabled = false;
-}
-async function gb() {
-  const r = await fetch('/api/brief/generate', { method: 'POST' }); const d = await r.json();
-  if (!d.brief) { alert('暂无热点'); return; }
-  const b = d.brief;
-  $('brief-body').innerHTML = `<div style="font-size:11px;color:var(--text2);margin-bottom:10px">基于${b.hotCount}条热点</div>${b.suggestions.map(s => `<div class="bi"><div class="bt">${s.title}</div><div class="bd2">热度${s.hot}/5</div><div class="fr" style="margin-top:6px"><button class="btn btn-xs btn-p" onclick="pb('${s.title.replace(/'/g,"\\'")}',${s.hot},3,3,3,'${s.type}','both')">以此选题</button></div></div>`).join('')}`;
+
+async function archiveProject(slug) {
   $('brief-box').style.display = 'block';
 }
 
-// === Recommendations ===
-window._rl = false;
-async function loadRecs() {
-  window._rl = true;
-  try {
-    const r = await fetch('/api/today/recommend', { method: 'POST' }); const d = await r.json();
-    if (!d.recommendations || !d.recommendations.length) { $('rc-box').innerHTML = EMPTY('暂无推荐'); $('hrc-box').innerHTML = EMPTY('暂无推荐'); return; }
-    $('rc-ct').textContent = `${d.total}条·P0:${d.groups.p0} P1:${d.groups.p1}`; $('hrc-ct').textContent = `${d.total}条·P0:${d.groups.p0} P1:${d.groups.p1}`;
-    const html = mkRecs(d.recommendations); $('rc-box').innerHTML = html; $('hrc-box').innerHTML = html;
-  } catch(e) { $('rc-box').innerHTML = EMPTY('分析失败'); $('hrc-box').innerHTML = EMPTY('分析失败'); }
-}
-function mkRecs(r) {
-  const fn = {'remotion-demo':'R演示','remotion-compare':'R对比','hyperframes-text':'HF文','hyperframes-narrate':'HF配'}, sn = {github:'GitHub',hackernews:'HN',toutiao:'头条'}, pf2 = {douyin:'🎵抖音',xiaohongshu:'📕小红书',both:'🎵📕'};
-  const p0 = r.filter(x => x.pri === 'P0'), p1 = r.filter(x => x.pri === 'P1'), rs = r.filter(x => x.pri !== 'P0' && x.pri !== 'P1');
-  let h = '';
-  if (p0.length) { h += `<div style="margin-bottom:8px">${TAG('P0·Today','r')}<span style="font-size:10px;color:var(--text3);margin-left:6px">${p0.length}个</span></div>` + p0.map(x => rc(x, fn, sn, pf2)).join(''); }
-  if (p1.length) { h += `<div style="margin:12px 0 8px">${TAG('P1·This Week','o')}<span style="font-size:10px;color:var(--text3);margin-left:6px">${p1.length}个</span></div>` + p1.map(x => rc(x, fn, sn, pf2)).join(''); }
-  if (rs.length) { h += `<div style="margin:10px 0 4px"><span style="font-size:10px;color:var(--text3)">其余</span></div>` + rs.slice(0,3).map(x => `<div class="hi" style="opacity:.45"><div class="hb"><div class="ht" style="font-size:11px">${x.title}</div><div class="hm"><span>${x.score}分·${x.pri}</span><span>${x.reason}</span></div></div></div>`).join(''); }
-  return h;
-}
-function rc(x, fn, sn, pf2) {
-  const ua = x.url ? `href="${x.url}" target="_blank"` : '';
-  return `<div class="bi"><div style="display:flex;align-items:flex-start;gap:10px"><div style="flex:1;min-width:0"><div class="bt">${ua?`<a ${ua} style="color:inherit;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${x.title}</a>`:x.title}</div><div class="bd2" style="margin-top:2px">${TAG(sn[x.source]||x.source,x.source==='github'?'b':'o')} ${TAG(pf2[x.platform]||'双平台',x.platform==='douyin'?'p':x.platform==='xiaohongshu'?'o':'gray')} ${x.trend?x.trend.slice(0,30):''}</div></div><div style="text-align:center;flex-shrink:0"><div class="sn ${SC(x.score)}">${x.score}</div><div>${TAG(x.pri,x.pri==='P0'?'r':'o')}</div></div></div><div style="display:flex;gap:6px;margin:4px 0 2px;font-size:9px;color:var(--text3)">🔥${x.hotScore}🧱${x.wallScore}⏳${x.durScore}💰${x.moneyScore}</div><div style="font-size:10px;color:var(--text2);line-height:1.4">${x.reason}</div><div class="fr" style="margin-top:5px">${TAG(fn[x.format]||x.format,'gray')}<button class="btn btn-xs btn-p" onclick="pb('${x.title.replace(/'/g,"\\'")} 教程',${x.hotScore},${x.wallScore},${x.durScore},${x.moneyScore},'${x.format}','${x.platform||'both'}')">以此选题</button><button class="btn btn-xs btn-g" onclick="pb('${x.title.replace(/'/g,"\\'")} 解读',${x.hotScore},${x.wallScore},${x.durScore},${x.moneyScore},'hyperframes-text','${x.platform||'both'}')">解读</button></div></div>`;
-}
-
-// === Topic Matrix ===
-async function loadProjects() {
-  try {
-    const r = await fetch("/api/projects");
-    const d = await r.json();
-    const el = $("proj-box");
-    if (!d.projects || !d.projects.length) { el.innerHTML = EMPTY("暂无项目"); return; }
-    const order = { completed: 0, video_ready: 1, in_progress: 2 };
-    const sorted = d.projects.sort((a, b) => (order[a.status] || 9) - (order[b.status] || 9));
-    const statusStyle = { completed:"color:#34D399;font-weight:700", video_ready:"color:#A78BFA;font-weight:600", in_progress:"color:#F59E0B;font-weight:600" };
-    el.innerHTML = `<div style="display:flex;flex-direction:column;gap:0">` +
-      sorted.map(p => {
-        const icon = p.status === "completed" ? "check_circle" : p.status === "video_ready" ? "movie" : "pending";
-    const iconColor = p.status === "completed" ? "var(--primary-fixed)" : p.status === "video_ready" ? "var(--blueL)" : "var(--on-surface-variant)";
-    const st = statusStyle[p.status] || "color:#636366";
-    const videoBadge = p.videoCount > 0 ? '<span class="tag t-b" style="font-size:10px;padding:2px 8px;margin-right:4px"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">movie</span> ' + p.videoCount + '</span>' : '<span class="tag t-gray" style="font-size:10px;padding:2px 8px;margin-right:4px"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">videocam_off</span> 0</span>';
-    const coverBadge = p.hasCover ? '<span class="tag t-g" style="font-size:10px;padding:2px 8px;margin-right:4px"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">wallpaper</span> Ready</span>' : '<span class="tag t-gray" style="font-size:10px;padding:2px 8px;margin-right:4px"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">broken_image</span> Missing</span>';
-    const copyBadge = p.hasCopy ? '<span class="tag t-g" style="font-size:10px;padding:2px 8px"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">description</span> Ready</span>' : '<span class="tag t-gray" style="font-size:10px;padding:2px 8px"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">description</span> Missing</span>';
-    const hs = p.hasScript, hc = p.hasCover, hv = p.videoCount > 0;
-    const needScript = !hs; const needRender = hs && !hv; const needCover = hv && !hc;
-    let sb = hs ? '<button class="btn btn-xs btn-g" onclick="generateScript(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">visibility</span> View Script</button><button class="btn btn-xs btn-g" onclick="generateScript(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">refresh</span> Rewrite</button>' : '<button class="btn btn-xs btn-p" onclick="generateScript(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">auto_awesome</span> Generate Script</button>';
-    let cb = hc ? '<button class="btn btn-xs btn-g" onclick="openCoverEditor(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">visibility</span> View Cover</button><button class="btn btn-xs btn-g" onclick="openCoverEditor(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">refresh</span> Redo</button>' : '<button class="btn btn-xs btn-p" onclick="openCoverEditor(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">palette</span> Generate Cover</button>';
-    let rb;
-    if (hv) { rb = '<button class="btn btn-xs btn-g" id="render-btn-' + p.name + '" onclick="startRender(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">refresh</span> Re-render</button>'; }
-    else if (hs) { rb = '<button class="btn btn-xs btn-p" id="render-btn-' + p.name + '" onclick="startRender(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">movie</span> Start Render</button>'; }
-    else { rb = '<button class="btn btn-xs btn-g" id="render-btn-' + p.name + '" disabled><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">movie</span> Start Render</button>'; }
-        if (needScript) { cb = cb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); rb = rb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        else if (needRender) { sb = sb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); cb = cb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        else if (needCover) { sb = sb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); rb = rb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        else { sb = sb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); cb = cb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); rb = rb.replace(/btn btn-xs btn-p/g,"btn btn-xs btn-g"); }
-        const fb = '<button class="btn btn-xs btn-g" onclick="openFolder(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">folder_open</span> Open Folder</button>';
-        const canArchive = hv && hc;
-        const archiveBtn = canArchive ? '<button class="btn btn-xs btn-g" onclick="archiveProject(\'' + p.name + '\')"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle">archive</span> Archive</button>' : '';
-        return `<div class="hi" style="padding:12px 0"><div class="hr rn" style="font-size:16px">${icon}</div><div class="hb"><div class="ht" style="font-size:14px;font-weight:600" id="status-${p.name}">${p.name}</div><div class="hm" style="margin-top:4px"><span id="label-${p.name}" style="${st};font-size:13px">${p.statusLabel}</span><span style="margin-left:8px">${videoBadge}${coverBadge}${copyBadge}</span></div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">${sb}${cb}${rb}${fb}${archiveBtn}</div></div></div>`;
-      }).join('') + `</div>`;
-  } catch(e) { $('proj-box').innerHTML = EMPTY('加载失败'); }
-}
-
-// === Cover Editor Modal ===
+// === Projects List (shared) ===
 function openCoverEditor(slug) {
   const overlay = document.createElement('div');
   overlay.id = 'cover-overlay';
