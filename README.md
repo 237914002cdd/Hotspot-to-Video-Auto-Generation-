@@ -1,156 +1,67 @@
-# Industrial-Grade AI Short Video Pipeline
+# Pipeline Studio
 
-> 工业级竖屏短视频 SaaS 生产流水线 | AI 决策 → SOP 执行 → 人工审美
+面向个人创作者与小团队的本地视频工作区：热点 → 选题 → 内容与分镜 → 文字动效视频 → 发布记录 → 复盘。
 
-[![Node](https://img.shields.io/badge/Node-%3E%3D18-brightgreen)]()
-[![HyperFrames](https://img.shields.io/badge/HyperFrames-Apache%202.0-blue)]()
+保留原有玻璃卡片、深浅主题、绿色强调色与侧栏设计。历史项目仍从 `项目/` 读取；现有文件不会因打开工作室而重新生成。
 
----
+## 启动
 
-## 系统架构
+要求 Node.js 22+、FFmpeg（包括 ffprobe）。首次安装：
 
-```
-┌─────────────────────────────────────┐
-│        AI 决策层（看板）              │
-│  热点抓取 → 选题评分 → 自动建项目     │
-├─────────────────────────────────────┤
-│        SOP 执行层（HyperFrames）      │
-│  剧本生成 → 渲染 → 封面注入 → 归档    │
-├─────────────────────────────────────┤
-│        人工审美层（审查）              │
-│  文案确认 → 动画审查 → 封面定稿       │
-└─────────────────────────────────────┘
-```
-
----
-
-## 核心卖点
-
-| 能力 | 本流水线 | 竞品 |
-|------|---------|------|
-| AI 选题决策 | ✅ 热点抓取 + 四维评分 | ❌ 全靠人工 |
-| 文档驱动全链生成 | ✅ 12 字段从 `video-plan.md` 自动提取 | ❌ 模板固定 |
-| 双平台社交文案 | ✅ 小红书 + 抖音差异化输出 | ❌ 单一模板 |
-| 三级状态机 + 双轨按钮 | ✅ 看板实时追踪 | ❌ 文件散落 |
-| 一键归档 | ✅ 7 步自动 + Obsidian 同步 | ❌ |
-| 代码级动效控制 | ✅ GSAP `back.out` + stagger | ⚠️ 仅模板参数 |
-
-详见 [竞品差异化分析](docs/competitive-analysis.md)。
-
----
-
-## 功能展示
-
-### 总览大盘
-
-![总览页](docs/assets/screenshots/overview.png)
-
-6 大指标（本周发布数、平均完播率、涨粉数、热度选题数）+ 双平台对比 + 项目资产看板。一眼掌握生产全貌。
-
-### 热点简报 & AI 推荐
-
-![热点简报页](docs/assets/screenshots/hotspot-briefing.png)
-
-每 30 分钟自动抓取 GitHub/HN/头条热点，AI 四维评分（热度/壁垒/长尾/变现），自动推荐选题。
-
-### 选题矩阵 & 自动建项目
-
-![选题矩阵页](docs/assets/screenshots/topic-matrix.png)
-
-四维评分矩阵 + 一键建项目文件夹 + 自动生成封面。从选题到执行零摩擦。
-
-### 内容日历
-
-![内容日历](docs/assets/screenshots/content-calendar.png)
-
-发布记录 + 平台筛选 + 状态管理（已发布/已排期/草稿）。
-
-### 数据复盘
-
-![复盘页](docs/assets/screenshots/data-review.png)
-
-双平台表现排行 + 搜索词追踪 + 复盘笔记。数据驱动下一轮选题。
-
-### 项目资产管理
-
-![总览下方项目区](docs/assets/screenshots/project-board.png)
-
-三级状态机（⏳ 制作中 / 🎬 视频已成 / ✨ 完工）+ 双轨操作按钮（查看/重做分离）+ 蓝键优先级。
-
----
-
-## 快速启动
-
-```bash
-# 1. 确保 Node.js >= 18
-node --version
-
-# 2. 进入看板目录
+```powershell
 cd 看板
-
-# 3. 安装依赖
-npm install
-
-# 4. 启动服务
-node server.js
-
-# 5. 打开浏览器
-# → http://localhost:3456
+npm ci
+npm run setup:browser
+npm run build
+npm start
 ```
 
-> **注意**：当前需要 `fingerprint`（热搜 API）和可选 `jq`（测试用）。首次启动会在 `data/` 下自动创建存储文件。
+访问 **http://127.0.0.1:3456**。默认仅绑定本机，未提供公网用户系统。Linux 首次配置 Chromium 可能需要运行 `npx playwright install --with-deps chromium`。
 
----
+## 实际支持的流程
 
-## 项目结构
+- 从 GitHub、Hacker News、头条获取带来源的热点；显示各源状态；也可手动录入。
+- 四维规则评分与选题管理；中文标题自动创建独立项目，保留关联 ID。
+- 在项目工作室编辑内容方案、文案、分镜、主题、画幅与时长。
+- 模板根据输入排版草稿，**不是 AI 模型生成或事实核验**。
+- Chromium + FFmpeg 渲染真实 H.264 MP4，导出 SRT；竖屏 720×1280、横屏 1280×720、方形 900×900，24fps。**当前为无声文字动效视频**。
+- 持久化任务、进度、取消、重复提交保护、重启中断提示；通过媒体校验后才报告渲染完成。
+- 封面字段编辑、视频播放、文件下载、有条件且幂等的归档。每次渲染独立保存成片版本。
+- 人工维护发布计划和实际发布记录；录入平台表现和复盘笔记。
+- 原子存储、上一版备份、保存冲突检测、数据导出；损坏数据明确报错而不静默清空。
 
+## 当前边界
+
+用户已选择先完善本地工作流，AI 服务后续接入。外部 AI、配音、素材剪辑、多账号自动发布及平台指标同步尚未接入；界面不伪造这些能力。此版本是本地单工作区，不是已经完成鉴权、权限隔离、计费及云备份的多人 SaaS。开发环境实际验收不等于公网生产验收。
+
+## 测试
+
+```powershell
+cd 看板
+npm test
+npm run test:ui
+npm audit
 ```
-AI视频工作流/
-├── 看板/                  ← 内容决策看板（Express + SSE）
-│   ├── server.js          ← 13 个 API 端点
-│   ├── index.html         ← 前端页面（6 个子页面）
-│   └── data/              ← JSON 存储（热点/选题/日历等）
-├── 项目/                  ← 视频项目目录
-│   ├── apple-ai-wwdc26/   ← 已完成（归档）
-│   ├── whv-2026/          ← 制作中
-│   └── ...                ← 其他项目
-├── 模板/                  ← 项目模板（含 cover.svg 模板）
-├── docs/                  ← 文档
-│   ├── competitive-analysis.md  ← 竞品分析
-│   ├── sop-workflow.md         ← SOP 工作流（AI/人工标注）
-│   └── fmea-analysis.md        ← 故障分析
-├── 00-工作流文档.md        ← 完整 SOP
-└── README.md              ← 本文件
-```
 
----
+后端测试使用隔离临时目录；渲染测试需要本地 Chromium、FFmpeg 与 ffprobe。浏览器测试独立启动服务，不修改正常工作区数据；证据写入被 Git 忽略的 `看板/data/qa/`。
 
-## 当前项目状态
+## 文件与配置
 
-| 项目 | 状态 |
-|------|------|
-| apple-ai-wwdc26 | ✨ 100% 完工 |
-| gorden-ppt-skill | ✨ 100% 完工 |
-| hyperframes-intro | ✨ 100% 完工 |
-| hyperframes-vs-remotion-hf | ✨ 100% 完工 |
-| remotion-video-intro | ✨ 100% 完工 |
-| whv-2026 | ⏳ 制作中 |
+| 位置 | 内容 |
+|---|---|
+| `看板/server.js` | 本地服务、数据 API、来源校验与下载 |
+| `看板/lib/store.js` | 数据验证、版本及原子存储 |
+| `看板/lib/projects.js` | 项目、封面、内容和归档 |
+| `看板/lib/blueprint.js` | 受控分镜、动画 HTML、字幕 |
+| `看板/lib/renderer.js` | 本地持久化渲染任务 |
+| `看板/data/` | 本机业务数据与任务，不提交 Git |
+| `项目/` | 项目内容与交付文件 |
+| `docs/CREATOR_PLATFORM_STRATEGY.md` | 商业案例、定位和后续边界 |
+| `docs/ACCEPTANCE.md` | 实际验收、原始证据位置与未覆盖范围 |
+| `HANDOFF.md` | 本次实际目录、验收与剩余事项 |
 
----
+支持环境变量 `PORT`、`DATA_DIR`、`PROJECTS_DIR`、`AUTO_FETCH=0`、`FFMPEG_PATH`、`FFPROBE_PATH`、`CHROMIUM_PATH`。路径类变量填本机绝对路径。多进程同时操作同一数据目录不受支持；每个工作区只启动一个服务。
 
-## 技术栈
+定期复制 `看板/data/` 与 `项目/` 即可完整备份；JSON 导出不包含视频二进制。恢复前停止服务，并先保留当前目录副本。
 
-| 层 | 技术 |
-|----|------|
-| 视频渲染 | HyperFrames（HeyGen, Apache 2.0） |
-| 动效 | GSAP 3.14 |
-| 后端 | Express.js + SSE |
-| 封面 | SVG 模板 + `{{PLACEHOLDER}}` 注入 |
-| 存储 | JSON 文件（零数据库依赖） |
-| 自动化 | child_process 非阻塞渲染 |
-
----
-
-## 许可
-
-Apache 2.0（基于 HyperFrames 开源框架）
+旧版本的愿景、SOP 和演示截图仍保留为历史参考，当前能力以本文、实际界面和验收报告为准。许可见 [LICENSE](LICENSE)。

@@ -1,103 +1,65 @@
-// ================================================================
-// 趋势数据自动抓取器（多源，容忍失败，含跳转链接）
-// ================================================================
-const https = require('https');
-const http = require('http');
-
-function fetchUrl(url, opts = {}) {
+'use strict';
+const https = require('node:https');
+const http = require('node:http');
+const { randomUUID } = require('node:crypto');
+function todayStr(now = new Date()) { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now); }
+function fetchUrl(url, opts = {}, redirects = 0) {
   return new Promise((resolve, reject) => {
-    const mod = url.startsWith('https') ? https : http;
-    const req = mod.get(url, {
-      timeout: opts.timeout || 12000,
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': 'application/json, text/html, */*',
-        ...(opts.headers || {}),
-      },
-    }, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve(data));
+    const target = new URL(url), transport = target.protocol === 'https:' ? https : http;
+    if (!['https:', 'http:'].includes(target.protocol)) return reject(new Error('Unsupported protocol'));
+    const req = transport.get(target, { timeout: opts.timeout || 8000, headers: { 'User-Agent': 'CreatorWorkspace/2.0', Accept: 'application/json', ...opts.headers } }, res => {
+      if ([301, 302, 307, 308].includes(res.statusCode)) {
+        res.resume(); let next;
+        try { next = new URL(res.headers.location || '', target); } catch { return reject(new Error('Invalid redirect')); }
+        if (redirects >= 2 || next.hostname !== target.hostname || next.protocol !== target.protocol) return reject(new Error('Unexpected redirect'));
+        return fetchUrl(next.href, opts, redirects + 1).then(resolve, reject);
+      }
+      if (res.statusCode !== 200) { res.resume(); return reject(new Error(`HTTP ${res.statusCode}`)); }
+      const chunks = []; let size = 0, tooLarge = false;
+      res.on('data', chunk => { size += chunk.length; if (size > (opts.maxBytes || 2 * 1024 * 1024)) { tooLarge = true; reject(new Error('Response too large')); res.destroy(); req.destroy(); } else chunks.push(chunk); });
+      res.on('error', reject); res.on('end', () => { if (!tooLarge) resolve(Buffer.concat(chunks).toString('utf8')); });
     });
-    req.on('error', reject);
-    req.on('timeout', function () { this.destroy(); reject(new Error('timeout')); });
+    const deadline = setTimeout(() => req.destroy(new Error('Request deadline exceeded')), opts.timeout || 8000);
+    req.on('close', () => clearTimeout(deadline)); req.on('error', reject); req.on('timeout', () => req.destroy(new Error('Request timeout')));
   });
 }
-
-async function fetchGitHubAI() {
-  const queries = ['AI+tool+created:>2026-04-01&sort=stars&order=desc', 'artificial-intelligence+tool+created:>2026-03-01&sort=stars&order=desc', 'llm+agent+tool+created:>2026-03-01&sort=stars&order=desc'];
-  const seen = new Set();
-  const results = [];
-  for (const q of queries) {
-    try {
-      const json = await fetchUrl(`https://api.github.com/search/repositories?q=${q}&per_page=5`, { timeout: 8000, headers: { 'Accept': 'application/vnd.github.v3+json' } });
-      const data = JSON.parse(json);
-      for (const r of (data.items || [])) {
-        const title = r.full_name;
-        if (seen.has(title)) continue;
-        seen.add(title);
-        results.push({ title, score: Math.min(5, Math.ceil(Math.log2((r.stargazers_count || 0) + 1) / 3)), source: 'github', url: r.html_url || `https://github.com/${title}`, trend: `${(r.stargazers_count || 0).toLocaleString()} ⭐ ${r.description ? '· ' + r.description.slice(0, 50) : ''}` });
-      }
-    } catch (e) { /* skip */ }
-  }
-  return results.slice(0, 8);
+async function fetchGitHub() {
+  const since = new Date(Date.now() - 90 * 86400000).toISOString().slice(0, 10);
+  const query = encodeURIComponent(`AI tool created:>${since}`);
+  const data = JSON.parse(await fetchUrl(`https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc&per_page=10`));
+  if (!Array.isArray(data.items)) throw new Error('Invalid GitHub response');
+  return data.items.map(r => ({ title: r.full_name, score: Math.max(1, Math.min(5, Math.ceil(Math.log2((r.stargazers_count || 0) + 1) / 3))), source: 'github', url: r.html_url, trend: `${r.stargazers_count || 0} stars · ${(r.description || '').slice(0, 180)}` }));
 }
-
 async function fetchHN() {
-  try {
-    const idsJson = await fetchUrl('https://hacker-news.firebaseio.com/v0/topstories.json', { timeout: 8000 });
-    const ids = JSON.parse(idsJson).slice(0, 30);
-    const items = [];
-    for (const id of ids) {
-      try {
-        const json = await fetchUrl(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, { timeout: 5000 });
-        const item = JSON.parse(json);
-        if (item && item.title) items.push({ ...item, hnId: id });
-      } catch (_) { /* skip */ }
-    }
-    const aiKeywords = ['ai', 'llm', 'gpt', 'machine learning', 'deep learning', 'neural', 'chatgpt', 'claude', 'openai', 'agent', 'artificial intelligence', 'rag', 'embedding', 'token', 'transformer', 'diffusion', 'sora', 'video generation'];
-    const aiItems = items.filter(item => aiKeywords.some(kw => item.title.toLowerCase().includes(kw)));
-    return aiItems.slice(0, 8).map(item => ({ title: item.title, score: Math.min(5, Math.max(2, Math.ceil(Math.log2((item.score || 0) + 1) / 2))), source: 'hackernews', url: item.url || `https://news.ycombinator.com/item?id=${item.hnId}`, trend: `${item.score || 0} points${item.descendants ? ` · ${item.descendants} comments` : ''}` }));
-  } catch (e) { console.warn('[fetcher] HN failed:', e.message); return []; }
-}
-
-async function fetchChineseTrends() {
-  const results = [];
-  try {
-    const json = await fetchUrl('https://www.toutiao.com/hot-event/hot-board/?origin=hot_board', { timeout: 6000, headers: { 'Cookie': '' } });
-    const data = JSON.parse(json);
-    const items = data?.data || [];
-    for (const item of items.slice(0, 5)) {
-      const title = item.Title || item.title || item.word || '';
-      if (!title) continue;
-      const hot = parseInt(item.HotValue || item.hot_value || item.hot || 0);
-      results.push({ title, score: Math.min(5, Math.max(1, Math.ceil(hot / 500000))), source: 'toutiao', url: item.Url || item.url || `https://www.toutiao.com/search/?keyword=${encodeURIComponent(title)}`, trend: `热度 ${hot.toLocaleString()}` });
-    }
-  } catch (e) { /* silent */ }
-  return results;
-}
-
-async function fetchAIToolsNews() {
-  try {
-    const json = await fetchUrl('https://api.github.com/search/repositories?q=AI+tool+in:topics&sort=updated&order=desc&per_page=10', { timeout: 8000, headers: { 'Accept': 'application/vnd.github.v3+json' } });
-    const data = JSON.parse(json);
-    return (data.items || []).slice(0, 5).map(r => ({ title: r.full_name, score: Math.min(5, Math.max(1, Math.ceil(Math.log2((r.stargazers_count || 0) + 1) / 3))), source: 'github', url: r.html_url || `https://github.com/${r.full_name}`, trend: `${(r.stargazers_count || 0).toLocaleString()} ⭐ · ${(r.description || '').slice(0, 50)}` }));
-  } catch (e) { console.warn('[fetcher] AIToolsNews failed:', e.message); return []; }
-}
-
-async function aggregateTrends() {
-  const sources = await Promise.allSettled([fetchGitHubAI(), fetchHN(), fetchChineseTrends(), fetchAIToolsNews()]);
-  const all = sources.filter(s => s.status === 'fulfilled').flatMap(s => s.value).filter(t => t.title && t.title.length > 2);
-  const seen = new Set();
-  const deduped = [];
-  for (const t of all) {
-    const key = t.title.toLowerCase().replace(/[^a-z0-9一-龥]/g, '').slice(0, 30);
-    if (!seen.has(key)) { seen.add(key); deduped.push({ ...t, id: `auto-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`, date: todayStr(), time: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }); }
+  const ids = JSON.parse(await fetchUrl('https://hacker-news.firebaseio.com/v0/topstories.json'));
+  if (!Array.isArray(ids)) throw new Error('Invalid HN response');
+  const items = [];
+  for (let offset = 0; offset < Math.min(ids.length, 18); offset += 6) {
+    const batch = await Promise.allSettled(ids.slice(offset, offset + 6).map(async id => JSON.parse(await fetchUrl(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, { timeout: 5000 }))));
+    items.push(...batch.filter(r => r.status === 'fulfilled' && r.value?.title).map(r => r.value));
   }
-  console.log(`[fetcher] aggregated ${deduped.length} items from ${sources.filter(s => s.status === 'fulfilled').length} sources`);
-  return deduped;
+  if (ids.length && !items.length) throw new Error('All HN item requests failed');
+  return items.filter(item => /\b(ai|llm|gpt|claude|openai|agent|code|software|video)\b|machine learning|artificial intelligence/i.test(item.title)).slice(0, 10).map(item => ({ title: item.title, score: Math.min(5, Math.max(1, Math.ceil(Math.log2((item.score || 0) + 1) / 2))), source: 'hackernews', url: /^https?:\/\//.test(item.url || '') ? item.url : `https://news.ycombinator.com/item?id=${item.id}`, trend: `${item.score || 0} points · ${item.descendants || 0} comments` }));
 }
-
-function todayStr() { const d = new Date(); const bj = new Date(d.getTime() + d.getTimezoneOffset() * 60000 + 480 * 60000); return bj.toISOString().slice(0, 10); }
-
-module.exports = { aggregateTrends };
+async function fetchToutiao() {
+  const data = JSON.parse(await fetchUrl('https://www.toutiao.com/hot-event/hot-board/?origin=hot_board', { timeout: 8000 }));
+  if (!Array.isArray(data.data)) throw new Error('Invalid Toutiao response or upstream access restriction');
+  return data.data.slice(0, 10).flatMap(item => {
+    const title = item.Title || item.title || item.word;
+    if (typeof title !== 'string' || !title.trim()) return [];
+    const hot = Number(item.HotValue || item.hot_value || item.hot || 0), url = item.Url || item.url || '';
+    return [{ title, score: Math.min(5, Math.max(1, Math.ceil((Number.isFinite(hot) ? hot : 0) / 500000))), source: 'toutiao', url: /^https?:\/\//.test(url) ? url : `https://www.toutiao.com/search/?keyword=${encodeURIComponent(title)}`, trend: `热度 ${Number.isFinite(hot) ? hot.toLocaleString('zh-CN') : '未提供'}` }];
+  });
+}
+async function aggregateTrends() {
+  const inputs = [{ name: 'github', load: fetchGitHub }, { name: 'hackernews', load: fetchHN }, { name: 'toutiao', load: fetchToutiao }];
+  const reports = await Promise.all(inputs.map(async source => { const startedAt = Date.now(); try { const items = await source.load(); return { name: source.name, status: 'success', count: items.length, durationMs: Date.now() - startedAt, items }; } catch (err) { return { name: source.name, status: 'error', count: 0, durationMs: Date.now() - startedAt, error: err.message, items: [] }; } }));
+  const seen = new Set(), items = [];
+  for (const item of reports.flatMap(r => r.items)) {
+    if (typeof item.title !== 'string' || !item.title.trim()) continue;
+    const key = item.title.toLowerCase().trim(); if (seen.has(key)) continue; seen.add(key);
+    items.push({ ...item, title: item.title.slice(0, 300), id: `auto-${randomUUID()}`, date: todayStr(), time: new Date().toLocaleTimeString('zh-CN', { timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit' }) });
+  }
+  return { items, sources: reports.map(({ items, ...report }) => report) };
+}
+module.exports = { aggregateTrends, fetchUrl, todayStr };

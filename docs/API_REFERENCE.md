@@ -1,106 +1,81 @@
-# API 接口参考
+# 本地平台 API（v2）
 
-> 基础地址：`http://localhost:3456`
-> 所有 POST/PUT 请求体均为 JSON，需设置 `Content-Type: application/json`。
+默认地址 `http://127.0.0.1:3456`，JSON 请求设置 `Content-Type: application/json`。服务仅接受本机 Host 和同源浏览器请求。没有公网用户鉴权和多租户隔离。
 
----
+## 工作区与数据
 
-## 数据集合（通用 CRUD）
+| 接口 | 行为 |
+|---|---|
+| GET /api/health | 版本、本地模式、Chromium/FFmpeg/ffprobe 可用性、热点状态 |
+| GET /api/data | 各业务集合、项目摘要、集合 versions、fetchStatus |
+| POST /api/data | 保存所给集合；附 `versions: {集合名: hash}` 实现乐观锁 |
+| PUT /api/data/:collection | `{data, version}`，兼容旧数组请求 |
+| GET /api/export | JSON 工作区备份，包含方案和分镜，不含二进制媒体 |
+| GET /api/sse | connected、data-update、auto-fetch、fetch-status、render-update |
 
-| 接口地址 | 方法 | 核心功能 | 参数说明 |
-|---------|------|---------|---------|
-| `/api/sse` | GET | 建立 SSE 实时连接 | 无参数。返回 `event-stream`，推送 `data-update` / `auto-fetch` / `connected` 事件 |
-| `/api/data` | GET | 获取全部数据 | 无参数。返回 `hotTopics` / `autoTopics` / `ideas` / `calendar` / `reviews` / `searchWords` / `weeklyNotes` / `settings` / `projects`（项目扫描结果） |
-| `/api/data` | POST | 保存数据（增量更新） | 请求体可选字段：`hotTopics` / `autoTopics` / `ideas` / `settings` 等。`ideas` 新增条目会自动创建项目文件夹 |
-| `/api/data/:collection` | PUT | 替换指定集合 | URL 参数 `collection`：集合名；请求体为完整数据 |
+集合白名单：hotTopics、autoTopics、ideas、calendar、reviews、searchWords、weeklyNotes、settings。数据保存在 data/workspace.json，上一版本保存为 workspace.backup.json。旧独立 JSON 集合首次写入时迁移，原文件保留。损坏数据返回 503，不用空数据覆盖。
 
----
+推荐客户端必须发送读到的版本；409 表示内容已变化，应保留本地编辑并重新读取合并。旧无版本 API 为兼容保留，不提供并发保护。一个数据目录只由一个服务进程使用。
 
-## 热点与推荐
+发布记录日期为 YYYY-MM-DD，平台包括 douyin、xiaohongshu、both。复盘必须关联已发布记录，平台和日期必须相容。同一内容、平台、采集日期唯一。未采集指标可为 null；净增关注可为负整数。
 
-| 接口地址 | 方法 | 核心功能 | 参数说明 |
-|---------|------|---------|---------|
-| `/api/trigger-fetch` | POST | 手动触发热点抓取 | 无参数。返回 `{ fetched: N, total: N }` |
-| `/api/brief/generate` | POST | 生成每日简报 | 无参数。返回 `{ date, hotCount, topHot: [], suggestions: [] }` |
-| `/api/today/recommend` | POST | AI 推荐选题分析 | 无参数。返回 `{ recommendations: [], groups: { p0, p1, p2, skip } }`。四维评分：热度(30%) + 壁垒(25%) + 长尾(25%) + 变现(20%) |
+## 热点
 
----
+| 接口 | 行为 |
+|---|---|
+| POST /api/trigger-fetch | GitHub/Hacker News/头条抓取；返回每个来源的 success/error 和数量 |
+| POST /api/brief/generate | 当日热点规则整理；无内容返回 brief:null |
+| POST /api/today/recommend | 基于来源和关键词的规则评分，使用 settings.weights |
 
-## 项目资产
+没有语言模型调用。源失败会显示错误并保留最近内容；全部失败返回 502。后台默认启动后抓取并每 30 分钟更新，AUTO_FETCH=0 关闭后台抓取。
 
-| 接口地址 | 方法 | 核心功能 | 参数说明 |
-|---------|------|---------|---------|
-| `/api/projects` | GET | 获取所有项目状态 | 无参数。返回 `{ projects: [{ name, videoCount, hasCover, hasCopy, hasScript, status, statusLabel }] }`。三级状态：`in_progress` / `video_ready` / `completed` |
+## 项目与内容
 
----
+| 接口 | 请求/返回 |
+|---|---|
+| GET /api/projects | projects 摘要；包含真实状态、videoMeta、staleVideo |
+| GET /api/projects/:slug | project、content、coverFields、files、job、version |
+| PUT /api/projects/:slug/content | `{title?, plan?, copy?, storyboard?, version?}` |
+| POST /api/projects/generate-blueprint | `{slug}`；返回 mode:template、storyboard、html_content、copy_content；不自动保存 |
+| POST /api/projects/save-script | `{slug, storyboard, copy_content?, version?}`；拒绝仅提交任意 HTML |
+| POST /api/projects/generate-cover-svg | `{slug, version?}`；重新生成模板封面 |
+| POST /api/projects/update-cover | `{slug, fields, version?}`；从字段重新渲染，支持重复编辑 |
+| GET /api/projects/:slug/files/:kind | kind: video、cover、copy、plan、preview、subtitles；?download=1 下载 |
 
-## 封面生成
+新选题会建立唯一项目目录；纯中文同日标题不会冲突。旧项目不会因为查看而生成或覆盖脚本。已有旧 HTML 的浏览器预览在严格 sandbox/CSP 中运行，远程脚本被禁用；旧 GSAP/CDN 动效需迁移到结构化分镜，不能宣称已渲染验证。
 
-| 接口地址 | 方法 | 核心功能 | 参数说明 |
-|---------|------|---------|---------|
-| `/api/projects/generate-cover-svg` | POST | 智能封面生成 | 请求体：`{ slug: string }`。从 `video-plan.md` 动态提取 12 个字段，注入 SVG 模板 |
-| `/api/projects/update-cover` | POST | 封面文字微调 | 请求体：`{ slug, fields: { BADGE, TITLE_LINE_1, ... } }`。仅替换指定占位符 |
+分镜结构：
 
----
-
-## 剧本与文案
-
-| 接口地址 | 方法 | 核心功能 | 参数说明 |
-|---------|------|---------|---------|
-| `/api/projects/generate-blueprint` | POST | AI 生成剧本 + 社交文案 | 请求体：`{ slug, topic? }`。读取 `video-plan.md` → 生成 HTML + 双平台（小红书/抖音）文案 |
-| `/api/projects/save-script` | POST | 保存剧本到磁盘 | 请求体：`{ slug, html_content, copy_content? }`。写入 `index.html` + `01-内容方案/short-video-copy.md`。自动记录 `executionStartedAt` |
-
----
-
-## 渲染与本地操作
-
-| 接口地址 | 方法 | 核心功能 | 参数说明 |
-|---------|------|---------|---------|
-| `/api/projects/render` | POST | 启动后台渲染 | 请求体：`{ slug }`。非阻塞执行 `npx hyperframes render`，超时 10 分钟 |
-| `/api/projects/render-status/:slug` | GET | 轮询渲染状态 | URL 参数 `slug`。返回：`{ status: 'idle' }` / `{ status: 'rendering', startedAt }` / `{ status: 'completed', output }` / `{ status: 'failed', error }` |
-| `/api/projects/open-folder` | POST | 在资源管理器中打开项目文件夹 | 请求体：`{ slug, sub? }`。`sub` 可选：`01-内容方案` / `03-成品` 等 |
-
----
-
-## 归档
-
-| 接口地址 | 方法 | 核心功能 | 参数说明 |
-|---------|------|---------|---------|
-| `/api/projects/archive` | POST | 一键归档 | 请求体：`{ slug }`。自动完成 7 步：搬运 mp4 + 搬运封面 + 计算双时间线 + 写两个 README + 同步 Obsidian |
-
----
-
-## 调用示例
-
-```bash
-# 获取全部数据
-curl http://localhost:3456/api/data
-
-# 生成封面
-curl -X POST http://localhost:3456/api/projects/generate-cover-svg \
-  -H 'Content-Type: application/json' \
-  -d '{"slug":"whv-2026"}'
-
-# 启动渲染
-curl -X POST http://localhost:3456/api/projects/render \
-  -H 'Content-Type: application/json' \
-  -d '{"slug":"whv-2026"}'
-
-# 查询渲染状态
-curl http://localhost:3456/api/projects/render-status/whv-2026
-
-# 一键归档
-curl -X POST http://localhost:3456/api/projects/archive \
-  -H 'Content-Type: application/json' \
-  -d '{"slug":"hyperframes-intro"}'
+```json
+{
+  "title": "视频标题",
+  "theme": "midnight",
+  "aspect": "9:16",
+  "scenes": [
+    {"title": "镜头标题", "body": "画面正文", "duration": 5}
+  ]
+}
 ```
 
----
+theme 为 midnight / paper / lime；aspect 为 9:16 / 16:9 / 1:1。1–12 镜头，每镜 2–15 秒，总计至多 120 秒；标题最多 80 字，正文最多 260 字/6 行。视频总标题最多 120 字。超容量内容明确拒绝，不静默丢失正文。
 
-## SSE 事件类型
+## 任务与交付
 
-| 事件名 | 触发时机 | payload |
-|--------|---------|---------|
-| `connected` | 连接成功 | `{ ok: true }` |
-| `data-update` | 数据变更 | `{ collection: string }` 或 `{ updated: string[] }` |
-| `auto-fetch` | 自动抓取完成 | `{ count: number, total: number }` |
+| 接口 | 行为 |
+|---|---|
+| POST /api/projects/render | `{slug}`；排队，重复提交活动任务返回同一任务 |
+| GET /api/projects/render-status/:slug | 当前项目最新任务 |
+| GET /api/jobs | 持久化任务列表 |
+| POST /api/projects/render-cancel | `{slug}`；取消排队/运行中任务 |
+| POST /api/projects/archive | `{slug}`；视频 ffprobe 校验、封面、文案齐备且分镜未过期才允许；重复归档幂等 |
+| POST /api/projects/open-folder | `{slug, sub?}`；打开该项目本地目录，不是下载/发布 |
+
+状态：queued → rendering → completed / failed / cancelled。重启遇到未完成任务会标记中断失败，需用户重试。默认单任务编码、最大排队 20 条、最长执行 15 分钟。
+
+成片版本保存在 `03-成品/versions/<job-id>/`，含 video.mp4、subtitles.srt、video-meta.json。全部完成后原子更新 current-video.json；失败不覆盖旧版本。编辑分镜后旧成片仍可下载，但标为过期，不能作为新版归档。
+
+输出：H.264 / yuv420p / 24fps / 无音轨。9:16 为 720×1280；16:9 为 1280×720；1:1 为 900×900。以实际返回 metadata 为准。
+
+## 错误
+
+400 输入格式错误；404 未知资源；409 版本冲突、项目繁忙或交付不完整；413 请求/文件过大；429 队列已满；502 热点源失败；503 数据损坏或渲染依赖不具备。响应 `{ok:false,error,code}`，不将失败包装为成功。
