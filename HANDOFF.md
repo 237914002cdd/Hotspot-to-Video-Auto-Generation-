@@ -10,4 +10,4 @@
 - 浏览器：Codex 内置浏览器的恢复后前端页已保留；原页面点击原生播放控件曾崩溃，根因未定位；不可称内置浏览器播放已验收。独立Chromium端到端及完整17秒播放均通过。
 - 文档：README.md、docs/USER_GUIDE.md、docs/API_REFERENCE.md、docs/CREATOR_PLATFORM_STRATEGY.md、docs/ACCEPTANCE.md。商业研究用 OpusClip 客户案例、Descript 和 Buffer 官方资料，方案是推论，不虚构营收。
 - 后续：模型与声音、素材剪辑、平台账号连接、多租户及支付需要另行实现和实测。当前工作区不提供公网多人能力。
-- 提交交付：准备提交当前实现与验证报告，创建可审阅草稿 PR；不合并主分支。
+- 提交交付：实现提交 a29c5a2 已推送；草稿 PR https://github.com/237914002cdd/Hotspot-to-Video-Auto-Generation-/pull/1 已创建并附加到任务，主分支未合并。工作区后续仅更新本交接记录。
