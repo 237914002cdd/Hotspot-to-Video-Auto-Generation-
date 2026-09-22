@@ -1,13 +1,29 @@
 {
   "name": "content-dashboard",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "build": "node scripts/bundle-fonts.cjs && tailwindcss -c tailwind.config.cjs -i styles.input.css -o tailwind.css --minify",
+    "test": "node --test tests/*.test.js",
+    "setup:browser": "playwright install chromium",
+    "test:ui": "node tests/ui-smoke.cjs"
   },
   "dependencies": {
     "express": "^5.1.0",
-    "cors": "^2.8.5"
+    "playwright": "^1.58.2"
+  },
+  "devDependencies": {
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource/material-symbols-outlined": "^5.3.7",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^3.4.19"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
